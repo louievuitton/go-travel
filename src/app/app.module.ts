@@ -16,7 +16,8 @@ import { MyTravelsComponent } from './my-travels/my-travels.component';
 import { CheckoutSuccessComponent } from './checkout-success/checkout-success.component';
 import { ListingsComponent } from './listings/listings.component';
 import { LoginComponent } from './login/login.component';
-import { AuthService } from './services/auth.service';
+import { SignupComponent } from './signup/signup.component';
+import { FirebaseService } from './services/firebase.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AuthService } from './services/auth.service';
     CheckOutComponent,
     MyTravelsComponent,
     CheckoutSuccessComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -43,10 +45,11 @@ import { AuthService } from './services/auth.service';
       { path: 'check-out', component: CheckOutComponent },
       { path: 'checkout-success', component: CheckoutSuccessComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'signup', component: SignupComponent },
       { path: 'my/travels', component: MyTravelsComponent }
     ])
   ],
-  providers: [AuthService],
+  providers: [FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

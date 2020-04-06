@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'navbar',
@@ -7,9 +6,13 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor(public authService: AuthService) {}
+  constructor() {}
 
   ngOnInit(): void {}
+
+  logout() {
+    localStorage.removeItem('currentUser');
+  }
 
   get currentUser() {
     return localStorage.getItem('currentUser');

@@ -1,0 +1,74 @@
+<form [formGroup]="form" class="form-signup">
+  <h2 class="form-signup-heading">Create Account</h2>
+  <div *ngIf="invalidSignup" class="alert alert-danger">
+    Please fill in all the fields to signup.
+  </div>
+  <div class="form-group">
+    <label for="firstname">First Name</label>
+    <input
+      formControlName="firstname"
+      id="firstname"
+      type="text"
+      class="form-control"
+    />
+    <div
+      *ngIf="firstname.touched && firstname.invalid"
+      class="alert alert-danger"
+    >
+      <div *ngIf="firstname.errors.cannotContainSpaces">
+        First name cannot contain any spaces.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="lastname">Last Name</label>
+    <input
+      formControlName="lastname"
+      id="lastname"
+      type="text"
+      class="form-control"
+    />
+    <div
+      *ngIf="lastname.touched && lastname.invalid"
+      class="alert alert-danger"
+    >
+      <div *ngIf="lastname.errors.cannotContainSpaces">
+        Last name cannot contain any spaces.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      formControlName="email"
+      id="email"
+      type="text"
+      class="form-control"
+    />
+    <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+      <div *ngIf="email.errors.cannotContainSpaces">
+        Email cannot contain any spaces.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      formControlName="password"
+      id="password"
+      type="text"
+      class="form-control"
+    />
+    <div
+      *ngIf="password.touched && password.invalid"
+      class="alert alert-danger"
+    >
+      <div *ngIf="password.errors.cannotContainSpaces">
+        Password cannot contain any spaces.
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit" (click)="signup(form)">
+    Signup
+  </button>
+</form>

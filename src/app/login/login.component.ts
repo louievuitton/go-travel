@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { FormValidator } from '../validators/form.validators';
+import { FirebaseService } from '../services/firebase.service';
 
 @Component({
   selector: 'login',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   invalidLogin: boolean;
 
   form = new FormGroup({
-    username: new FormControl('', [
+    email: new FormControl('', [
       Validators.required,
       FormValidator.cannotContainSpaces
     ]),
@@ -23,25 +23,30 @@ export class LoginComponent implements OnInit {
     ])
   });
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private firebaseService: FirebaseService
+  ) {}
 
   ngOnInit(): void {}
 
   signIn(credentials) {
     if (
-      credentials.get('username').value === '' ||
+      credentials.get('email').value === '' ||
       credentials.get('password').value === ''
     ) {
       this.invalidLogin = true;
     } else {
-      this.authService.login(credentials).subscribe(response => {
-        if (response === null) {
-          this.invalidLogin = true;
-        } else {
-          if (response['password'] === credentials.get('password').value) {
+      this.firebaseService.login().subscribe(response => {
+        for (let key in response as any) {
+          let user = response[key];
+          if (
+            user['email'] === credentials.get('email').value &&
+            user['password'] === credentials.get('password').value
+          ) {
             localStorage.setItem(
               'currentUser',
-              response['firstname'] + ' ' + response['lastname']
+              user['firstname'] + ' ' + user['lastname']
             );
             console.log('shit works');
             this.router.navigate(['/']);
@@ -53,8 +58,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  get username() {
-    return this.form.get('username');
+  get email() {
+    return this.form.get('email');
   }
 
   get password() {
