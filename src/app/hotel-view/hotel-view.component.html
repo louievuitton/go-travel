@@ -1,0 +1,57 @@
+<h4>{{ hotelName }}</h4>
+<div class="row" style="width: 80%; height: 330px">
+  <div class="col-8" style="padding: 0">
+    <img [src]="image" alt="Hotel image" class="hotel-image" />
+  </div>
+  <div class="col-4">
+    <h6>Some map..</h6>
+    <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+  </div>
+</div>
+<div class="rooms-container">
+  <br />
+  <div style="margin-left: 10em">
+    <h4 style="margin-bottom: 10px">
+      Choose your room
+    </h4>
+    <div *ngFor="let room of rooms" class="row">
+      <div class="col-4">
+        <img
+          src="{{ room?.images.image1 }}"
+          alt="Room image"
+          class="room-image"
+        />
+      </div>
+      <div class="col-6">
+        <h5 class="room-name">
+          {{ room?.name }}
+        </h5>
+        <span class="fa fa-ruler-horizontal"></span
+        ><span class="room-details">{{ room?.dimensions }}</span>
+        <br />
+        <span class="fa fa-users"></span>
+        <span class="room-details">{{ room?.capacity }}</span>
+        <br />
+        <span class="fa fa-bed"></span>
+        <span class="room-details">{{ room?.beds }}</span>
+        <br />
+        <span class="fa fa-wifi"></span>
+        <span class="room-details">Free WiFi</span>
+        <br />
+        <span class="fa fa-coffee"></span>
+        <span class="room-details">Breakfast included</span>
+      </div>
+      <div class="col" id="thirdCol">
+        <h5 class="room-price">
+          ${{ room?.price }} <br />
+          <p class="room-details">per night</p>
+        </h5>
+        <button class="reserve-button" (click)="reserveRoom(room?.name)">
+          Reserve
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -16,7 +16,11 @@ export class FirebaseService {
     });
   }
 
-  login() {
-    return this.db.object('/users').valueChanges();
+  getResource(resources) {
+    return this.db.object(resources).valueChanges();
+  }
+
+  getAll(resources) {
+    return this.db.list(resources).valueChanges();
   }
 }

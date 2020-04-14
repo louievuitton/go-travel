@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     ) {
       this.invalidLogin = true;
     } else {
-      this.firebaseService.login().subscribe(response => {
+      this.firebaseService.getResource('/users').subscribe(response => {
         for (let key in response as any) {
           let user = response[key];
           if (
@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
               'currentUser',
               user['firstname'] + ' ' + user['lastname']
             );
-            console.log('shit works');
             this.router.navigate(['/']);
           } else {
             this.invalidLogin = true;

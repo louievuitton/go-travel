@@ -1,1 +1,290 @@
-<p>home works!</p>
+<div class="container">
+  <mat-checkbox
+    #showHotelsInput
+    [checked]="isChecked"
+    (change)="checkBoxChanged()"
+    class="checkbox"
+    >Hotels</mat-checkbox
+  >
+  <span
+    class="fa fa-hotel"
+    style="padding-left: 5px; padding-right: 20px; color: white"
+  ></span>
+  <mat-checkbox
+    #showFlightsInput
+    [checked]="!isChecked"
+    (change)="checkBoxChanged()"
+    class="checkbox"
+    >Flights</mat-checkbox
+  >
+  <span class="fa fa-plane" style="padding-left: 5px; color: white"></span>
+  <br />
+  <div *ngIf="showHotelsInput.checked">
+    <span style="color: white">Going to</span>
+    <br />
+    <input
+      class="form-control"
+      style="width: 100%;
+                border: 1px solid grey;
+                border-radius: 5px;
+                height: 35px;
+                cursor: pointer"
+      placeholder="City destination"
+      type="search"
+      #hotelDestination
+      (blur)="inputBlur()"
+      (keyup.enter)="inputEntered('hotel', hotelDestination)"
+      (input)="filterItem(hotelDestination.value)"
+    />
+    <ul
+      *ngIf="citiesDropdownVisible"
+      class="list-group"
+      (mouseenter)="toggleMouseOver(true)"
+      (mouseleave)="toggleMouseOver(false)"
+    >
+      <li
+        *ngFor="let city of temp"
+        class="list-group-item"
+        (click)="itemClicked('hotel', city)"
+      >
+        {{ city }}
+      </li>
+    </ul>
+    <br />
+    <span style="color: white; margin-right:19%">Check-in</span>
+    <span style="color: white">Check-out</span>
+    <br />
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="date-picker">
+          <mat-label>mm/dd/yyyy</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datePicker"
+            (focus)="datePicker.open()"
+            [min]="minDate"
+            [max]="maxDate"
+            (dateChange)="dateSelected('checkin', $event)"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="date-picker">
+          <mat-label>mm/dd/yyyy</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datePicker1"
+            (focus)="datePicker1.open()"
+            [min]="minDate1"
+            [max]="maxDate1"
+            required
+            (dateChange)="dateSelected('checkout', $event)"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datePicker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col" style="padding: 0">
+        <span class="counts-label" for="adultsCount">Adults</span>
+        <span class="counts-label" for="childrensCount">Children</span>
+        <br />
+        <select
+          id="personCount"
+          (change)="getPeopleCount('adult', $event.target.value)"
+        >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+        <select
+          id="personCount"
+          (change)="getPeopleCount('children', $event.target.value)"
+        >
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+      <div class="col">
+        <button class="search-button" (click)="passContent()">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showFlightsInput.checked">
+    <mat-checkbox
+      #showHotelsInput
+      [checked]="flightType"
+      (change)="typeOfFlightChanged()"
+      class="checkbox"
+      >Roundtrip</mat-checkbox
+    >
+    <mat-checkbox
+      #showFlightsInput
+      [checked]="!flightType"
+      (change)="typeOfFlightChanged()"
+      class="checkbox"
+      >One way</mat-checkbox
+    >
+    <br />
+    <mat-checkbox
+      #economy
+      [checked]="classType === 'economy'"
+      (change)="typeOfClassChanged()"
+      class="checkbox"
+      >Economy</mat-checkbox
+    >
+    <mat-checkbox
+      #firstclass
+      [checked]="classType === 'firstclass'"
+      (change)="typeOfClassChanged()"
+      class="checkbox"
+      >First Class</mat-checkbox
+    >
+    <br />
+    <span style="color: white; margin-right: 39%">Flying from</span>
+    <span style="color: white">Flying to</span> <br />
+    <input
+      class="flights-from-input"
+      placeholder="City Departure"
+      type="search"
+      #flyingFrom
+      (keyup.enter)="inputEntered('flyFrom', flyingFrom)"
+      (blur)="inputBlur()"
+    />
+    <ul
+      *ngIf="flyingFromDropdownVisible"
+      class="list-group"
+      (mouseenter)="toggleMouseOver(true)"
+      (mouseleave)="toggleMouseOver(false)"
+    >
+      <li
+        *ngFor="let airport of airports"
+        id="{{ inputField }}"
+        class="list-group-item"
+        (click)="itemClicked('flyFrom', airport?.name)"
+      >
+        {{ airport?.name }}
+      </li>
+    </ul>
+    <input
+      class="flights-to-input"
+      placeholder="City Destination"
+      type="search"
+      #flyingTo
+      (keyup.enter)="inputEntered('flyTo', flyingTo)"
+      (blur)="inputBlur()"
+    />
+    <ul
+      *ngIf="flyingToDropdownVisible"
+      class="list-group"
+      style="margin-left: 22em"
+      (mouseenter)="toggleMouseOver(true)"
+      (mouseleave)="toggleMouseOver(false)"
+    >
+      <li
+        *ngFor="let airport of airports"
+        class="list-group-item"
+        (click)="itemClicked('flyTo', airport?.name)"
+      >
+        {{ airport?.name }}
+      </li>
+    </ul>
+    <br />
+    <br />
+    <span style="color: white; margin-right:17%">Departing</span>
+    <span *ngIf="flightType" style="color: white">Returning</span>
+    <br />
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="date-picker">
+          <mat-label>mm/dd/yyyy</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datePicker"
+            (focus)="datePicker.open()"
+            [min]="minDate"
+            [max]="maxDate"
+            (dateChange)="dateSelected('checkin', $event)"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field *ngIf="flightType" class="date-picker">
+          <mat-label>mm/dd/yyyy</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datePicker1"
+            (focus)="datePicker1.open()"
+            [min]="minDate1"
+            [max]="maxDate1"
+            required
+            class="datepickers"
+            (dateChange)="dateSelected('checkout', $event)"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datePicker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <span class="counts-label" for="adultsCount">Adults</span>
+        <span class="counts-label" for="childrensCount">Children</span>
+        <br />
+        <select
+          id="personCount"
+          (change)="getPeopleCount('adult', $event.target.value)"
+        >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+        <select
+          id="personCount"
+          (change)="getPeopleCount('children', $event.target.value)"
+        >
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+      <div class="col">
+        <button class="search-button" (click)="passContent()">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

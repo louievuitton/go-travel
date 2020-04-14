@@ -1,0 +1,361 @@
+<div style="margin-bottom: 2em">
+  <h4>Search flights</h4>
+  <mat-checkbox
+    #roundtripCheckbox
+    [checked]="flght"
+    (change)="typeOfFlightChanged()"
+    class="checkbox"
+    >Roundtrip</mat-checkbox
+  >
+  <mat-checkbox
+    #onewayCheckbox
+    [checked]="!flght"
+    (change)="typeOfFlightChanged()"
+    class="checkbox"
+    >One way</mat-checkbox
+  >
+  <br />
+  <mat-checkbox
+    #economy
+    [checked]="clss"
+    (change)="typeOfClassChanged()"
+    class="checkbox"
+    >Economy</mat-checkbox
+  >
+  <mat-checkbox
+    #firstclass
+    [checked]="!clss"
+    (change)="typeOfClassChanged()"
+    class="checkbox"
+    >First Class</mat-checkbox
+  >
+  <br />
+  <input
+    class="flights-from"
+    (keyup.enter)="searchAirports(city, 'from')"
+    (blur)="inputBlur()"
+    #city
+    type="search"
+    placeholder="Flying from (enter city)"
+  />
+  <input
+    class="flights-to"
+    (keyup.enter)="searchAirports(toCity, 'to')"
+    (blur)="inputBlur()"
+    #toCity
+    type="search"
+    placeholder="Flying to (enter city)"
+  />
+  <ul *ngIf="dropdownVisible" class="list-group">
+    <li
+      *ngFor="let airport of airports"
+      class="list-group-item"
+      id="{{ firstInput }}"
+      (click)="setAirlines(airport?.name)"
+      (mouseenter)="toggleMouseOver(true)"
+      (mouseleave)="toggleMouseOver(false)"
+    >
+      {{ airport?.name }}
+    </li>
+  </ul>
+  <br />
+  <br />
+  <span style="color: black; margin-right: 12%">Departing</span>
+  <span *ngIf="roundtripCheckbox.checked" style="color: black">Returning</span>
+  <br />
+  <div
+    class="row"
+    style="width: 78%; height: 10%; margin: 0; padding: 0; border: none;"
+  >
+    <div class="col" style="padding: 0">
+      <mat-form-field class="date-picker">
+        <mat-label>mm/dd/yyyy</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datePicker"
+          (focus)="datePicker.open()"
+          [min]="minDate"
+          [max]="maxDate"
+          (dateChange)="dateSelected('checkin', $event)"
+          required
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="datePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col" style="padding: 0;">
+      <mat-form-field *ngIf="roundtripCheckbox.checked" class="date-picker">
+        <mat-label>mm/dd/yyyy</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datePicker1"
+          (focus)="datePicker1.open()"
+          [min]="minDate1"
+          [max]="maxDate1"
+          required
+          (dateChange)="dateSelected('checkout', $event)"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="datePicker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datePicker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col" style="padding-right: 0">
+      <span class="counts-label" for="adultsCount">Adults(18+)</span>
+      <span class="counts-label" for="childrensCount">Children(0-17)</span>
+      <br />
+      <select
+        id="personCount"
+        (change)="getPeopleCount('adult', $event.target.value)"
+      >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+      <select
+        id="personCount"
+        (change)="getPeopleCount('children', $event.target.value)"
+      >
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+    </div>
+    <div class="col">
+      <button
+        (click)="showDepartureFlights()"
+        id="{{ flightType }}"
+        class="search-button"
+        style="width: 100%"
+      >
+        Search
+      </button>
+    </div>
+  </div>
+  <div
+    *ngIf="showDepartingFlights && !showReturningFlights"
+    class="flights-container"
+  >
+    <br />
+    <div style="margin-left: 10em">
+      <h4 style="margin-bottom: 10px">
+        Select your departure to {{ departingCity }}
+        <p style="display: inline; font-size:17px">{{ departingDate }}</p>
+      </h4>
+      <div
+        *ngFor="let flight of departingFlights; let i = index"
+        class="flights"
+      >
+        <div class="row">
+          <div class="col" style="padding-right: 0">
+            <h5 style="font-weight: bold">{{ flight?.time }}</h5>
+            <h6>{{ flight?.name }}</h6>
+            <br />
+            <button
+              class="fa fa-angle-down"
+              id="details-baggage-button"
+              (click)="detailsAndBaggageClicked(flight?.time)"
+            >
+              Details & baggage fees
+            </button>
+          </div>
+          <div class="col-5" style="padding-left: 20px">
+            <h6>{{ flight?.departureDuration }}</h6>
+            <h6>{{ flight?.totalStops }}</h6>
+          </div>
+          <div class="col-sm">
+            <h5
+              *ngIf="classType === 'economy'"
+              style="font-weight: bold; padding-right: 15px"
+            >
+              ${{ flight?.economyPrice }}
+              <p style="font-weight: normal; font-size: 15px">
+                {{ flightType }}
+              </p>
+            </h5>
+            <h5
+              *ngIf="classType === 'firstclass'"
+              style="font-weight: bold; padding-right: 15px"
+            >
+              ${{ flight?.firstclassPrice }}
+              <p style="font-weight: normal; font-size: 15px">
+                {{ flightType }}
+              </p>
+            </h5>
+            <button
+              class="select-button"
+              (click)="showReturnFlights(flight?.time)"
+            >
+              Select
+            </button>
+          </div>
+        </div>
+        <div
+          *ngIf="flightTime === flight?.time && showDetailsAndBaggage"
+          class="row"
+          id="details-row"
+        >
+          <div class="col-4">
+            <h5 *ngFor="let time of stopTimes[i]" style="padding-bottom: 50px">
+              {{ time }}
+            </h5>
+            <p
+              style="font-size: 15px; text-align: right; padding-top: 6px; color: #616161;"
+            >
+              Estimated bag fees
+            </p>
+          </div>
+          <div class="col-8">
+            <div *ngFor="let duration of stopDurations[i]; let k = index">
+              <h5>{{ duration }}</h5>
+              <p style="font-size: 15px; color: #616161;">
+                {{ stops[i][k] }}
+              </p>
+            </div>
+            <p
+              style="font-size: 15px; padding-top: 15px; margin: 0; color: #616161;"
+            >
+              Carry on: No fee
+            </p>
+            <div *ngIf="classType === 'economy'">
+              <p style="font-size: 15px; margin: 0; color: #616161;">
+                1st checked bag: $30.00 up to 23 kg
+              </p>
+              <p style="font-size: 15px; margin: 0; color: #616161;">
+                2nd checked bag: $40.00 up to 23 kg
+              </p>
+            </div>
+            <div *ngIf="classType === 'firstclass'">
+              <p style="font-size: 15px; margin: 0; color: #616161;">
+                1st checked bag: No fee up to 23 kg
+              </p>
+              <p style="font-size: 15px; margin: 0; color: #616161;">
+                2nd checked bag: No fee up to 23 kg
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showReturningFlights" class="flights-container">
+    <br />
+    <div style="margin-left: 10em">
+      <button
+        class="fa fa-arrow-left"
+        id="back-button"
+        (click)="goBack2DepartingFlights()"
+      >
+        Change departure
+      </button>
+      <br />
+      <br />
+      <h4>
+        Select your return to {{ returningCity }}
+        <p style="display: inline; font-size:17px">{{ returningDate }}</p>
+        <p></p>
+      </h4>
+      <div *ngFor="let flight of returningFlights; let i = index">
+        <div *ngIf="flight[classType]" class="row">
+          <div class="col">
+            <h5 style="font-weight: bold">{{ flight?.time }}</h5>
+            <h6>{{ flight?.name }}</h6>
+            <br />
+            <button
+              class="fa fa-angle-down"
+              id="details-baggage-button"
+              (click)="detailsAndBaggageClicked(flight?.time)"
+            >
+              Details & baggage fees
+            </button>
+          </div>
+          <div class="col-5" style="padding-left: 20px">
+            <h6>{{ flight?.returnDuration }}</h6>
+            <h6>{{ flight?.totalStops }}</h6>
+          </div>
+          <div class="col-sm">
+            <h5
+              *ngIf="classType === 'economy'"
+              style="font-weight: bold; padding-right: 8px"
+            >
+              + ${{ flight?.economyPrice }}
+              <p style="font-weight: normal; font-size: 15px">
+                {{ flightType }}
+              </p>
+            </h5>
+            <h5
+              *ngIf="classType === 'firstclass'"
+              style="font-weight: bold; padding-right: 8px"
+            >
+              + ${{ flight?.firstclassPrice }}
+              <p style="font-weight: normal; font-size: 15px">
+                {{ flightType }}
+              </p>
+            </h5>
+            <button class="select-button">Select</button>
+          </div>
+        </div>
+        <div
+          *ngIf="flightTime === flight?.time && showDetailsAndBaggage"
+          class="row"
+          id="details-row"
+        >
+          <div class="col-4">
+            <h5
+              *ngFor="let time of returnstopTimes[i]"
+              style="padding-bottom: 50px"
+            >
+              {{ time }}
+            </h5>
+            <p
+              style="font-size: 15px; text-align: right; padding-top: 6px; color: #616161;"
+            >
+              Estimated bag fees
+            </p>
+          </div>
+          <div class="col-8">
+            <div *ngFor="let duration of returnstopDurations[i]; let k = index">
+              <h5>{{ duration }}</h5>
+              <p style="font-size: 15px; color: #616161;">
+                {{ returnStops[i][k] }}
+              </p>
+            </div>
+            <p
+              style="font-size: 15px; padding-top: 15px; margin: 0; color: #616161;"
+            >
+              Carry on: No fee
+            </p>
+            <div *ngIf="classType === 'economy'">
+              <p style="font-size: 15px; margin: 0; color: #616161;">
+                1st checked bag: $30.00 up to 23 kg
+              </p>
+              <p style="font-size: 15px; margin: 0; color: #616161;">
+                2nd checked bag: $40.00 up to 23 kg
+              </p>
+            </div>
+            <div *ngIf="classType === 'firstclass'">
+              <p style="font-size: 15px; margin: 0; color: #616161;">
+                1st checked bag: No fee up to 23 kg
+              </p>
+              <p style="font-size: 15px; margin: 0; color: #616161;">
+                2nd checked bag: No fee up to 23 kg
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

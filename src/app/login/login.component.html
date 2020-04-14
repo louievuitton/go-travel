@@ -1,5 +1,5 @@
-<form [formGroup]="form" class="form-login">
-  <h2 class="form-login-heading">Sign In to Your Account</h2>
+<form [formGroup]="form" class="authentication-form">
+  <h2 class="authentication-form-heading">Sign In to Your Account</h2>
   <div *ngIf="invalidLogin" class="alert alert-danger">
     Invalid email or password entered.
   </div>
@@ -22,7 +22,7 @@
     <input
       formControlName="password"
       id="password"
-      type="text"
+      type="password"
       class="form-control"
     />
     <div
