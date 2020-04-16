@@ -14,6 +14,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
+import { HttpClientModule } from '@angular/common/http';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
@@ -25,10 +28,14 @@ import { CheckoutSuccessComponent } from './checkout-success/checkout-success.co
 import { ListingsComponent } from './listings/listings.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+
 import { FirebaseService } from './services/firebase.service';
+import { ApiService } from './services/api.service';
+
 import { HotelListingsComponent } from './hotel-listings/hotel-listings.component';
 import { FlightListingsComponent } from './flight-listings/flight-listings.component';
 import { HotelViewComponent } from './hotel-view/hotel-view.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +50,8 @@ import { HotelViewComponent } from './hotel-view/hotel-view.component';
     SignupComponent,
     HotelListingsComponent,
     FlightListingsComponent,
-    HotelViewComponent
+    HotelViewComponent,
+    AnalyticsComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +61,14 @@ import { HotelViewComponent } from './hotel-view/hotel-view.component';
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
+
+    BrowserAnimationsModule,
+    HttpClientModule,
+
+  
+
     NoopAnimationsModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB5shjix0YQ8dPB9lLwDI08joTJxPAj-H8'
     }),
@@ -73,10 +88,11 @@ import { HotelViewComponent } from './hotel-view/hotel-view.component';
       { path: 'checkout-success', component: CheckoutSuccessComponent },
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
-      { path: 'my/travels', component: MyTravelsComponent }
+      { path: 'my/travels', component: MyTravelsComponent },
+      { path: 'analytics', component: AnalyticsComponent },
     ])
   ],
-  providers: [FirebaseService],
+  providers: [FirebaseService, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

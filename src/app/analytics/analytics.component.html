@@ -1,0 +1,25 @@
+<p>Near by Places</p>
+<!-- <span>Enter City:</span> -->
+
+<!-- <input
+  class="form-control"
+  style="width: 78%;
+              border: 1px solid grey;
+              border-radius: 5px;
+              height: 40px;
+              cursor: pointer"
+  placeholder="City"
+  type="search"
+  #hotelDestination
+  (keyup.enter)="inputEntered(hotelDestination)"
+  (input)="filterItem(City.value)"/> -->
+
+
+  <div *ngFor="let article of articles">
+    <h2>{{article.venue.name}}</h2>
+
+      <p>
+        {{article.venue.id}}
+      </p>
+      <a href="{{article.url}}">Read full article</a>
+  </div>
