@@ -10,40 +10,55 @@ import { Card } from "./analytics.blueprint";
 })
 
 export class AnalyticsComponent implements OnInit {
-  articles;
+  restaurants;
+  hotels;
+  clubs;
   placeDetails;
-  venues:string[] = new Array();
-  photos:string[] = new Array();
+  restPhotos:string[] = new Array();
+  hotelPhotos:string[] = new Array();
+  clubsPhotos:string[] = new Array();
   placePhoto;
   url;
-
-  public card = new Card({
-        imageUrl: "https://www.infragistics.com/angular-demos/assets/images/card/media/ny.jpg",
-    });
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    this.apiService.getNews().subscribe((data)=>{
+    this.apiService.getRestaurants().subscribe((data)=>{
       console.log(data);
-      this.articles = data['results'];
-      for (let num of this.articles) {
-        this.venues.push(num.place_id);
-        this.apiService.getStats(num.place_id).subscribe((data)=>{
+      this.restaurants = data['results'];
+      for (let restaurant of this.restaurants) {
+        this.apiService.getStats(restaurant.place_id).subscribe((data)=>{
         this.placeDetails = data['result'];
         this.placePhoto = this.placeDetails.photos;
-        this.photos.push(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=200&photoreference=${this.placePhoto[0].photo_reference}&key=AIzaSyDSV9VwCxhAK_m0n1qFr2KpJxLpFvhVDfM`);
+        this.restPhotos.push(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=200&photoreference=${this.placePhoto[0].photo_reference}&key=AIzaSyDSV9VwCxhAK_m0n1qFr2KpJxLpFvhVDfM`);
       });
       }
-      console.log(this.venues);
     });
+
+    this.apiService.getHotels().subscribe((data)=>{
+      this.hotels = data['results'];
+      for (let hotel of this.hotels) {
+        this.apiService.getStats(hotel.place_id).subscribe((data)=>{
+        this.placeDetails = data['result'];
+        this.placePhoto = this.placeDetails.photos;
+        this.hotelPhotos.push(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=200&photoreference=${this.placePhoto[0].photo_reference}&key=AIzaSyDSV9VwCxhAK_m0n1qFr2KpJxLpFvhVDfM`);
+      });
+      }
+    });
+
+    this.apiService.getClubs().subscribe((data)=>{
+      this.clubs = data['results'];
+      for (let club of this.clubs) {
+        this.apiService.getStats(club.place_id).subscribe((data)=>{
+        this.placeDetails = data['result'];
+        this.placePhoto = this.placeDetails.photos;
+        this.clubsPhotos.push(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=200&photoreference=${this.placePhoto[0].photo_reference}&key=AIzaSyDSV9VwCxhAK_m0n1qFr2KpJxLpFvhVDfM`);
+      });
+      }
+    });
+
   }
 
   myFunc(i){
-    console.log(this.venues[i]);
-    this.apiService.getStats(this.venues[i]).subscribe((data)=>{
-    this.placeDetails = data['response'].venue;
-    this.placePhoto = data['response'].venue.photos.groups[0].items[0].prefix+300+data['response'].venue.photos.groups[0].items[0].suffix;
-    console.log(this.placePhoto);
-    });
+    console.log('gopal');
   }
 }
