@@ -1,50 +1,52 @@
-.example-spacer {
-  flex: 1 1 auto;
+
+.tp-card {
+   max-width: 330px;
+   padding: 10px;
+   margin: 10px;
 }
 
-.example-card{
-    margin-top: 4px;
+.mat-card-title{
+
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
 }
 
-.example-header-image {
-  background-size: cover;
+
+body {
+  padding: 20px;
+  font: 1em Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
-.title{
-    font-weight: bold;
+* {box-sizing: border-box;}
+
+p {
+  margin: 0 0 1em 0;
 }
 
-.img-article{
-    height: 350px;
+.flex {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.action-buttons{
-    text-align: center;
+.grid {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
 }
 
-.example-container {
-    width: 100%;
-    height: auto;
-    border: 1px solid rgba(111, 111, 111, 0.50);
+.container {
+  width: 400px;
+  height: 15em;
+  border: 5px solid rgb(111,41,97);
+  border-radius: .5em;
+  padding: 10px;
+  justify-content: space-between;
+  align-content: space-between;
 }
 
-.example-sidenav-content {
-    display: flex;
-    height: 75%;
-    align-items: center;
-    justify-content: center;
-}
-
-.example-sidenav {
-    padding: 20px;
-}
-
-.source-name {
-    margin-left:5px;
-}
-
-.list-item:hover{
-    cursor: pointer;
-    background-color: #3f51b5;
-    color: white;
+.item {
+  padding: 10px;
+  background-color: rgba(111,41,97,.3);
+  border: 2px solid rgba(111,41,97,.5);
 }

@@ -7,16 +7,18 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatButtonModule } from '@angular/material/button';
+
+import { MatButtonModule} from '@angular/material/button'
+import { MatCardModule } from '@angular/material/card'
+
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 import { HttpClientModule } from '@angular/common/http';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IgxButtonModule, IgxIconModule, IgxCardModule, IgxRippleModule } from 'igniteui-angular';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
@@ -56,28 +58,28 @@ import { AnalyticsComponent } from './analytics/analytics.component';
   imports: [
     BrowserModule,
     MatCheckboxModule,
-    MatButtonModule,
+    BrowserAnimationsModule,
+    MatCardModule, MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
-
-    BrowserAnimationsModule,
-    HttpClientModule,
-
-  
-
     NoopAnimationsModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB5shjix0YQ8dPB9lLwDI08joTJxPAj-H8'
     }),
-    FormsModule,
-    ReactiveFormsModule,
+
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule,
+    IgxButtonModule,
+		IgxIconModule,
+		IgxCardModule,
+		IgxRippleModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'hotels', component: HotelListingsComponent },
@@ -90,9 +92,11 @@ import { AnalyticsComponent } from './analytics/analytics.component';
       { path: 'signup', component: SignupComponent },
       { path: 'my/travels', component: MyTravelsComponent },
       { path: 'analytics', component: AnalyticsComponent },
-    ])
+    ]),
+    BrowserAnimationsModule
   ],
   providers: [FirebaseService, ApiService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
