@@ -12,7 +12,14 @@
   text-overflow: clip;
   white-space: nowrap;
 }
+.mat-card-image{
 
+  max-width: 450px;
+  max-height: 200px;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
 
 body {
   padding: 20px;
