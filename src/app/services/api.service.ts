@@ -18,10 +18,12 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) { }
   public getNews(){
-
-    var venues:string[] = new Array();
     return this.httpClient.get(this.FOUR_SQUARE_VENUE);
-    }
+  }
 
+  public getStats(placeId){
+    console.log('hi', placeId);
+    return this.httpClient.get(`https://api.foursquare.com/v2/venues/${placeId}?client_id=${this.CLIENT_ID}&client_secret=${this.CLIENT_SECRET}&v=${this.V}`);
+  }
 
 }

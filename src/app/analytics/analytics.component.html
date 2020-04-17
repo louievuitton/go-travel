@@ -14,7 +14,7 @@
             <mat-card-title>{{article.venue.name}}</mat-card-title>
             <mat-card-subtitle>{{article.venue.categories[0].name}}</mat-card-subtitle>
          </mat-card-header>
-         <img mat-card-image src ={{card.imageUrl}}  alt = "Learn HTML5">
+         <img mat-card-image src = {{card.imageUrl}}  alt = "Learn HTML5">
          <mat-card-content>
             <p>
                {{article.venue.location.address}}<br>
@@ -24,7 +24,7 @@
 
          </mat-card-content>
          <mat-card-actions>
-            <button mat-button onclick="getStats"> {{venues[i]}} </button>
+            <button mat-button (click)="myFunc(i)"> {{venues[i]}} </button>
             <button mat-button>SHARE</button>
          </mat-card-actions>
       </mat-card>
