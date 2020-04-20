@@ -145,8 +145,13 @@
         </h5>
         <p class="hotel-city">{{ hotel?.city }}</p>
         <p class="hotel-shortDesc">{{ hotel?.shortDescription }}</p>
+        <br />
+        <br />
+        <p class="hotel-ratings-reviews">
+          {{ hotel?.ratings + " (" + hotel?.reviews + " reviews)" }}
+        </p>
       </div>
-      <div class="col" style="padding-top: 6em">
+      <div class="col" style="padding-top: 6em;">
         <h5 class="hotel-price">
           ${{ hotel?.price }} <br />
           <p class="per-night">per night</p>

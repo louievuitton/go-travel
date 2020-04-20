@@ -37,6 +37,7 @@
     #city
     type="search"
     placeholder="Flying from (enter city)"
+    (input)="filterItem(city.value, 'from')"
   />
   <input
     class="flights-to"
@@ -45,17 +46,28 @@
     #toCity
     type="search"
     placeholder="Flying to (enter city)"
+    (input)="filterItem(toCity.value, 'to')"
   />
-  <ul *ngIf="dropdownVisible" class="list-group">
+  <ul *ngIf="dropdownVisible" class="list-group" (mouseenter)="toggleMouseOver(true)"
+  (mouseleave)="toggleMouseOver(false)">
     <li
-      *ngFor="let airport of airports"
+      *ngFor="let airport of temp"
       class="list-group-item"
       id="{{ firstInput }}"
-      (click)="setAirlines(airport?.name)"
-      (mouseenter)="toggleMouseOver(true)"
-      (mouseleave)="toggleMouseOver(false)"
+      (click)="setAirlines(airport)"
     >
-      {{ airport?.name }}
+      {{ airport }}
+    </li>
+  </ul>
+  <ul *ngIf="airportsDropdown" class="list-group" (mouseenter)="toggleMouseOver(true)"
+  (mouseleave)="toggleMouseOver(false)">
+    <li
+      *ngFor="let airport of airports1"
+      class="list-group-item"
+      id="{{ firstInput }}"
+      (click)="setAirlines(airport)"
+    >
+      {{ airport }}
     </li>
   </ul>
   <br />
@@ -136,16 +148,28 @@
     <div class="col">
       <button
         (click)="showDepartureFlights()"
-        id="{{ flightType }}"
+        
         class="search-button"
-        style="width: 100%"
       >
         Search
       </button>
     </div>
   </div>
+</div>
+<div *ngIf="noTripsAvailable" class="flights-container">
+  <div class="row" style="margin-left: 10em; margin-top: 30px;">
+      <div class="col">
+          <h5 style="color: red;">We couldn't find any flights from {{flyFrom}} to {{flyTo}} on {{departingDate}}</h5>
+          <span>Here are some tips to find flights:</span>
+          <br />
+          <span>- Adjust your arrival or departure to a nearby airport.</span>
+          <br />
+          <span>- Try arriving or departing one day earlier or later.</span>
+      </div>
+    </div>
+  </div>
   <div
-    *ngIf="showDepartingFlights && !showReturningFlights"
+    *ngIf="!noTripsAvailable && showDepartingFlights && !showReturningFlights"
     class="flights-container"
   >
     <br />
@@ -172,7 +196,22 @@
             </button>
           </div>
           <div class="col-5" style="padding-left: 20px">
-            <h6>{{ flight?.departureDuration }}</h6>
+            <span class="flightDuration">{{ flight?.departureDuration }}</span>
+            <div (click)="showServices()" style="display: inline; cursor: pointer;">
+              <span class="fa fa-wifi" id="wifi"></span>
+              <span class="fa fa-play" id="play"></span>
+              <span class="fa fa-bolt" id="bolt"></span>
+            </div>
+            <div *ngIf="showService" (blur)="blurServices()" style="background-color: #003e74; color: white; position: absolute; z-index: 1; padding: 15px;">
+                <span class="fa fa-wifi" id="wifi"></span>
+                <span>Wi-Fi on this flight</span>
+                <br>
+                <span class="fa fa-play" id="play"></span>
+                <span>Entertainment on this flight</span>
+                <br>
+                <span class="fa fa-bolt" id="power"></span>
+                <span>Power on this flight</span>
+            </div>
             <h6>{{ flight?.totalStops }}</h6>
           </div>
           <div class="col-sm">
@@ -253,13 +292,40 @@
   <div *ngIf="showReturningFlights" class="flights-container">
     <br />
     <div style="margin-left: 10em">
-      <button
-        class="fa fa-arrow-left"
-        id="back-button"
-        (click)="goBack2DepartingFlights()"
-      >
-        Change departure
-      </button>
+      <div class="row" style="background-color: #EDF7FF">
+        <div class="col" style="padding-right: 0">
+          <p style="font-size:15px; font-weight: bold;">
+            Your selected departure
+          </p>
+          <h5 style="font-weight: bold;">{{ departureTime }}</h5>
+          <h6>{{ departureName }}</h6>
+        </div>
+        <div class="col-5" style="padding-left:20px">
+            <p style="font-size:15px; font-weight: bold;">
+              {{ departingDate }}
+            </p>
+          <h6 style="padding-top: 3px">{{ departureDur }}</h6>
+          <h6>{{ departureStops }}</h6>
+        </div>
+        <div class="col-sm">
+          <button
+            class="fa fa-arrow-left"
+            id="back-button"
+            (click)="goBack2DepartingFlights()"
+          >
+            Change Departure
+          </button>
+          <h5 style="font-weight: bold; padding-right: 15px; padding-top: 7px">
+            <p style="font-weight: normal; font-size: 15px; display: inline">
+              from
+            </p>
+            ${{ departurePrice }}
+            <p style="font-weight: normal; font-size: 15px">
+              roundtrip
+            </p>
+          </h5>
+        </div>
+      </div>
       <br />
       <br />
       <h4>
@@ -282,7 +348,10 @@
             </button>
           </div>
           <div class="col-5" style="padding-left: 20px">
-            <h6>{{ flight?.returnDuration }}</h6>
+            <span class="flightDuration">{{ flight?.returnDuration }}</span>
+            <span class="fa fa-wifi" id="wifi"></span>
+            <span class="fa fa-play" id="play"></span>
+            <span class="fa fa-bolt" id="bolt"></span>
             <h6>{{ flight?.totalStops }}</h6>
           </div>
           <div class="col-sm">
@@ -304,7 +373,7 @@
                 {{ flightType }}
               </p>
             </h5>
-            <button class="select-button">Select</button>
+            <button class="select-button" (click)="navigateToCheckout(flight?.time)">Select</button>
           </div>
         </div>
         <div
@@ -358,4 +427,3 @@
       </div>
     </div>
   </div>
-</div>
