@@ -34,7 +34,7 @@
       #hotelDestination
       (blur)="inputBlur()"
       (keyup.enter)="inputEntered('hotel', hotelDestination)"
-      (input)="filterItem(hotelDestination.value)"
+      (input)="filterItem(hotelDestination.value, 'hotel')"
     />
     <ul
       *ngIf="citiesDropdownVisible"

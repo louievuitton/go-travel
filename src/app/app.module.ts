@@ -8,17 +8,26 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { MatButtonModule} from '@angular/material/button'
-import { MatCardModule } from '@angular/material/card'
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDividerModule } from '@angular/material/divider';
 import { AgmCoreModule } from '@agm/core';
 import { HttpClientModule } from '@angular/common/http';
-import { IgxButtonModule, IgxIconModule, IgxCardModule, IgxRippleModule } from 'igniteui-angular';
+import {
+  NoopAnimationsModule,
+  BrowserAnimationsModule
+} from '@angular/platform-browser/animations';
+import {
+  IgxButtonModule,
+  IgxIconModule,
+  IgxCardModule,
+  IgxRippleModule
+} from 'igniteui-angular';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
@@ -37,6 +46,7 @@ import { ApiService } from './services/api.service';
 import { HotelListingsComponent } from './hotel-listings/hotel-listings.component';
 import { FlightListingsComponent } from './flight-listings/flight-listings.component';
 import { HotelViewComponent } from './hotel-view/hotel-view.component';
+import { AuthGuard } from './services/auth-guard.service';
 import { AnalyticsComponent } from './analytics/analytics.component';
 
 @NgModule({
@@ -59,11 +69,13 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     BrowserModule,
     MatCheckboxModule,
     BrowserAnimationsModule,
-    MatCardModule, MatButtonModule,
+    MatCardModule,
+    MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    MatDividerModule,
     MatInputModule,
     MatNativeDateModule,
     NoopAnimationsModule,
@@ -77,9 +89,9 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     AngularFireAuthModule,
     NgbModule,
     IgxButtonModule,
-		IgxIconModule,
-		IgxCardModule,
-		IgxRippleModule,
+    IgxIconModule,
+    IgxCardModule,
+    IgxRippleModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'hotels', component: HotelListingsComponent },
@@ -90,13 +102,11 @@ import { AnalyticsComponent } from './analytics/analytics.component';
       { path: 'checkout-success', component: CheckoutSuccessComponent },
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
-      { path: 'my/travels', component: MyTravelsComponent },
-      { path: 'analytics', component: AnalyticsComponent },
-    ]),
-    BrowserAnimationsModule
+      { path: 'my-travels', component: MyTravelsComponent },
+      { path: 'analytics', component: AnalyticsComponent }
+    ])
   ],
-  providers: [FirebaseService, ApiService],
+  providers: [FirebaseService, ApiService, AuthGuard],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

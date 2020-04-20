@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormValidator } from '../validators/form.validators';
 import { FirebaseService } from '../services/firebase.service';
 
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private firebaseService: FirebaseService
   ) {}
 
@@ -48,13 +49,21 @@ export class LoginComponent implements OnInit {
               'currentUser',
               user['firstname'] + ' ' + user['lastname']
             );
-            this.router.navigate(['/']);
+            localStorage.setItem('email', user['email']);
+            this.router.navigate(
+              [this.route.snapshot.queryParamMap.get('returnUrl') || '/'],
+              { queryParamsHandling: 'merge' }
+            );
           } else {
             this.invalidLogin = true;
           }
         }
       });
     }
+  }
+
+  navigate2Signup() {
+    this.router.navigate(['/signup'], { queryParamsHandling: 'merge' });
   }
 
   get email() {

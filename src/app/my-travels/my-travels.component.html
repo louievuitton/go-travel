@@ -1,39 +1,112 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title> Explore the World! </title>
-    <style>
-        body {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: 'flex-start';
-            justify-content: space-between;
-            background-color: #FCD053;
-        }.content {
-            margin: 0px;
-            bottom: 0px;
-        }
-        .footer {
-            bottom: 0px;
-            margin-bottom: 0px;
-            background-color: #4DC0A3;
-            width: 100%;
-            padding: 5px;
-            height: 112px;
-            text-align: center;
-            /* border: solid #4DC0A3 5px;  */
-        }
-    </style>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
-
-<body>
-    <p> Hello Charles Patel</p>
-    <!-- {{>navbar}}
-    {{{body}}}
-    {{>footer}} -->
-</body>
-
-</html>
+<select (change)="outputTravels($event.target.value)">
+  <option>Select to view your travels</option>
+  <option value="flights">Flights</option>
+  <option value="hotels">Hotels</option>
+</select>
+<div *ngIf="showHotels" class="container">
+  <div *ngFor="let hotel of hotels; let i = index">
+    <div class="row" id="hotel-row">
+      <div class="col-4" style="padding: 0;">
+        <img [src]="hotelImages[i]" alt="Hotel Image" class="hotelImage" />
+        <div class="hotelName">
+          {{ hotelNames[i] }}
+        </div>
+        <div class="hotel-ratings-reviews">
+          <span class="hotelRatings">{{ hotelRatings[i] }}</span>
+          <br />
+          <span class="hotelReviews">({{ hotelReviews[i] }} reviews)</span>
+        </div>
+      </div>
+      <div class="col-8">
+        <span style="font-weight: bold; font-size: 15px; color: #616161;"
+          >Room:
+        </span>
+        <span class="roomName">{{ hotelRooms[i] }}</span>
+        <br />
+        <span style="font-weight: bold; font-size: 15px; color: #616161;"
+          >Check-in:
+        </span>
+        <span class="check-in-date">{{ checkInDates[i] }}</span>
+        <br />
+        <span style="font-weight: bold; font-size: 15px; color: #616161;"
+          >Check-out:
+        </span>
+        <span class="check-in-date">{{ checkOutDates[i] }}</span>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div style="text-align: right;">
+          <span class="trip-total" style="font-size: 15px;">Trip total:</span>
+          <span class="hotelTotalPrice">${{ nights[i] * roomPrices[i] }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showFlights" class="container">
+  <div *ngFor="let flight of flights; let i = index" class="flights-container">
+    <div class="row" style="margin-top: 15px; padding-left: 20px;">
+      <div class="col-4">
+        <h5>
+          <span class="fromAirport">Departing</span>{{ departingDates[i] }}
+        </h5>
+        <h6 class="flightName">
+          {{ departingAirlines[i] }}
+        </h6>
+        <h5 class="flightTime">{{ departureTime[i] }}</h5>
+        <!-- <button
+          class="fa fa-angle-down"
+          id="details-button"
+        >
+          Show flight and baggage fee details
+        </button> -->
+      </div>
+      <div class="col-8">
+        <h6><span class="fromAirport">From</span>{{ departingAirports[i] }}</h6>
+        <h6 *ngIf="returningAirports[i] !== ''">
+          <span class="toAirport">To</span>{{ returningAirports[i] }}
+        </h6>
+        <span *ngIf="returningAirports[i] === ''" class="toAirport"></span>
+        <h5 class="flightTotalDuration">
+          {{ departingTotalDurations[i] }}
+        </h5>
+        <h6 class="flightTotalStops">
+          {{ departingTotalStops[i] }}
+        </h6>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div
+      *ngIf="returningDates[i] !== ''"
+      class="row"
+      style="margin-top: 15px; padding-left: 20px;"
+    >
+      <div class="col-4">
+        <h5>
+          <span class="fromAirport">Returning</span>{{ returningDates[i] }}
+        </h5>
+        <h6 class="flightName">
+          {{ returningAirlines[i] }}
+        </h6>
+        <h5 class="flightTime">{{ returnTime[i] }}</h5>
+        <!-- <button
+                class="fa fa-angle-down"
+                id="details-button"
+              >
+                Show flight and baggage fee details
+              </button> -->
+      </div>
+      <div class="col-8">
+        <h6><span class="fromAirport">From</span>{{ returningAirports[i] }}</h6>
+        <h6><span class="toAirport">To</span>{{ departingAirports[i] }}</h6>
+        <h5 class="flightTotalDuration">
+          {{ returningTotalDurations[i] }}
+        </h5>
+        <h6 class="flightTotalStops">
+          {{ returningTotalStops[i] }}
+        </h6>
+      </div>
+    </div>
+  </div>
+</div>

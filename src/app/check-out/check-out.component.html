@@ -1,1 +1,346 @@
-<p>check-out works!</p>
+<div class="checkout">
+  <h4>Secure booking - only takes a few minutes!</h4>
+  <div *ngIf="params.get('city') === null" class="row" style="margin-top: 15px; margin-bottom: 15px; width: 95%;">
+    <div
+      class="col-8"
+      style="height: 100%; border: 1px solid lightgray; padding-top: 15px; background-color: white;"
+    >
+      <div *ngIf="currentUser === null" class="signin-container">
+        <h5>Please sign in to continue</h5>
+        <button class="signin-button" (click)="navigateToLogin()">
+          Click here to sign in
+        </button>
+      </div>
+      <mat-divider *ngIf="currentUser === null" class="divider"></mat-divider>
+      <div
+        *ngIf="params.get('city') !== null"
+        class="row"
+        style="margin-top: 15px;"
+      >
+        <!-- include hotels checkout here -->
+      </div>
+      <div
+        *ngIf="params.get('city') === null"
+        class="row"
+        style="margin-top: 15px;"
+      >
+        <div class="col-4">
+          <h5>{{ departingDate }}</h5>
+          <h6 class="flightName">
+            {{ departingFlightName }}
+          </h6>
+          <h5 class="flightTime">{{ departureTime }}</h5>
+          <button
+            class="fa fa-angle-down"
+            id="details-button"
+            (click)="toggleDepartingDetailsAndBaggage()"
+          >
+            Show flight and baggage fee details
+          </button>
+        </div>
+        <div class="col-8">
+          <h6><span class="fromAirport">From</span>{{ departingAirport }}</h6>
+          <h6><span class="toAirport">To</span>{{ returningAirport }}</h6>
+          <h5 class="flightTotalDuration">
+            {{ departureDuration }}
+          </h5>
+          <h6 class="flightTotalStops">
+            {{ departureTotalStops }}
+          </h6>
+        </div>
+      </div>
+      <mat-divider class="divider"></mat-divider>
+      <div
+        *ngIf="showDepartingDetailsAndBaggage"
+        class="row"
+        style="margin-top: 20px; margin-bottom: 20px;"
+      >
+        <div class="col-4">
+          <h5
+            *ngFor="let time of departingTimes[0]"
+            style="padding-bottom: 50px"
+          >
+            {{ time }}
+          </h5>
+          <p
+            style="font-size: 15px; text-align: right; padding-top: 6px; color: #616161;"
+          >
+            Estimated bag fees
+          </p>
+        </div>
+        <div class="col-8">
+          <div *ngFor="let duration of departingDurations[0]; let k = index">
+            <h5>{{ duration }}</h5>
+            <p style="font-size: 15px; color: #616161;">
+              {{ departingStops[0][k] }}
+            </p>
+          </div>
+          <p class="baggage-fee-details" style="padding-top: 19px;">
+            Carry on: No fee
+          </p>
+          <div *ngIf="classType === 'economy'">
+            <p class="baggage-fee-details">
+              1st checked bag: $30.00 up to 23 kg
+            </p>
+            <p class="baggage-fee-details">
+              2nd checked bag: $40.00 up to 23 kg
+            </p>
+          </div>
+          <div *ngIf="classType === 'firstclass'">
+            <p class="baggage-fee-details">
+              1st checked bag: No fee up to 23 kg
+            </p>
+            <p class="baggage-fee-details">
+              2nd checked bag: No fee up to 23 kg
+            </p>
+          </div>
+        </div>
+      </div>
+      <mat-divider
+        *ngIf="showDepartingDetailsAndBaggage"
+        class="divider"
+      ></mat-divider>
+      <div
+        *ngIf="params.get('city') === null && returnTime !== null"
+        class="row"
+        style="margin-top: 20px"
+      >
+        <div class="col-4">
+          <h5>{{ returningDate }}</h5>
+          <h6 class="flightName">{{ returnFlightName }}</h6>
+          <h5 class="flightTime">{{ returnTime }}</h5>
+          <button
+            class="fa fa-angle-down"
+            id="details-button"
+            (click)="toggleReturningDetailsAndBaggage()"
+          >
+            Show flight and baggage fee details
+          </button>
+        </div>
+        <div class="col-8">
+          <h6><span class="fromAirport">From</span>{{ returningAirport }}</h6>
+          <h6><span class="toAirport">To</span>{{ departingAirport }}</h6>
+          <h5 class="flightTotalDuration">{{ returnDuration }}</h5>
+          <h6 class="flightTotalStops">{{ returnTotalStops }}</h6>
+        </div>
+      </div>
+      <mat-divider
+        *ngIf="returnTime !== null && showReturningDetailsAndBaggage"
+        class="divider"
+      ></mat-divider>
+      <div
+        *ngIf="showReturningDetailsAndBaggage"
+        class="row"
+        style="padding-top: 20px; padding-bottom: 20px;"
+      >
+        <div class="col-4">
+          <h5
+            *ngFor="let time of returningTimes[0]"
+            style="padding-bottom: 50px"
+          >
+            {{ time }}
+          </h5>
+          <p
+            style="font-size: 15px; text-align: right; padding-top: 6px; color: #616161;"
+          >
+            Estimated bag fees
+          </p>
+        </div>
+        <div class="col-8">
+          <div *ngFor="let duration of returningDurations[0]; let k = index">
+            <h5>{{ duration }}</h5>
+            <p style="font-size: 15px; color: #616161;">
+              {{ returningStops[0][k] }}
+            </p>
+          </div>
+          <p class="baggage-fee-details" style="padding-top: 19px;">
+            Carry on: No fee
+          </p>
+          <div *ngIf="classType === 'economy'">
+            <p class="baggage-fee-details">
+              1st checked bag: $30.00 up to 23 kg
+            </p>
+            <p class="baggage-fee-details">
+              2nd checked bag: $40.00 up to 23 kg
+            </p>
+          </div>
+          <div *ngIf="classType === 'firstclass'">
+            <p class="baggage-fee-details">
+              1st checked bag: No fee up to 23 kg
+            </p>
+            <p class="baggage-fee-details">
+              2nd checked bag: No fee up to 23 kg
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <!-- flights trip summary -->
+      <div *ngIf="params.get('city') === null" class="trip-summary">
+        <h4 style="font-weight: bold">Trip Summary</h4>
+        <div class="adultPassengers" *ngFor="let adult of adults">
+          <span>Traveler {{ adult }}: Adult</span>
+          <br />
+          <span class="flightSpan">
+            Flight
+            <p class="flightPrice">${{ flightPrice }}</p>
+          </span>
+        </div>
+        <div *ngIf="childrensCount !== []">
+          <div *ngFor="let children of childrensCount">
+            <span>Traveler {{ children + adultsCount }}: Children</span>
+            <br />
+            <span class="flightSpan">
+              Flight
+              <p class="flightPrice">${{ flightPrice }}</p>
+            </span>
+          </div>
+        </div>
+        <mat-divider
+          style="margin-top: 10px; margin-bottom: 10px;"
+        ></mat-divider>
+        <h4>
+          <p class="flightTotalPrice">
+            Trip Total:
+          </p>
+          ${{ totalFlightPrice }}
+        </h4>
+      </div>
+    </div>
+  </div>
+  <br />
+  <form *ngIf="params.get('city') === null && currentUser !== null" class="billing-information">
+    <h5 style="font-weight: bold;">Billing Information</h5>
+    <span>First name</span>
+    <span class="last-name-label">Last name</span>
+    <br />
+    <input class="billing-first-name" />
+    <input class="billing-last-name" />
+    <br />
+    <span>Billing address</span>
+    <br />
+    <input class="billing-address" />
+    <br />
+    <span>City</span>
+    <br />
+    <input class="billing-city" />
+    <br />
+    <span>State</span>
+    <br />
+    <span>Zip code</span>
+    <br />
+    <input class="billing-zipcode" />
+    <br />
+    <br />
+    <button
+      *ngIf="currentUser !== null"
+      class="bookings-button"
+      type="submit"
+      (click)="bookTrip()"
+    >
+      Complete Booking
+    </button>
+  </form>
+  <!-- <form *ngIf="currentUser !== null" (submit)="handleForm($event)">
+      <div #cardElement>
+    
+    </div>
+      <p>{{ cardErrors }}</p>
+      <button>Stripe test</button>
+    </form> -->
+    <div *ngIf="params.get('city') !== null" class="row" style="width: 80%; height: 100%;">
+      <div class="col-8">
+          <form *ngIf="currentUser !== null" class="billing-information">
+              <h5 style="font-weight: bold;">Billing Information</h5>
+              <span>First name</span>
+              <span class="last-name-label">Last name</span>
+              <br />
+              <input class="billing-first-name" />
+              <input class="billing-last-name" />
+              <br />
+              <span>Billing address</span>
+              <br />
+              <input class="billing-address" />
+              <br />
+              <span>City</span>
+              <br />
+              <input class="billing-city" />
+              <br />
+              <span>State</span>
+              <br />
+              <span>Zip code</span>
+              <br />
+              <input class="billing-zipcode" />
+              <br />
+              <br />
+              <button
+                *ngIf="currentUser !== null"
+                class="bookings-button"
+                type="submit"
+                (click)="bookTrip()"
+              >
+                Complete Booking
+              </button>
+            </form>
+      </div>
+      <div class="col-4">
+        <!-- hotels trip summary -->
+      <div *ngIf="params.get('city') !== null" class="trip-summary">
+          <img [src]="hotelImage" alt="Hotel Image" class="hotelImage" />
+          <div class="hotelName">
+            {{ hotelName }}
+          </div>
+          <br />
+          <br />
+          <span class="hotelRatings">{{ hotelRatings }}</span>
+          <span class="hotelReviews">({{ hotelReviews }} reviews)</span>
+          <br />
+          <br />
+          <span style="font-weight: bold; font-size: 15px; color: #616161;"
+            >1 Room:
+          </span>
+          <span class="roomName">{{ roomName }}</span>
+          <br />
+          <br />
+          <span style="font-weight: bold; font-size: 15px; color: #616161;"
+            >Check-in:
+          </span>
+          <span class="check-in-date">{{ checkinDate }}</span>
+          <br />
+          <span style="font-weight: bold; font-size: 15px; color: #616161;"
+            >Check-out:
+          </span>
+          <span class="check-in-date">{{ checkoutDate }}</span>
+          <br />
+          <span class="check-in-date">{{ nights }}-night stay</span>
+          <mat-divider
+            style="margin-top: 10px; margin-bottom: 10px;"
+          ></mat-divider>
+          <span
+            class="hotel-price-summary-header"
+            style="font-weight: bold; font-size: 15px; color: #616161;"
+            >Your price summary</span
+          >
+          <br />
+          <br />
+          <div
+            style="font-weight: bold; font-size: 15px; color: #616161; text-align: right"
+          >
+            avg/night
+          </div>
+          <span
+            class="num-nights"
+            style="font-weight: bold; font-size: 15px; color: #616161;"
+            >{{ nights }} Nights</span
+          >
+          <span class="roomPrice">${{ roomPrice }}</span>
+          <mat-divider
+            style="margin-top: 10px; margin-bottom: 10px;"
+          ></mat-divider>
+          <span class="trip-total" style="font-size: 15px;">Trip total:</span>
+          <span class="hotelTotalPrice">${{ nights * roomPrice }}</span>
+        </div>
+      </div>
+    </div>
+</div>

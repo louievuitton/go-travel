@@ -1,0 +1,192 @@
+.body {
+  background-color: #eeeded;
+}
+
+.checkout {
+  padding-bottom: 30px;
+}
+
+.signin-container {
+  text-align: center;
+}
+
+.signin-button {
+  color: white;
+  background-color: #003e74;
+  border-radius: 9px;
+  margin-bottom: 20px;
+}
+
+#details-button {
+  color: blue;
+  font-size: 14px;
+  border: none;
+  padding: 0;
+  background-color: white;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.divider {
+  color: grey;
+}
+
+.flightName {
+  color: #616161;
+  margin-top: 55px;
+}
+
+.flightTime {
+  margin-top: 5px;
+}
+
+.fromAirport {
+  font-size: 15px;
+  color: #616161;
+  padding-right: 13px;
+}
+
+.toAirport {
+  font-size: 15px;
+  color: #616161;
+  padding-right: 32px;
+}
+
+.flightTotalDuration {
+  margin-left: 40px;
+  margin-top: 30px;
+}
+
+.flightTotalStops {
+  margin-left: 40px;
+  margin-top: 5px;
+}
+
+.baggage-fee-details {
+  font-size: 15px;
+  margin: 0;
+  color: #616161;
+}
+
+.flightSpan {
+  padding-left: 20px;
+  color: #616161;
+}
+
+.flightPrice {
+  display: inline;
+  margin-left: 125px;
+  color: #616161;
+}
+
+.flightTotalPrice {
+  display: inline;
+  font-size: 13px;
+  margin-left: 105px;
+  margin-right: 11px;
+}
+
+.trip-summary {
+  padding-top: 15px;
+}
+
+.bookings-button {
+  color: white;
+  background-color: #003e74;
+  height: 55px;
+  width: 170px;
+  border-radius: 9px;
+}
+
+/* hotel checkout styling */
+.hotelImage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 0.17647059em;
+  /* background: rgba(0, 0, 0, 0.6); */
+  opacity: 0.6;
+}
+
+.hotelName {
+  position: absolute;
+  top: 15px;
+  left: 23px;
+  font-weight: bold;
+}
+
+.hotelRatings {
+  font-weight: bold;
+}
+
+.hotelReviews {
+  color: #616161;
+  padding-left: 10px;
+}
+
+.roomName {
+  color: #616161;
+  font-size: 15px;
+}
+
+.check-in-date {
+  color: #616161;
+  font-size: 15px;
+}
+
+/* .nights-stay {
+  color: #616161;
+  font-size: 15px;
+} */
+
+.roomPrice {
+  margin-left: 62%;
+  color: #616161;
+  font-size: 15px;
+}
+
+.hotelTotalPrice {
+  margin-left: 58%;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* billing information */
+.last-name-label {
+  margin-left: 143px;
+}
+
+.billing-first-name {
+  width: 200px;
+  height: 30px;
+  margin-right: 20px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.billing-last-name {
+  width: 200px;
+  height: 30px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.billing-address {
+  width: 420px;
+  height: 30px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.billing-city {
+  height: 30px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.billing-zipcode {
+  width: 100px;
+  height: 30px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}

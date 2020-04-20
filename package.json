@@ -26,6 +26,8 @@
     "@angular/router": "~9.1.0",
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
     "@types/hammerjs": "^2.0.36",
+    "@types/jest": "^25.2.1",
+    "@types/stripe-v3": "^3.1.17",
     "bootstrap": "^4.4.1",
     "cors": "^2.8.5",
     "firebase": "^7.13.2",

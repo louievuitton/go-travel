@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ElementRef,
+  ViewChild,
+  Inject
+} from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -10,9 +17,12 @@ import { element } from 'protractor';
   styleUrls: ['./flight-listings.component.css']
 })
 export class FlightListingsComponent implements OnInit, OnDestroy {
+  noTripsAvailable: boolean = false;
   departingFlights = [];
   returningFlights = [];
   airports = [];
+  airports1 = [];
+  airportsDropdown: boolean = false;
   dropdownVisible: boolean = false;
   firstInput: string;
   showDepartingFlights: boolean;
@@ -30,6 +40,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   date: Date;
   fromDate: Date;
   toDate: Date;
+  flyFrom: string;
+  flyTo: string;
   flightType: string;
   classType: string;
   showDetailsAndBaggage: boolean = false;
@@ -46,7 +58,15 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   adultsCount: number;
   childrensCount: number;
   mouseovr: boolean = false;
-
+  // need to show on return flights
+  departureDur: string;
+  departureTime: string;
+  departurePrice: number;
+  departureStops: string;
+  departureName: string;
+  temp = [];
+  showService: boolean = false;
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -65,6 +85,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.fetchAirports();
+
     this.date = new Date();
     this.minDate = new Date(
       this.date.getFullYear(),
@@ -110,6 +132,7 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
         );
       }
     } else {
+      this.clear();
       localStorage.setItem('flightType', 'roundtrip');
       localStorage.setItem('classType', 'economy');
       this.showDepartingFlights = false;
@@ -122,6 +145,18 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
+  }
+
+  clear() {
+    localStorage.removeItem('flyFrom');
+    localStorage.removeItem('flyTo');
+    localStorage.removeItem('hotelDestination');
+    localStorage.removeItem('dateFrom');
+    localStorage.removeItem('dateTo');
+    localStorage.removeItem('flightType');
+    localStorage.removeItem('classType');
+    localStorage.removeItem('adultsCount');
+    localStorage.removeItem('childrensCount');
   }
 
   typeOfFlightChanged() {
@@ -145,18 +180,19 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   }
 
   searchAirports(event: HTMLInputElement, whichInput) {
-    this.airports = [];
+    this.dropdownVisible = false;
+    this.airports1 = [];
     this.firstInput = whichInput;
 
     this.firebaseService
       .getResource('airports/' + event.value.toLowerCase())
       .subscribe(response => {
         for (let key in response as any) {
-          this.airports.push(response[key]);
+          this.airports1.push(response[key]['name']);
         }
       });
 
-    this.dropdownVisible = true;
+    this.airportsDropdown = true;
     // } else if (event.value === 'lax') {
     //   this.firebaseService.getAll('flights').subscribe(response => {
     //     for (let key in response as any) {
@@ -166,9 +202,33 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
     // }
   }
 
+  fetchAirports() {
+    this.firebaseService.getAll('airports').subscribe(response => {
+      for (let key in response as any) {
+        for (let airport in response[key]) {
+          this.airports.push(response[key][airport]['name']);
+        }
+      }
+    });
+    this.airports.sort();
+  }
+
+  filterItem(input, whichInput) {
+    this.firstInput = whichInput;
+    this.dropdownVisible = true;
+    if (!input) {
+      this.temp = this.airports;
+    } else {
+      this.temp = Object.assign([], this.airports).filter(
+        airport => airport.toLowerCase().indexOf(input.toLowerCase()) > -1
+      );
+    }
+  }
+
   inputBlur() {
     if (this.mouseovr === false) {
       this.dropdownVisible = false;
+      this.airportsDropdown = false;
     }
   }
 
@@ -207,10 +267,12 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   setAirlines(airport) {
     if (this.firstInput === 'from') {
       localStorage.setItem('flyFrom', airport);
+      this.airportsDropdown = false;
       this.dropdownVisible = false;
       this.mouseovr = false;
     } else if (this.firstInput === 'to') {
       localStorage.setItem('flyTo', airport);
+      this.airportsDropdown = false;
       this.dropdownVisible = false;
       this.mouseovr = false;
     }
@@ -289,19 +351,21 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
 
   // if user has entered information from homepage
   showContent(flightType, classType, departureDate, returnDate) {
+    this.flyFrom = localStorage.getItem('flyFrom');
+    this.flyTo = localStorage.getItem('flyTo');
     if (flightType === 'roundtrip') {
       if (
         localStorage.getItem('dateFrom') !== null &&
         localStorage.getItem('dateTo') !== null &&
-        localStorage.getItem('flyFrom') !== null &&
-        localStorage.getItem('flyTo') !== null
+        this.flyFrom !== null &&
+        this.flyTo !== null
       ) {
-        let i1 = localStorage.getItem('flyFrom').indexOf('(');
-        let i2 = localStorage.getItem('flyTo').indexOf('(');
-        this.returningCity = localStorage
-          .getItem('flyFrom')
-          .substring(0, i1 - 1);
-        this.departingCity = localStorage.getItem('flyTo').substring(0, i2 - 1);
+        this.noTripsAvailable = false;
+
+        let i1 = this.flyFrom.indexOf('(');
+        let i2 = this.flyTo.indexOf('(');
+        this.returningCity = this.flyFrom.substring(0, i1 - 1);
+        this.departingCity = this.flyTo.substring(0, i2 - 1);
 
         let departureMonth = departureDate.getMonth() + 1;
         let returningMonth = returnDate.getMonth() + 1;
@@ -326,8 +390,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
           .subscribe(response => {
             for (let key in response as any) {
               if (
-                response[key]['from'] === localStorage.getItem('flyFrom') &&
-                response[key]['to'] === localStorage.getItem('flyTo') &&
+                response[key]['from'] === this.flyFrom &&
+                response[key]['to'] === this.flyTo &&
                 response[key][classType] === true
               ) {
                 for (let departAirline in response[key]['departureAirlines']) {
@@ -357,11 +421,12 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
                 this.stops.forEach((elem, index) => {
                   this.stops[index] = Object.values(elem);
                 });
-                break;
+                this.showDepartingFlights = true;
+                return;
               }
             }
+            this.noTripsAvailable = true;
           });
-        this.showDepartingFlights = true;
       } else {
         this.showDepartingFlights = false;
       }
@@ -371,6 +436,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
         localStorage.getItem('flyFrom') !== null &&
         localStorage.getItem('flyTo') !== null
       ) {
+        this.noTripsAvailable = false;
+
         let i1 = localStorage.getItem('flyTo').indexOf('(');
         this.departingCity = localStorage.getItem('flyTo').substring(0, i1 - 1);
 
@@ -421,11 +488,12 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
                 this.stops.forEach((elem, index) => {
                   this.stops[index] = Object.values(elem);
                 });
-                break;
+                this.showDepartingFlights = true;
+                return;
               }
             }
+            this.noTripsAvailable = true;
           });
-        this.showDepartingFlights = true;
       } else {
         this.showDepartingFlights = false;
       }
@@ -434,9 +502,18 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
 
   // output returning flights based on selected departing flight
   showReturnFlights(time) {
-    if (this.flightType === 'roundtrip') {
-      for (let f in this.departingFlights) {
-        if (this.departingFlights[f]['time'] === time) {
+    for (let f in this.departingFlights) {
+      if (this.departingFlights[f]['time'] === time) {
+        this.departureTime = time;
+        this.departureDur = this.departingFlights[f]['departureDuration'];
+        this.departureName = this.departingFlights[f]['name'];
+        this.departureStops = this.departingFlights[f]['totalStops'];
+        if (this.classType === 'economy') {
+          this.departurePrice = this.departingFlights[f]['economyPrice'];
+        } else if (this.classType === 'firstclass') {
+          this.departurePrice = this.departingFlights[f]['firstclassPrice'];
+        }
+        if (this.flightType === 'roundtrip') {
           for (let retAirline in this.departingFlights[f][
             'returningAirlines'
           ]) {
@@ -479,6 +556,12 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
             }
           }
           return;
+        } else if (this.flightType === 'oneway') {
+          this.router.navigate(['/checkout'], {
+            queryParams: {
+              departureTime: time
+            }
+          });
         }
       }
     }
@@ -531,5 +614,23 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
     } else if (type == 'children') {
       localStorage.setItem('childrensCount', event);
     }
+  }
+
+  navigateToCheckout(time) {
+    this.router.navigate(['/checkout'], {
+      queryParams: {
+        departureTime: this.departureTime,
+        returnTime: time
+      }
+    });
+  }
+
+  // when user clicks on wifi, entertainment, and power
+  showServices() {
+    this.showService = true;
+  }
+
+  blurServices() {
+    this.showService = false;
   }
 }
