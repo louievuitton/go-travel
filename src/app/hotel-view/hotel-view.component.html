@@ -3,19 +3,11 @@
   <div class="col-8" style="padding: 0">
     <img [src]="image" alt="Hotel image" class="hotel-image" />
   </div>
-  <div class="col-4" id="col4">
-    <span>{{ ratings }}</span>
-    <mat-divider></mat-divider>
-    <span>Amenities</span>
-    <br />
-    <span class="fa fa-wifi">Free WiFi</span>
-    <span class="fa fa-paw">Pet-Friendly</span>
-    <span class="fa fa-check">Housekeeping</span>
-    <span class="fa fa-cutlery">Restaurant</span>
-    <br />
-    <span class="fa fa-glass">Bar</span>
-    <span class="fa fa-coffee">Breakfast Available</span>
-    <mat-divider></mat-divider>
+  <div class="col-4">
+    <h6>Some map..</h6>
+    <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
   </div>
 </div>
 <div class="rooms-container">
@@ -24,7 +16,7 @@
     <h4 style="margin-bottom: 10px">
       Choose your room
     </h4>
-    <div *ngFor="let room of rooms; let i = index" class="row">
+    <div *ngFor="let room of rooms" class="row">
       <div class="col-4">
         <img
           src="{{ room?.images.image1 }}"
@@ -52,20 +44,13 @@
         <span class="room-details">Breakfast included</span>
       </div>
       <div class="col" id="thirdCol">
-        <h5 *ngIf="adultsCount < roomCapacity[i]" class="room-price">
+        <h5 class="room-price">
           ${{ room?.price }} <br />
           <p class="room-details">per night</p>
         </h5>
-        <button
-          *ngIf="adultsCount < roomCapacity[i]"
-          class="reserve-button"
-          (click)="reserveRoom(room?.name)"
-        >
+        <button class="reserve-button" (click)="reserveRoom(room?.name)">
           Reserve
         </button>
-        <h6 *ngIf="adultsCount > roomCapacity[i]" style="color: red">
-          Exceeds max adults
-        </h6>
       </div>
     </div>
   </div>

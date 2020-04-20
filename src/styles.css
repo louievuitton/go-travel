@@ -1,10 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-/* @include igx-core();
-@include igx-theme($default-palette); */
 
 body {
   padding-top: 70px;
@@ -14,7 +10,7 @@ html,
 body {
   height: 100%;
 }
-/* body {
+body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-} */
+}

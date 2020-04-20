@@ -77,8 +77,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.clear();
-
     this.firebaseService.getAll('hotels').subscribe(res => {
       for (let key in res as any) {
         for (let city in res[key]) {
@@ -94,18 +92,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
-  }
-
-  clear() {
-    localStorage.removeItem('flyFrom');
-    localStorage.removeItem('flyTo');
-    localStorage.removeItem('hotelDestination');
-    localStorage.removeItem('dateFrom');
-    localStorage.removeItem('dateTo');
-    localStorage.removeItem('flightType');
-    localStorage.removeItem('classType');
-    localStorage.removeItem('adultsCount');
-    localStorage.removeItem('childrensCount');
   }
 
   // switch between Hotels and Flights checkbox
@@ -181,16 +167,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.mouseovr = mouseover;
   }
 
-  filterItem(input, whichInput) {
-    if (whichInput === 'hotel') {
-      this.citiesDropdownVisible = true;
+  filterItem(input) {
+    this.citiesDropdownVisible = true;
     if (!input) {
       this.temp = this.cities;
     } else {
       this.temp = Object.assign([], this.cities).filter(
         city => city.toLowerCase().indexOf(input.toLowerCase()) > -1
       );
-    }
     }
   }
 

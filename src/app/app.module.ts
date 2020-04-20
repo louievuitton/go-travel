@@ -7,27 +7,13 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDividerModule } from '@angular/material/divider';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
-import { HttpClientModule } from '@angular/common/http';
-import {
-  NoopAnimationsModule,
-  BrowserAnimationsModule
-} from '@angular/platform-browser/animations';
-import {
-  IgxButtonModule,
-  IgxIconModule,
-  IgxCardModule,
-  IgxRippleModule
-} from 'igniteui-angular';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
@@ -39,15 +25,10 @@ import { CheckoutSuccessComponent } from './checkout-success/checkout-success.co
 import { ListingsComponent } from './listings/listings.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-
 import { FirebaseService } from './services/firebase.service';
-import { ApiService } from './services/api.service';
-
 import { HotelListingsComponent } from './hotel-listings/hotel-listings.component';
 import { FlightListingsComponent } from './flight-listings/flight-listings.component';
 import { HotelViewComponent } from './hotel-view/hotel-view.component';
-import { AuthGuard } from './services/auth-guard.service';
-import { AnalyticsComponent } from './analytics/analytics.component';
 
 @NgModule({
   declarations: [
@@ -62,36 +43,26 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     SignupComponent,
     HotelListingsComponent,
     FlightListingsComponent,
-    HotelViewComponent,
-    AnalyticsComponent
+    HotelViewComponent
   ],
   imports: [
     BrowserModule,
     MatCheckboxModule,
-    BrowserAnimationsModule,
-    MatCardModule,
     MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatDividerModule,
     MatInputModule,
     MatNativeDateModule,
     NoopAnimationsModule,
-    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB5shjix0YQ8dPB9lLwDI08joTJxPAj-H8'
     }),
-
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule,
-    IgxButtonModule,
-    IgxIconModule,
-    IgxCardModule,
-    IgxRippleModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'hotels', component: HotelListingsComponent },
@@ -102,11 +73,10 @@ import { AnalyticsComponent } from './analytics/analytics.component';
       { path: 'checkout-success', component: CheckoutSuccessComponent },
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
-      { path: 'my-travels', component: MyTravelsComponent },
-      { path: 'analytics', component: AnalyticsComponent }
+      { path: 'my/travels', component: MyTravelsComponent }
     ])
   ],
-  providers: [FirebaseService, ApiService, AuthGuard],
+  providers: [FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

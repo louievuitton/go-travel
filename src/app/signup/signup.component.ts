@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormValidator } from '../validators/form.validators';
 import { FirebaseService } from '../services/firebase.service';
@@ -32,7 +32,6 @@ export class SignupComponent implements OnInit {
   });
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private firebaseService: FirebaseService
   ) {}
@@ -55,17 +54,9 @@ export class SignupComponent implements OnInit {
             ' ' +
             resources.get('lastname').value
         );
-        localStorage.setItem('email', resources.get('email').value);
-        this.router.navigate(
-          [this.route.snapshot.queryParamMap.get('returnUrl') || '/'],
-          { queryParamsHandling: 'merge' }
-        );
+        this.router.navigate(['/']);
       });
     }
-  }
-
-  navigate2Login() {
-    this.router.navigate(['/login'], { queryParamsHandling: 'merge' });
   }
 
   get firstname() {

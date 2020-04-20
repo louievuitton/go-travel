@@ -35,8 +35,7 @@
 }
 
 #details-row {
-  margin-top: -17px;
-  border-top: 1px solid white;
+  margin-top: -15px;
 }
 
 .flights-from {
@@ -82,17 +81,17 @@
   cursor: pointer;
 }
 
-/* #roundtrip {
-  width: 100%;
-  height: 50px;
+#roundtrip {
+  width: 30%;
+  height: 60px;
   border-radius: 9px;
 }
 
 #oneway {
-  width: 100%;
-  height: 50px;
+  width: 20%;
+  height: 60px;
   border-radius: 9px;
-} */
+}
 
 .date-picker {
   background-color: white;
@@ -107,11 +106,11 @@
 
 .counts-label {
   font-size: 14px;
-  padding-right: 15px;
+  padding-right: 20px;
 }
 
 .search-button {
-  width: 100%;
+  width: 25%;
   height: 50px;
   border-radius: 9px;
   margin-left: 15px;
@@ -142,30 +141,14 @@
 
 #back-button {
   border: none;
-  height: 30px;
+  height: 45px;
+  cursor: pointer;
   color: blue;
-  font-size: 15px;
-  background-color: #edf7ff;
+  font-size: 20px;
+  background-color: #eeeded;
 }
 
 #personCount {
   cursor: pointer;
   margin-right: 29%;
-}
-
-.flightDuration {
-  padding-right: 10px;
-}
-
-/* fa icons styling */
-#wifi {
-  padding-right: 8px;
-}
-
-#play {
-  padding-right: 8px;
-}
-
-#power {
-  padding-right: 8px;
 }

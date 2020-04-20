@@ -68,8 +68,11 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
     );
     this.maxDate1 = new Date(this.date.getFullYear() + 1, 11, 31);
 
-    if (localStorage.getItem('hotelDestination') === null) {
-      this.clear();
+    if (
+      localStorage.getItem('hotelDestination') === null &&
+      localStorage.getItem('dateFrom') === null &&
+      localStorage.getItem('dateTo') === null
+    ) {
       this.lsStatus = false;
     } else {
       this.showHotels(
@@ -86,18 +89,6 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
       this.mySubscription.unsubscribe();
     }
     this.subscription.unsubscribe();
-  }
-
-  clear() {
-    localStorage.removeItem('flyFrom');
-    localStorage.removeItem('flyTo');
-    localStorage.removeItem('hotelDestination');
-    localStorage.removeItem('dateFrom');
-    localStorage.removeItem('dateTo');
-    localStorage.removeItem('flightType');
-    localStorage.removeItem('classType');
-    localStorage.removeItem('adultsCount');
-    localStorage.removeItem('childrensCount');
   }
 
   inputBlur() {

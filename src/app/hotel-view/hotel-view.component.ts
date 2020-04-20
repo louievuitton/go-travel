@@ -16,10 +16,6 @@ export class HotelViewComponent implements OnInit {
   lng: number;
   zoom: number = 17;
   image;
-  ratings: string;
-  reviews: string;
-  adultsCount: number;
-  roomCapacity = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -30,7 +26,6 @@ export class HotelViewComponent implements OnInit {
   ngOnInit(): void {
     this.params = this.route.snapshot.paramMap;
 
-    this.adultsCount = +localStorage.getItem('adultsCount');
     this.firebaseService
       .getResource('/hotels/' + this.params.get('city').toLowerCase())
       .subscribe(response => {
@@ -40,17 +35,8 @@ export class HotelViewComponent implements OnInit {
             this.lat = response[key]['latitude'];
             this.lng = response[key]['longitude'];
             this.hotelName = response[key]['name'];
-            this.ratings = response[key]['ratings'];
-            this.reviews = response[key]['reviews'];
             for (let room in response[key]['rooms']) {
               this.rooms.push(response[key]['rooms'][room]);
-              var capacity = response[key]['rooms'][room]['capacity'];
-              for (let i = 0; i < capacity.length; i++) {
-                if (capacity.charAt(i) >= '0' && capacity.charAt(i) <= '9') {
-                  this.roomCapacity.push(+capacity.charAt(i));
-                  break;
-                }
-              }
             }
             break;
           }
@@ -63,8 +49,7 @@ export class HotelViewComponent implements OnInit {
     this.router.navigate(['/checkout'], {
       queryParams: {
         city: this.params.get('city'),
-        hotelName: this.hotelName,
-        roomName: room
+        room: room
       }
     });
   }
