@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  constructor(private db: AngularFireDatabase) {}
+  constructor(private db: AngularFireDatabase, private http: HttpClient) {}
 
   signup(resources) {
     return this.db.list('users').push({
@@ -22,6 +25,11 @@ export class FirebaseService {
 
   getAll(resources) {
     return this.db.list(resources).valueChanges();
+  }
+
+  read(resources): Observable<any> {
+    const url = environment.firebase.databaseURL + `/${resources}`;
+    return this.http.get(url);
   }
 
   completeBooking(

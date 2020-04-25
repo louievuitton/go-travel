@@ -21,7 +21,9 @@
         <a class="nav-link" routerLink="/flights" (click)="clear()">Flights</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/analytics" (click)="clear()">Analytics</a>
+        <a class="nav-link" routerLink="/analytics" (click)="clear()"
+          >Analytics</a
+        >
       </li>
       <li *ngIf="currentUser === null" class="nav-item">
         <a class="nav-link" routerLink="/signup">Signup</a>

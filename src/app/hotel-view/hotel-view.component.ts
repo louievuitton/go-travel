@@ -11,10 +11,11 @@ import { AgmCoreModule } from '@agm/core';
 export class HotelViewComponent implements OnInit {
   hotelName: string;
   rooms = [];
+  hotelAddress: string;
   params: any;
   lat: number;
   lng: number;
-  zoom: number = 17;
+  zoom: number = 13;
   image;
   ratings: string;
   reviews: string;
@@ -36,6 +37,7 @@ export class HotelViewComponent implements OnInit {
       .subscribe(response => {
         for (let key in response as any) {
           if (response[key]['name'] === this.params.get('name')) {
+            this.hotelAddress = response[key]['address'];
             this.image = response[key]['images']['image1'];
             this.lat = response[key]['latitude'];
             this.lng = response[key]['longitude'];
@@ -65,6 +67,15 @@ export class HotelViewComponent implements OnInit {
         city: this.params.get('city'),
         hotelName: this.hotelName,
         roomName: room
+      }
+    });
+  }
+
+  // when recommended attractions button is pressed
+  goToAttractions() {
+    this.router.navigate(['/analytics'], {
+      queryParams: {
+        location: this.params.get('city').toLowerCase()
       }
     });
   }

@@ -12,6 +12,17 @@
   cursor: pointer;
 }
 
+.checkbox2 {
+  color: white;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.flight-spans {
+  color: white;
+  margin-right: 37%;
+}
+
 .flights-from-input {
   width: 46%;
   margin-right: 15px;
@@ -54,6 +65,10 @@
   color: white;
 }
 
+#counts-column {
+  padding: 0;
+}
+
 .counts-label {
   color: white;
   font-size: 14px;
@@ -63,4 +78,61 @@
 #personCount {
   cursor: pointer;
   margin-right: 25px;
+}
+
+#departing-span {
+  color: white;
+  margin-right: 16%;
+}
+
+.check-in-label {
+  color: white;
+  margin-right: 18%;
+}
+
+/* fa icons */
+#hotel-icon {
+  padding-left: 5px;
+  padding-right: 20px;
+  color: white;
+}
+
+#flight-icon {
+  padding-left: 5px;
+  color: white;
+}
+
+/* for mobile phones */
+@media screen and (max-width: 420px) {
+  .container {
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 45px;
+    width: 100%;
+  }
+
+  .check-in-label {
+    margin-right: 35%;
+  }
+
+  .date-picker {
+    width: 130px;
+  }
+
+  #counts-column {
+    padding-top: 10px;
+    padding-left: 15px;
+  }
+
+  .search-button {
+    margin-top: 15px;
+  }
+
+  .flight-spans {
+    margin-right: 27%;
+  }
+
+  #departing-span {
+    margin-right: 32%;
+  }
 }

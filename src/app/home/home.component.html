@@ -6,10 +6,7 @@
     class="checkbox"
     >Hotels</mat-checkbox
   >
-  <span
-    class="fa fa-hotel"
-    style="padding-left: 5px; padding-right: 20px; color: white"
-  ></span>
+  <span class="fa fa-hotel" id="hotel-icon"></span>
   <mat-checkbox
     #showFlightsInput
     [checked]="!isChecked"
@@ -17,7 +14,7 @@
     class="checkbox"
     >Flights</mat-checkbox
   >
-  <span class="fa fa-plane" style="padding-left: 5px; color: white"></span>
+  <span class="fa fa-plane" id="flight-icon"></span>
   <br />
   <div *ngIf="showHotelsInput.checked">
     <span style="color: white">Going to</span>
@@ -51,7 +48,7 @@
       </li>
     </ul>
     <br />
-    <span style="color: white; margin-right:19%">Check-in</span>
+    <span class="check-in-label">Check-in</span>
     <span style="color: white">Check-out</span>
     <br />
     <div class="row">
@@ -93,7 +90,7 @@
           <mat-datepicker #datePicker1></mat-datepicker>
         </mat-form-field>
       </div>
-      <div class="col" style="padding: 0">
+      <div class="col" id="counts-column">
         <span class="counts-label" for="adultsCount">Adults</span>
         <span class="counts-label" for="childrensCount">Children</span>
         <br />
@@ -133,7 +130,7 @@
       #showHotelsInput
       [checked]="flightType"
       (change)="typeOfFlightChanged()"
-      class="checkbox"
+      class="checkbox2"
       >Roundtrip</mat-checkbox
     >
     <mat-checkbox
@@ -148,7 +145,7 @@
       #economy
       [checked]="classType === 'economy'"
       (change)="typeOfClassChanged()"
-      class="checkbox"
+      class="checkbox2"
       >Economy</mat-checkbox
     >
     <mat-checkbox
@@ -159,7 +156,7 @@
       >First Class</mat-checkbox
     >
     <br />
-    <span style="color: white; margin-right: 39%">Flying from</span>
+    <span class="flight-spans">Flying from</span>
     <span style="color: white">Flying to</span> <br />
     <input
       class="flights-from-input"
@@ -168,6 +165,7 @@
       #flyingFrom
       (keyup.enter)="inputEntered('flyFrom', flyingFrom)"
       (blur)="inputBlur()"
+      (input)="filterItem(flyingFrom.value, 'flyFrom')"
     />
     <ul
       *ngIf="flyingFromDropdownVisible"
@@ -176,12 +174,27 @@
       (mouseleave)="toggleMouseOver(false)"
     >
       <li
-        *ngFor="let airport of airports"
+        *ngFor="let airport of airports1"
         id="{{ inputField }}"
         class="list-group-item"
         (click)="itemClicked('flyFrom', airport?.name)"
       >
         {{ airport?.name }}
+      </li>
+    </ul>
+    <ul
+      *ngIf="fromFlightsDropdownVisible"
+      class="list-group"
+      (mouseenter)="toggleMouseOver(true)"
+      (mouseleave)="toggleMouseOver(false)"
+    >
+      <li
+        *ngFor="let airport of temp"
+        id="{{ inputField }}"
+        class="list-group-item"
+        (click)="itemClicked('flyFrom', airport)"
+      >
+        {{ airport }}
       </li>
     </ul>
     <input
@@ -191,6 +204,7 @@
       #flyingTo
       (keyup.enter)="inputEntered('flyTo', flyingTo)"
       (blur)="inputBlur()"
+      (input)="filterItem(flyingTo.value, 'flyTo')"
     />
     <ul
       *ngIf="flyingToDropdownVisible"
@@ -200,16 +214,31 @@
       (mouseleave)="toggleMouseOver(false)"
     >
       <li
-        *ngFor="let airport of airports"
+        *ngFor="let airport of airports1"
         class="list-group-item"
         (click)="itemClicked('flyTo', airport?.name)"
       >
         {{ airport?.name }}
       </li>
     </ul>
+    <ul
+      *ngIf="toFlightsDropdownVisible"
+      class="list-group"
+      style="margin-left: 22em"
+      (mouseenter)="toggleMouseOver(true)"
+      (mouseleave)="toggleMouseOver(false)"
+    >
+      <li
+        *ngFor="let airport of temp"
+        class="list-group-item"
+        (click)="itemClicked('flyTo', airport)"
+      >
+        {{ airport }}
+      </li>
+    </ul>
     <br />
     <br />
-    <span style="color: white; margin-right:17%">Departing</span>
+    <span id="departing-span">Departing</span>
     <span *ngIf="flightType" style="color: white">Returning</span>
     <br />
     <div class="row">
@@ -252,7 +281,7 @@
           <mat-datepicker #datePicker1></mat-datepicker>
         </mat-form-field>
       </div>
-      <div class="col">
+      <div class="col" id="counts-column">
         <span class="counts-label" for="adultsCount">Adults</span>
         <span class="counts-label" for="childrensCount">Children</span>
         <br />

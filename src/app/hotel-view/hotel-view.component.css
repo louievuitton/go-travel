@@ -15,8 +15,7 @@
 }
 
 agm-map {
-  padding-top: 20px;
-  height: 300px;
+  height: 60px;
   width: 100%;
 }
 
@@ -65,6 +64,7 @@ agm-map {
   border-radius: 9px;
   width: 70%;
   height: 27%;
+  cursor: pointer;
 }
 
 .reviews {
@@ -72,6 +72,9 @@ agm-map {
   color: blue;
 }
 
-#col4 {
-  padding-top: 20px;
+#rec-attractions-button {
+  border: none;
+  color: blue;
+  font-size: 14px;
+  cursor: pointer;
 }

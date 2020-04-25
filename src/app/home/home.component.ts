@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   fromDate: Date;
   toDate: Date;
   airports = [];
+  airports1 = [];
   inputField: string;
   mySubscription: any;
   flightType: boolean;
@@ -32,6 +33,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   adultsCount: any;
   cities = [];
   citiesDropdownVisible: boolean = false;
+  fromFlightsDropdownVisible: boolean = false;
+  toFlightsDropdownVisible: boolean = false;
   temp = [];
 
   // form = new FormGroup({
@@ -88,6 +91,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }
     });
+
+    this.firebaseService.getAll('airports').subscribe(response => {
+      for (let key in response as any) {
+        for (let airport in response[key]) {
+          this.airports.push(response[key][airport]['name']);
+        }
+      }
+    });
+    this.airports.sort();
   }
 
   ngOnDestroy(): void {
@@ -174,6 +186,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.flyingFromDropdownVisible = false;
       this.flyingToDropdownVisible = false;
       this.citiesDropdownVisible = false;
+      this.fromFlightsDropdownVisible = false;
+      this.toFlightsDropdownVisible = false;
     }
   }
 
@@ -184,13 +198,31 @@ export class HomeComponent implements OnInit, OnDestroy {
   filterItem(input, whichInput) {
     if (whichInput === 'hotel') {
       this.citiesDropdownVisible = true;
-    if (!input) {
-      this.temp = this.cities;
-    } else {
-      this.temp = Object.assign([], this.cities).filter(
-        city => city.toLowerCase().indexOf(input.toLowerCase()) > -1
-      );
-    }
+      if (!input) {
+        this.temp = this.cities;
+      } else {
+        this.temp = Object.assign([], this.cities).filter(
+          city => city.toLowerCase().indexOf(input.toLowerCase()) > -1
+        );
+      }
+    } else if (whichInput === 'flyFrom') {
+      this.fromFlightsDropdownVisible = true;
+      if (!input) {
+        this.temp = this.airports;
+      } else {
+        this.temp = Object.assign([], this.airports).filter(
+          airport => airport.toLowerCase().indexOf(input.toLowerCase()) > -1
+        );
+      }
+    } else if (whichInput === 'flyTo') {
+      this.toFlightsDropdownVisible = true;
+      if (!input) {
+        this.temp = this.airports;
+      } else {
+        this.temp = Object.assign([], this.airports).filter(
+          airport => airport.toLowerCase().indexOf(input.toLowerCase()) > -1
+        );
+      }
     }
   }
 
@@ -200,24 +232,26 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.hotelDestination = input;
       this.citiesDropdownVisible = false;
     } else if (this.isChecked === false && type === 'flyFrom') {
-      this.airports = [];
+      this.fromFlightsDropdownVisible = false;
+      this.airports1 = [];
       this.inputField = type;
       this.firebaseService
         .getResource('airports/' + input)
         .subscribe(response => {
           for (let key in response as any) {
-            this.airports.push(response[key]);
+            this.airports1.push(response[key]);
           }
         });
       this.flyingFromDropdownVisible = true;
     } else if (this.isChecked === false && type === 'flyTo') {
-      this.airports = [];
+      this.toFlightsDropdownVisible = false;
+      this.airports1 = [];
       this.inputField = type;
       this.firebaseService
         .getResource('airports/' + input)
         .subscribe(response => {
           for (let key in response as any) {
-            this.airports.push(response[key]);
+            this.airports1.push(response[key]);
           }
         });
       this.flyingToDropdownVisible = true;
@@ -231,9 +265,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.citiesDropdownVisible = false;
     } else if (type === 'flyFrom') {
       this.flyingFrom = value;
+      this.fromFlightsDropdownVisible = false;
       this.flyingFromDropdownVisible = false;
     } else if (type === 'flyTo') {
       this.flyingTo = value;
+      this.toFlightsDropdownVisible = false;
       this.flyingToDropdownVisible = false;
     }
   }

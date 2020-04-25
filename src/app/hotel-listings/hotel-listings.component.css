@@ -6,6 +6,22 @@
   height: 100%;
 }
 
+#container-div {
+  margin-left: 10em;
+}
+
+#span1 {
+  color: #505c66;
+}
+
+#search-input {
+  width: 78%;
+  border: 1px solid grey;
+  border-radius: 5px;
+  height: 40px;
+  cursor: pointer;
+}
+
 .row {
   width: 80%;
   height: 192px;
@@ -87,4 +103,40 @@
 #personCount {
   cursor: pointer;
   margin-right: 29%;
+}
+
+#hotels-container-heading {
+  margin-bottom: 10px;
+}
+
+/* for mobile phones */
+@media screen and (max-width: 420px) {
+  #span1 {
+    font-size: 15px;
+  }
+
+  #search-input {
+    width: 100%;
+  }
+
+  .date-picker {
+    width: 120px;
+  }
+
+  .counts-label {
+    font-size: 14px;
+  }
+
+  #personCount {
+    cursor: pointer;
+  }
+
+  .search-button {
+    width: 100%;
+    margin-left: 25px;
+  }
+
+  #container-div {
+    margin-left: 0;
+  }
 }

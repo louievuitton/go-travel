@@ -26,12 +26,16 @@ export class ApiService {
     );
   }
 
-  public getHotels() {
-    return this.httpClient.get(this.GOOGLE_PLACE_HOTELS);
+  public getHotels(location) {
+    return this.httpClient.get(
+      `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top hotels in ${location}&key=${this.GOOGLE_API}`
+    );
   }
 
-  public getClubs() {
-    return this.httpClient.get(this.GOOGLE_PLACE_CLUBS);
+  public getClubs(location) {
+    return this.httpClient.get(
+      `https://maps.googleapis.com/maps/api/place/textsearch/json?query=top night clubs in ${location}&key=${this.GOOGLE_API}`
+    );
   }
 
   public getStats(placeId) {

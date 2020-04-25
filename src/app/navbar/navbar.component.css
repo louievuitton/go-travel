@@ -38,3 +38,11 @@
 .dropdown-item:hover {
   background-color: #057fe9;
 }
+
+/* for mobile phones */
+@media screen and (max-width: 450px) {
+  .navbar-brand {
+    margin-left: 1px;
+    font-size: 16px;
+  }
+}

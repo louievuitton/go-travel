@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { IgxCardModule } from 'igniteui-angular';
 import { Card } from './analytics.blueprint';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-analytics',
@@ -18,11 +19,13 @@ export class AnalyticsComponent implements OnInit {
   clubsPhotos: string[] = new Array();
   placePhoto;
   url;
-  constructor(private apiService: ApiService) {}
+  params;
+  constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
   ngOnInit() {
-    this.apiService.getRestaurants('los angeles').subscribe(data => {
-      console.log(data);
+    this.params = this.route.snapshot.queryParamMap.get('location');
+
+    this.apiService.getRestaurants(this.params).subscribe(data => {
       this.restaurants = data['results'];
       for (let restaurant of this.restaurants) {
         this.apiService.getStats(restaurant.place_id).subscribe(data => {
@@ -35,7 +38,7 @@ export class AnalyticsComponent implements OnInit {
       }
     });
 
-    this.apiService.getHotels().subscribe(data => {
+    this.apiService.getHotels(this.params).subscribe(data => {
       this.hotels = data['results'];
       for (let hotel of this.hotels) {
         this.apiService.getStats(hotel.place_id).subscribe(data => {
@@ -48,7 +51,7 @@ export class AnalyticsComponent implements OnInit {
       }
     });
 
-    this.apiService.getClubs().subscribe(data => {
+    this.apiService.getClubs(this.params).subscribe(data => {
       this.clubs = data['results'];
       for (let club of this.clubs) {
         this.apiService.getStats(club.place_id).subscribe(data => {

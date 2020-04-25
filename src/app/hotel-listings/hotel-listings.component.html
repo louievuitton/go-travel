@@ -1,19 +1,13 @@
 <div class="searchbar">
   <h4>Hotel stays, dream getaways</h4>
-  <span style="color: #505c66"
-    >Find the perfect place to stay for your next trip</span
-  >
+  <span id="span1">Find the perfect place to stay for your next trip</span>
   <br />
   <br />
   <span>Going to</span>
   <br />
   <input
     class="form-control"
-    style="width: 78%;
-                border: 1px solid grey;
-                border-radius: 5px;
-                height: 40px;
-                cursor: pointer"
+    id="search-input"
     placeholder="City destination"
     type="search"
     #hotelDestination
@@ -43,7 +37,7 @@
     class="row"
     style="width: 78%; height: 10%; margin: 0; padding: 0; border: none;"
   >
-    <div class="col" style="padding: 0">
+    <div class="col" style="padding: 0;">
       <mat-form-field class="date-picker">
         <mat-label>mm/dd/yyyy</mat-label>
         <input
@@ -123,8 +117,8 @@
 <br />
 <div *ngIf="lsStatus" class="hotels-container">
   <br />
-  <div style="margin-left: 10em">
-    <h4 style="margin-bottom: 10px">
+  <div id="container-div">
+    <h4 id="hotels-container-heading">
       Showing hotels from {{ cityDestination }}
     </h4>
     <div
