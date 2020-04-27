@@ -10,6 +10,7 @@ import { FirebaseService } from '../services/firebase.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { element } from 'protractor';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'flight-listings',
@@ -38,8 +39,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   minDate1: Date;
   maxDate1: Date;
   date: Date;
-  fromDate: Date;
-  toDate: Date;
+  fromDate;
+  toDate;
   flyFrom: string;
   flyTo: string;
   flightType: string;
@@ -66,7 +67,12 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   departureName: string;
   temp = [];
   showService: boolean = false;
-  
+  invalidSearch: boolean = false;
+  // form
+  form: FormGroup;
+  flightFromInput: FormControl;
+  flightToInput: FormControl;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -85,6 +91,15 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.flightFromInput = new FormControl('', [Validators.required]);
+    this.flightToInput = new FormControl('', [Validators.required]);
+    this.form = new FormGroup({
+      flightFrom: this.flightFromInput,
+      flightTo: this.flightToInput,
+      departingDatePicker: new FormControl('', [Validators.required]),
+      returningDatePicker: new FormControl('', [Validators.required])
+    });
+
     this.fetchAirports();
 
     this.date = new Date();
@@ -161,9 +176,11 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
 
   typeOfFlightChanged() {
     if (localStorage.getItem('flightType') === 'roundtrip') {
+      this.form.markAsUntouched({ onlySelf: true });
       localStorage.setItem('flightType', 'oneway');
       this.flght = !this.flght;
     } else if (localStorage.getItem('flightType') === 'oneway') {
+      this.form.markAsUntouched({ onlySelf: true });
       localStorage.setItem('flightType', 'roundtrip');
       this.flght = !this.flght;
     }
@@ -193,13 +210,6 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
       });
 
     this.airportsDropdown = true;
-    // } else if (event.value === 'lax') {
-    //   this.firebaseService.getAll('flights').subscribe(response => {
-    //     for (let key in response as any) {
-    //       if (response[key]['name'] === event)
-    //     }
-    //   });
-    // }
   }
 
   fetchAirports() {
@@ -292,60 +302,79 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
     this.flightType = localStorage.getItem('flightType');
     this.classType = localStorage.getItem('classType');
     if (this.flightType === 'roundtrip') {
-      localStorage.setItem(
-        'dateFrom',
-        this.fromDate.getMonth() +
-          1 +
-          '/' +
-          this.fromDate.getDate() +
-          '/' +
-          this.fromDate.getFullYear()
-      );
-      localStorage.setItem(
-        'dateTo',
-        this.toDate.getMonth() +
-          1 +
-          '/' +
-          this.toDate.getDate() +
-          '/' +
-          this.toDate.getFullYear()
-      );
+      if (
+        this.toDate == null ||
+        this.fromDate == null ||
+        localStorage.getItem('flyFrom') === null ||
+        localStorage.getItem('flyTo') === null
+      ) {
+        this.invalidSearch = true;
+      } else {
+        this.invalidSearch = false;
+        localStorage.setItem(
+          'dateFrom',
+          this.fromDate.getMonth() +
+            1 +
+            '/' +
+            this.fromDate.getDate() +
+            '/' +
+            this.fromDate.getFullYear()
+        );
+        localStorage.setItem(
+          'dateTo',
+          this.toDate.getMonth() +
+            1 +
+            '/' +
+            this.toDate.getDate() +
+            '/' +
+            this.toDate.getFullYear()
+        );
 
-      if (localStorage.getItem('adultsCount') === null) {
-        localStorage.setItem('adultsCount', '1');
-      }
-      if (localStorage.getItem('childrensCount') === null) {
-        localStorage.setItem('childrensCount', '0');
-      }
+        if (localStorage.getItem('adultsCount') === null) {
+          localStorage.setItem('adultsCount', '1');
+        }
+        if (localStorage.getItem('childrensCount') === null) {
+          localStorage.setItem('childrensCount', '0');
+        }
 
-      this.showContent(
-        this.flightType,
-        this.classType,
-        this.fromDate,
-        this.toDate
-      );
+        this.showContent(
+          this.flightType,
+          this.classType,
+          this.fromDate,
+          this.toDate
+        );
+      }
     } else if (this.flightType === 'oneway') {
       if (localStorage.getItem('dateTo') !== null) {
         localStorage.removeItem('dateTo');
       }
-      localStorage.setItem(
-        'dateFrom',
-        this.fromDate.getMonth() +
-          1 +
-          '/' +
-          this.fromDate.getDate() +
-          '/' +
-          this.fromDate.getFullYear()
-      );
+      if (
+        this.fromDate == null ||
+        localStorage.getItem('flyFrom') === null ||
+        localStorage.getItem('flyTo') === null
+      ) {
+        this.invalidSearch = true;
+      } else {
+        this.invalidSearch = false;
 
-      if (localStorage.getItem('adultsCount') === null) {
-        localStorage.setItem('adultsCount', '1');
-      }
-      if (localStorage.getItem('childrensCount') === null) {
-        localStorage.setItem('childrensCount', '0');
-      }
+        localStorage.setItem(
+          'dateFrom',
+          this.fromDate.getMonth() +
+            1 +
+            '/' +
+            this.fromDate.getDate() +
+            '/' +
+            this.fromDate.getFullYear()
+        );
 
-      this.showContent(this.flightType, this.classType, this.fromDate, null);
+        if (localStorage.getItem('adultsCount') === null) {
+          localStorage.setItem('adultsCount', '1');
+        }
+        if (localStorage.getItem('childrensCount') === null) {
+          localStorage.setItem('childrensCount', '0');
+        }
+        this.showContent(this.flightType, this.classType, this.fromDate, null);
+      }
     }
   }
 

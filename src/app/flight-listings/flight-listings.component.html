@@ -1,5 +1,6 @@
 <div style="margin-bottom: 2em">
   <h4>Search flights</h4>
+  <form [formGroup]="form">
   <mat-checkbox
     #roundtripCheckbox
     [checked]="flght"
@@ -31,7 +32,9 @@
   >
   <br />
   <input
-    class="flights-from"
+    formControlName="flightFrom"
+    class="form-control"
+    id="flights-from"
     (keyup.enter)="searchAirports(city, 'from')"
     (blur)="inputBlur()"
     #city
@@ -39,8 +42,20 @@
     placeholder="Flying from (enter city)"
     (input)="filterItem(city.value, 'from')"
   />
+  <div *ngIf="invalidSearch">
+    <div
+        *ngIf="form.get('flightFrom')?.invalid"
+        class="alert alert-danger" id="error"
+      >
+        <div *ngIf="form.get('flightFrom')?.errors.required">
+          Input is required.
+        </div>
+      </div>
+  </div>
   <input
-    class="flights-to"
+    formControlName="flightTo"
+    class="form-control"
+    id="flights-to"
     (keyup.enter)="searchAirports(toCity, 'to')"
     (blur)="inputBlur()"
     #toCity
@@ -48,6 +63,16 @@
     placeholder="Flying to (enter city)"
     (input)="filterItem(toCity.value, 'to')"
   />
+  <div *ngIf="invalidSearch">
+  <div
+      *ngIf="form.get('flightTo')?.invalid"
+      class="alert alert-danger" id="error" style="margin-left: 475px;"
+    >
+      <div *ngIf="form.get('flightTo')?.errors.required">
+        Input is required.
+      </div>
+    </div>
+    </div>
   <ul *ngIf="dropdownVisible" class="list-group" (mouseenter)="toggleMouseOver(true)"
   (mouseleave)="toggleMouseOver(false)">
     <li
@@ -83,6 +108,8 @@
       <mat-form-field class="date-picker">
         <mat-label>mm/dd/yyyy</mat-label>
         <input
+        formControlName="departingDatePicker"
+    class="form-control"
           matInput
           [matDatepicker]="datePicker"
           (focus)="datePicker.open()"
@@ -97,11 +124,23 @@
         ></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
       </mat-form-field>
+      <div *ngIf="invalidSearch">
+      <div
+      *ngIf="form.get('departingDatePicker')?.invalid"
+      class="alert alert-danger" id="error" style="margin-top:0;"
+    >
+      <div *ngIf="form.get('departingDatePicker')?.errors.required">
+        Departing date is required.
+      </div>
+    </div>
+    </div>
     </div>
     <div class="col" style="padding: 0;">
       <mat-form-field *ngIf="roundtripCheckbox.checked" class="date-picker">
         <mat-label>mm/dd/yyyy</mat-label>
         <input
+        formControlName="returningDatePicker"
+    class="form-control"
           matInput
           [matDatepicker]="datePicker1"
           (focus)="datePicker1.open()"
@@ -116,6 +155,16 @@
         ></mat-datepicker-toggle>
         <mat-datepicker #datePicker1></mat-datepicker>
       </mat-form-field>
+      <div *ngIf="invalidSearch">
+      <div
+      *ngIf="form.get('returningDatePicker')?.invalid"
+      class="alert alert-danger" id="error" style="margin-top:0;"
+    >
+      <div *ngIf="form.get('returningDatePicker')?.errors.required">
+        Returning date is required.
+      </div>
+    </div>
+    </div>
     </div>
     <div class="col" style="padding-right: 0">
       <span class="counts-label" for="adultsCount">Adults(18+)</span>
@@ -148,23 +197,23 @@
     <div class="col">
       <button
         (click)="showDepartureFlights()"
-        
         class="search-button"
       >
         Search
       </button>
     </div>
   </div>
+  </form>
 </div>
 <div *ngIf="noTripsAvailable" class="flights-container">
   <div class="row" style="margin-left: 10em; margin-top: 30px;">
       <div class="col">
           <h5 style="color: red;">We couldn't find any flights from {{flyFrom}} to {{flyTo}} on {{departingDate}}</h5>
-          <span>Here are some tips to find flights:</span>
-          <br />
-          <span>- Adjust your arrival or departure to a nearby airport.</span>
-          <br />
-          <span>- Try arriving or departing one day earlier or later.</span>
+          <span style="font-size: 17px; font-weight: bold;">Here are some tips to find flights:</span>
+          <ul style="list-style-type:disc; margin-left: 2em;">
+            <li>Adjust your arrival or departure to a nearby airport.</li>
+            <li>Try arriving or departing one day earlier or later.</li>
+          </ul>
       </div>
     </div>
   </div>

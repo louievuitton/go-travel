@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'hotel-listings',
@@ -17,14 +18,17 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
   minDate1: Date;
   maxDate1: Date;
   date: Date;
-  fromDate: Date;
-  toDate: Date;
+  fromDate;
+  toDate;
   cityDestination: string;
   citiesDropdownVisible: boolean = false;
   cities = [];
   temp = [];
   mouseovr: boolean = false;
   subscription;
+  invalidSearch: boolean = false;
+
+  form: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +48,12 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+      destination: new FormControl('', [Validators.required]),
+      checkinDatePicker: new FormControl('', [Validators.required]),
+      checkoutDatePicker: new FormControl('', [Validators.required])
+    });
+
     this.subscription = this.firebaseService.getAll('hotels').subscribe(res => {
       for (let key in res as any) {
         for (let city in res[key]) {
@@ -174,36 +184,45 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
   }
 
   searchClicked() {
-    localStorage.setItem(
-      'dateFrom',
-      this.fromDate.getMonth() +
-        1 +
-        '/' +
-        this.fromDate.getDate() +
-        '/' +
-        this.fromDate.getFullYear()
-    );
-    localStorage.setItem(
-      'dateTo',
-      this.toDate.getMonth() +
-        1 +
-        '/' +
-        this.toDate.getDate() +
-        '/' +
-        this.toDate.getFullYear()
-    );
-    if (localStorage.getItem('adultsCount') === null) {
-      localStorage.setItem('adultsCount', '1');
+    if (
+      this.fromDate == null ||
+      this.toDate == null ||
+      localStorage.getItem('hotelDestination') === null
+    ) {
+      this.invalidSearch = true;
+    } else {
+      this.invalidSearch = false;
+      localStorage.setItem(
+        'dateFrom',
+        this.fromDate.getMonth() +
+          1 +
+          '/' +
+          this.fromDate.getDate() +
+          '/' +
+          this.fromDate.getFullYear()
+      );
+      localStorage.setItem(
+        'dateTo',
+        this.toDate.getMonth() +
+          1 +
+          '/' +
+          this.toDate.getDate() +
+          '/' +
+          this.toDate.getFullYear()
+      );
+      if (localStorage.getItem('adultsCount') === null) {
+        localStorage.setItem('adultsCount', '1');
+      }
+      if (localStorage.getItem('childrensCount') === null) {
+        localStorage.setItem('childrensCount', '0');
+      }
+      this.showHotels(
+        localStorage.getItem('hotelDestination').toLowerCase(),
+        new Date(localStorage.getItem('dateFrom')),
+        new Date(localStorage.getItem('dateTo'))
+      );
+      this.lsStatus = true;
     }
-    if (localStorage.getItem('childrensCount') === null) {
-      localStorage.setItem('childrensCount', '0');
-    }
-    this.showHotels(
-      localStorage.getItem('hotelDestination').toLowerCase(),
-      new Date(localStorage.getItem('dateFrom')),
-      new Date(localStorage.getItem('dateTo'))
-    );
-    this.lsStatus = true;
   }
 
   // get peoples count

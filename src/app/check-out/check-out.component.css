@@ -156,7 +156,7 @@
   margin-left: 143px;
 }
 
-.billing-first-name {
+#billing-first-name {
   width: 200px;
   height: 30px;
   margin-right: 20px;
@@ -164,27 +164,27 @@
   cursor: pointer;
 }
 
-.billing-last-name {
+#billing-last-name {
   width: 200px;
   height: 30px;
   border: 1px solid lightgray;
   cursor: pointer;
 }
 
-.billing-address {
+#billing-address {
   width: 420px;
   height: 30px;
   border: 1px solid lightgray;
   cursor: pointer;
 }
 
-.billing-city {
+#billing-city {
   height: 30px;
   border: 1px solid lightgray;
   cursor: pointer;
 }
 
-.billing-zipcode {
+#billing-zipcode {
   width: 100px;
   height: 30px;
   border: 1px solid lightgray;

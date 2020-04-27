@@ -17,6 +17,9 @@
   <span class="fa fa-plane" id="flight-icon"></span>
   <br />
   <div *ngIf="showHotelsInput.checked">
+      <div *ngIf="invalidSearch" class="alert alert-danger">
+          Please fill in all the fields including dates to search.
+      </div>
     <span style="color: white">Going to</span>
     <br />
     <input
@@ -156,6 +159,9 @@
       >First Class</mat-checkbox
     >
     <br />
+    <div *ngIf="invalidSearch" class="alert alert-danger">
+        Please fill in all the fields including dates to search.
+    </div>
     <span class="flight-spans">Flying from</span>
     <span style="color: white">Flying to</span> <br />
     <input

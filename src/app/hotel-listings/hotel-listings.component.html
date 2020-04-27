@@ -5,114 +5,155 @@
   <br />
   <span>Going to</span>
   <br />
-  <input
-    class="form-control"
-    id="search-input"
-    placeholder="City destination"
-    type="search"
-    #hotelDestination
-    (blur)="inputBlur()"
-    (keyup.enter)="inputEntered(hotelDestination)"
-    (input)="filterItem(hotelDestination.value)"
-  />
-  <ul
-    *ngIf="citiesDropdownVisible"
-    class="list-group"
-    (mouseenter)="toggleMouseOver(true)"
-    (mouseleave)="toggleMouseOver(false)"
-  >
-    <li
-      *ngFor="let city of temp"
-      class="list-group-item"
-      (click)="itemClicked(city)"
+  <form [formGroup]="form">
+    <input
+      formControlName="destination"
+      class="form-control"
+      id="search-input"
+      placeholder="City destination"
+      type="search"
+      #hotelDestination
+      (blur)="inputBlur()"
+      (keyup.enter)="inputEntered(hotelDestination)"
+      (input)="filterItem(hotelDestination.value)"
+    />
+    <div *ngIf="invalidSearch">
+      <div
+        *ngIf="form.get('destination')?.invalid"
+        class="alert alert-danger"
+        id="error"
+      >
+        <div *ngIf="form.get('destination')?.errors.required">
+          Please specify where you wish to travel.
+        </div>
+      </div>
+    </div>
+    <ul
+      *ngIf="citiesDropdownVisible"
+      class="list-group"
+      (mouseenter)="toggleMouseOver(true)"
+      (mouseleave)="toggleMouseOver(false)"
     >
-      {{ city }}
-    </li>
-  </ul>
-  <br />
-  <span style="margin-right:13%">Check-in</span>
-  <span>Check-out</span>
-  <br />
-  <div
-    class="row"
-    style="width: 78%; height: 10%; margin: 0; padding: 0; border: none;"
-  >
-    <div class="col" style="padding: 0;">
-      <mat-form-field class="date-picker">
-        <mat-label>mm/dd/yyyy</mat-label>
-        <input
-          matInput
-          [matDatepicker]="datePicker"
-          (focus)="datePicker.open()"
-          [min]="minDate"
-          [max]="maxDate"
-          (dateChange)="dateSelected('checkin', $event)"
-          required
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="datePicker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #datePicker></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <div class="col" style="padding: 0">
-      <mat-form-field class="date-picker">
-        <mat-label>mm/dd/yyyy</mat-label>
-        <input
-          matInput
-          [matDatepicker]="datePicker1"
-          (focus)="datePicker1.open()"
-          [min]="minDate1"
-          [max]="maxDate1"
-          required
-          (dateChange)="dateSelected('checkout', $event)"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="datePicker1"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #datePicker1></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <div class="col" style="padding-right: 0">
-      <span class="counts-label" for="adultsCount">Adults(18+)</span>
-      <span class="counts-label" for="childrensCount">Children(0-17)</span>
-      <br />
-      <select
-        id="personCount"
-        (change)="getPeopleCount('adult', $event.target.value)"
+      <li
+        *ngFor="let city of temp"
+        class="list-group-item"
+        (click)="itemClicked(city)"
       >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-      </select>
-      <select
-        id="personCount"
-        (change)="getPeopleCount('children', $event.target.value)"
-      >
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-      </select>
+        {{ city }}
+      </li>
+    </ul>
+    <br />
+    <span style="margin-right:13%">Check-in</span>
+    <span>Check-out</span>
+    <br />
+    <div
+      class="row"
+      style="width: 78%; height: 10%; margin: 0; padding: 0; border: none;"
+    >
+      <div class="col" style="padding: 0;">
+        <mat-form-field class="date-picker">
+          <mat-label>mm/dd/yyyy</mat-label>
+          <input
+            formControlName="checkinDatePicker"
+            class="form-control"
+            matInput
+            [matDatepicker]="datePicker"
+            (focus)="datePicker.open()"
+            [min]="minDate"
+            [max]="maxDate"
+            (dateChange)="dateSelected('checkin', $event)"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+        </mat-form-field>
+        <div *ngIf="invalidSearch">
+          <div
+            *ngIf="form.get('checkinDatePicker')?.invalid"
+            class="alert alert-danger"
+            id="error"
+          >
+            <div *ngIf="form.get('checkinDatePicker')?.errors.required">
+              Please specify check-in date.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="padding: 0">
+        <mat-form-field class="date-picker">
+          <mat-label>mm/dd/yyyy</mat-label>
+          <input
+            formControlName="checkoutDatePicker"
+            class="form-control"
+            matInput
+            [matDatepicker]="datePicker1"
+            (focus)="datePicker1.open()"
+            [min]="minDate1"
+            [max]="maxDate1"
+            required
+            (dateChange)="dateSelected('checkout', $event)"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datePicker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker1></mat-datepicker>
+        </mat-form-field>
+        <div *ngIf="invalidSearch">
+          <div
+            *ngIf="form.get('checkoutDatePicker')?.invalid"
+            class="alert alert-danger"
+            id="error"
+          >
+            <div *ngIf="form.get('checkoutDatePicker')?.errors.required">
+              Please specify check-out date.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="padding-right: 0">
+        <span class="counts-label" for="adultsCount">Adults(18+)</span>
+        <span class="counts-label" for="childrensCount">Children(0-17)</span>
+        <br />
+        <select
+          id="personCount"
+          (change)="getPeopleCount('adult', $event.target.value)"
+        >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+        <select
+          id="personCount"
+          (change)="getPeopleCount('children', $event.target.value)"
+        >
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+      <div class="col">
+        <button
+          class="search-button"
+          style="width:100%"
+          (click)="searchClicked()"
+          type="submit"
+        >
+          Search
+        </button>
+      </div>
     </div>
-    <div class="col">
-      <button
-        class="search-button"
-        style="width:100%"
-        (click)="searchClicked()"
-      >
-        Search
-      </button>
-    </div>
-  </div>
+  </form>
 </div>
 <br />
 <div *ngIf="lsStatus" class="hotels-container">

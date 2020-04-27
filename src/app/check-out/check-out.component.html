@@ -215,22 +215,76 @@
     <span>First name</span>
     <span class="last-name-label">Last name</span>
     <br />
-    <input class="billing-first-name" />
-    <input class="billing-last-name" />
+    <input id="billing-first-name" />
+    <input id="billing-last-name" />
     <br />
     <span>Billing address</span>
     <br />
-    <input class="billing-address" />
+    <input id="billing-address" />
     <br />
     <span>City</span>
     <br />
-    <input class="billing-city" />
+    <input id="billing-city" />
     <br />
     <span>State</span>
+    <br>
+    <select>
+        <option value="AL">AL</option>
+        <option value="AK">AK</option>
+        <option value="AR">AR</option>	
+        <option value="AZ">AZ</option>
+        <option value="CA">CA</option>
+        <option value="CO">CO</option>
+        <option value="CT">CT</option>
+        <option value="DC">DC</option>
+        <option value="DE">DE</option>
+        <option value="FL">FL</option>
+        <option value="GA">GA</option>
+        <option value="HI">HI</option>
+        <option value="IA">IA</option>	
+        <option value="ID">ID</option>
+        <option value="IL">IL</option>
+        <option value="IN">IN</option>
+        <option value="KS">KS</option>
+        <option value="KY">KY</option>
+        <option value="LA">LA</option>
+        <option value="MA">MA</option>
+        <option value="MD">MD</option>
+        <option value="ME">ME</option>
+        <option value="MI">MI</option>
+        <option value="MN">MN</option>
+        <option value="MO">MO</option>	
+        <option value="MS">MS</option>
+        <option value="MT">MT</option>
+        <option value="NC">NC</option>	
+        <option value="NE">NE</option>
+        <option value="NH">NH</option>
+        <option value="NJ">NJ</option>
+        <option value="NM">NM</option>			
+        <option value="NV">NV</option>
+        <option value="NY">NY</option>
+        <option value="ND">ND</option>
+        <option value="OH">OH</option>
+        <option value="OK">OK</option>
+        <option value="OR">OR</option>
+        <option value="PA">PA</option>
+        <option value="RI">RI</option>
+        <option value="SC">SC</option>
+        <option value="SD">SD</option>
+        <option value="TN">TN</option>
+        <option value="TX">TX</option>
+        <option value="UT">UT</option>
+        <option value="VT">VT</option>
+        <option value="VA">VA</option>
+        <option value="WA">WA</option>
+        <option value="WI">WI</option>	
+        <option value="WV">WV</option>
+        <option value="WY">WY</option>
+      </select>
     <br />
     <span>Zip code</span>
     <br />
-    <input class="billing-zipcode" />
+    <input id="billing-zipcode" />
     <br />
     <br />
     <button
@@ -251,27 +305,87 @@
     </form> -->
     <div *ngIf="params.get('city') !== null" class="row" style="width: 80%; height: 100%;">
       <div class="col-8">
+          <div *ngIf="currentUser === null" class="signin-container" style="border: 1px solid lightgray; border-radius: 9px; padding-top:15px;">
+              <h5>Please sign in to continue</h5>
+              <button class="signin-button" (click)="navigateToLogin()">
+                Click here to sign in
+              </button>
+            </div>
           <form *ngIf="currentUser !== null" class="billing-information">
               <h5 style="font-weight: bold;">Billing Information</h5>
               <span>First name</span>
               <span class="last-name-label">Last name</span>
               <br />
-              <input class="billing-first-name" />
-              <input class="billing-last-name" />
+              <input id="billing-first-name" />
+              <input id="billing-last-name" />
               <br />
               <span>Billing address</span>
               <br />
-              <input class="billing-address" />
+              <input id="billing-address" />
               <br />
               <span>City</span>
               <br />
-              <input class="billing-city" />
+              <input id="billing-city" />
               <br />
               <span>State</span>
+              <br>
+              <select>
+                  <option value="AL">AL</option>
+                  <option value="AK">AK</option>
+                  <option value="AR">AR</option>	
+                  <option value="AZ">AZ</option>
+                  <option value="CA">CA</option>
+                  <option value="CO">CO</option>
+                  <option value="CT">CT</option>
+                  <option value="DC">DC</option>
+                  <option value="DE">DE</option>
+                  <option value="FL">FL</option>
+                  <option value="GA">GA</option>
+                  <option value="HI">HI</option>
+                  <option value="IA">IA</option>	
+                  <option value="ID">ID</option>
+                  <option value="IL">IL</option>
+                  <option value="IN">IN</option>
+                  <option value="KS">KS</option>
+                  <option value="KY">KY</option>
+                  <option value="LA">LA</option>
+                  <option value="MA">MA</option>
+                  <option value="MD">MD</option>
+                  <option value="ME">ME</option>
+                  <option value="MI">MI</option>
+                  <option value="MN">MN</option>
+                  <option value="MO">MO</option>	
+                  <option value="MS">MS</option>
+                  <option value="MT">MT</option>
+                  <option value="NC">NC</option>	
+                  <option value="NE">NE</option>
+                  <option value="NH">NH</option>
+                  <option value="NJ">NJ</option>
+                  <option value="NM">NM</option>			
+                  <option value="NV">NV</option>
+                  <option value="NY">NY</option>
+                  <option value="ND">ND</option>
+                  <option value="OH">OH</option>
+                  <option value="OK">OK</option>
+                  <option value="OR">OR</option>
+                  <option value="PA">PA</option>
+                  <option value="RI">RI</option>
+                  <option value="SC">SC</option>
+                  <option value="SD">SD</option>
+                  <option value="TN">TN</option>
+                  <option value="TX">TX</option>
+                  <option value="UT">UT</option>
+                  <option value="VT">VT</option>
+                  <option value="VA">VA</option>
+                  <option value="WA">WA</option>
+                  <option value="WI">WI</option>	
+                  <option value="WV">WV</option>
+                  <option value="WY">WY</option>
+                </select>
               <br />
               <span>Zip code</span>
               <br />
-              <input class="billing-zipcode" />
+              <input id="billing-zipcode" />
               <br />
               <br />
               <button

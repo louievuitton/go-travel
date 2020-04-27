@@ -21,8 +21,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   hotelDestination: string;
   flyingFrom: string;
   flyingTo: string;
-  fromDate: Date;
-  toDate: Date;
+  fromDate;
+  toDate;
   airports = [];
   airports1 = [];
   inputField: string;
@@ -36,10 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   fromFlightsDropdownVisible: boolean = false;
   toFlightsDropdownVisible: boolean = false;
   temp = [];
-
-  // form = new FormGroup({
-  //   hotelDest: new FormControl('', Validators.required)
-  // });
+  invalidSearch: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -122,6 +119,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // switch between Hotels and Flights checkbox
   checkBoxChanged() {
+    this.invalidSearch = false;
     this.isChecked = !this.isChecked;
     localStorage.removeItem('adultsCount');
     localStorage.removeItem('childrensCount');
@@ -137,11 +135,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.date.getDate()
     );
     this.maxDate1 = new Date(this.date.getFullYear() + 1, 11, 31);
-    this.fromDate = new Date();
-    this.toDate = new Date();
+    this.fromDate = null;
+    this.toDate = null;
   }
 
   typeOfFlightChanged() {
+    this.invalidSearch = false;
     this.flightType = !this.flightType;
   }
 
@@ -277,7 +276,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   // navigate to page with information passed
   passContent() {
     if (this.isChecked) {
-      localStorage.setItem('hotelDestination', this.hotelDestination);
+      if (this.hotelDestination === '' || this.fromDate == null || this.toDate == null){
+        this.invalidSearch = true;
+      }
+      else {
+        this.invalidSearch = false;
+        localStorage.setItem('hotelDestination', this.hotelDestination);
       localStorage.setItem(
         'dateFrom',
         this.fromDate.getMonth() +
@@ -303,9 +307,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         localStorage.setItem('childrensCount', '0');
       }
       this.router.navigate(['/hotels']);
+      }
     } else {
       if (this.flightType) {
-        localStorage.setItem('flyFrom', this.flyingFrom);
+        if (this.flyingFrom === '' || this.flyingTo === '' || this.fromDate == null || this.toDate == null) {
+          this.invalidSearch = true;
+        }
+        else {
+          this.invalidSearch = false;
+          localStorage.setItem('flyFrom', this.flyingFrom);
         localStorage.setItem('flyTo', this.flyingTo);
         localStorage.setItem(
           'dateFrom',
@@ -334,8 +344,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         localStorage.setItem('flightType', 'roundtrip');
         localStorage.setItem('classType', this.classType);
         this.router.navigate(['/flights']);
+        }
       } else {
-        localStorage.setItem('flyFrom', this.flyingFrom);
+        if (this.flyingFrom === '' || this.flyingTo === '' || this.fromDate == null) {
+          this.invalidSearch = true;
+        }
+        else {
+          this.invalidSearch = false;
+          localStorage.setItem('flyFrom', this.flyingFrom);
         localStorage.setItem('flyTo', this.flyingTo);
         localStorage.setItem(
           'dateFrom',
@@ -355,6 +371,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         localStorage.setItem('flightType', 'oneway');
         localStorage.setItem('classType', this.classType);
         this.router.navigate(['/flights']);
+        }
       }
     }
   }
