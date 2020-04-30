@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { AgmCoreModule } from '@agm/core';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxStripeModule } from 'ngx-stripe';
 import {
   NoopAnimationsModule,
   BrowserAnimationsModule
@@ -79,6 +80,7 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     MatInputModule,
     MatNativeDateModule,
     NoopAnimationsModule,
+    NgxStripeModule.forRoot('pk_test_sPQCS8uQpUU0wWkF9cYpnAr600PTw0bGGS'),
     HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB5shjix0YQ8dPB9lLwDI08joTJxPAj-H8'
@@ -102,7 +104,11 @@ import { AnalyticsComponent } from './analytics/analytics.component';
       { path: 'checkout-success', component: CheckoutSuccessComponent },
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
-      { path: 'my-travels', component: MyTravelsComponent },
+      {
+        path: 'my-travels',
+        component: MyTravelsComponent,
+        canActivate: [AuthGuard]
+      },
       { path: 'analytics', component: AnalyticsComponent }
     ])
   ],

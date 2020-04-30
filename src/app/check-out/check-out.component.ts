@@ -7,6 +7,13 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FirebaseService } from '../services/firebase.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  StripeService,
+  StripeCardComponent,
+  ElementOptions,
+  ElementsOptions
+} from 'ngx-stripe';
 
 // declare var Stripe: stripe.StripeStatic;
 
@@ -16,14 +23,27 @@ import { FirebaseService } from '../services/firebase.service';
   styleUrls: ['./check-out.component.css']
 })
 export class CheckOutComponent implements OnInit, OnDestroy {
-  @ViewChild('cardElement') cardElement: ElementRef;
+  @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
-  // stripe
-  // stripe;
-  // card;
-  // cardErrors;
-  // loading = false;
-  // confirmation;
+  cardOptions: ElementOptions = {
+    style: {
+      base: {
+        iconColor: '#666EE8',
+        color: '#31325F',
+        lineHeight: '40px',
+        fontWeight: 300,
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: '18px',
+        '::placeholder': {
+          color: '#CFD7E0'
+        }
+      }
+    }
+  };
+  elementsOptions: ElementsOptions = {
+    locale: 'en'
+  };
+  stripeTest: FormGroup;
 
   params;
   classType: string;
@@ -380,30 +400,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['/']);
     }
-
-    // stripe initialization
-    // this.stripe = Stripe('pk_test_sPQCS8uQpUU0wWkF9cYpnAr600PTw0bGGS');
-    // const elements = this.stripe.elements();
-
-    // this.card = elements.create('card');
-    // this.card.mount(this.cardElement.nativeElement);
-
-    // this.card.addEventListener('chanage', ({ error }) => {
-    //   this.cardErrors = error && error.message;
-    // });
   }
-
-  // async handleForm(e) {
-  //   e.preventDefault();
-
-  //   const { source, error } = await this.stripe.createSource(this.card);
-
-  //   if (error) {
-  //     const cardErrors = error.message;
-  //   } else {
-  //     // do something
-  //   }
-  // }
 
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -504,5 +501,17 @@ export class CheckOutComponent implements OnInit, OnDestroy {
           });
       }
     }
+    // this.stripeService
+    //   .createToken(this.card.getCard(), { name })
+    //   .subscribe(result => {
+    //     if (result.token) {
+    //       // Use the token to create a charge or a customer
+    //       // https://stripe.com/docs/charges
+    //       console.log(result.token.id);
+    //     } else if (result.error) {
+    //       // Error creating the token
+    //       console.log(result.error.message);
+    //     }
+    //   });
   }
 }

@@ -1,5 +1,5 @@
 <form [formGroup]="form" class="authentication-form-signup">
-  <h2 class="authentication-form-heading">Create Account</h2>
+  <h2 class="authentication-form-heading">Sign up for an account</h2>
   <div *ngIf="invalidSignup" class="alert alert-danger">
     Please fill in all the fields to signup.
   </div>
@@ -15,6 +15,9 @@
       *ngIf="firstname.touched && firstname.invalid"
       class="alert alert-danger"
     >
+      <div *ngIf="firstname.errors.required">
+        Please enter your first name.
+      </div>
       <div *ngIf="firstname.errors.cannotContainSpaces">
         First name cannot contain any spaces.
       </div>
@@ -32,6 +35,9 @@
       *ngIf="lastname.touched && lastname.invalid"
       class="alert alert-danger"
     >
+      <div *ngIf="lastname.errors.required">
+        Please enter your last name.
+      </div>
       <div *ngIf="lastname.errors.cannotContainSpaces">
         Last name cannot contain any spaces.
       </div>
@@ -49,6 +55,12 @@
       <div *ngIf="email.errors.cannotContainSpaces">
         Email cannot contain any spaces.
       </div>
+      <div *ngIf="email.errors.invalidEmail">
+        Please enter a valid email.
+      </div>
+      <div *ngIf="email.errors.required">
+        An email is required.
+      </div>
     </div>
   </div>
   <div class="form-group">
@@ -65,6 +77,12 @@
     >
       <div *ngIf="password.errors.cannotContainSpaces">
         Password cannot contain any spaces.
+      </div>
+      <div *ngIf="password.errors.required">
+        A password is required.
+      </div>
+      <div *ngIf="password.errors.invalidPassword">
+        Passwords cannot contain any special characters.
       </div>
     </div>
   </div>

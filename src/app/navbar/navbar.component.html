@@ -20,16 +20,11 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/flights" (click)="clear()">Flights</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/analytics" (click)="clear()"
-          >Analytics</a
-        >
+      <li *ngIf="currentUser === null" class="nav-item">
+        <a class="nav-link" (click)="signup()">Signup</a>
       </li>
       <li *ngIf="currentUser === null" class="nav-item">
-        <a class="nav-link" routerLink="/signup">Signup</a>
-      </li>
-      <li *ngIf="currentUser === null" class="nav-item">
-        <a class="nav-link" routerLink="/login">Login</a>
+        <a class="nav-link" (click)="login()">Login</a>
       </li>
       <li *ngIf="currentUser !== null" ngbDropdown class="nav-item dropdown">
         <a

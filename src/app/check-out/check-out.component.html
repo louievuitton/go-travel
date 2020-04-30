@@ -210,6 +210,8 @@
     </div>
   </div>
   <br />
+  <div class="row" style="width: 80%; height: 100%;">
+    <div class="col-8">
   <form *ngIf="params.get('city') === null && currentUser !== null" class="billing-information">
     <h5 style="font-weight: bold;">Billing Information</h5>
     <span>First name</span>
@@ -287,6 +289,10 @@
     <input id="billing-zipcode" />
     <br />
     <br />
+    <h5 style="font-weight: bold;">Payment Information</h5>
+        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+        <br>
+        <br>
     <button
       *ngIf="currentUser !== null"
       class="bookings-button"
@@ -296,13 +302,9 @@
       Complete Booking
     </button>
   </form>
-  <!-- <form *ngIf="currentUser !== null" (submit)="handleForm($event)">
-      <div #cardElement>
-    
-    </div>
-      <p>{{ cardErrors }}</p>
-      <button>Stripe test</button>
-    </form> -->
+  </div>
+  <div class="col-4"></div>
+  </div>
     <div *ngIf="params.get('city') !== null" class="row" style="width: 80%; height: 100%;">
       <div class="col-8">
           <div *ngIf="currentUser === null" class="signin-container" style="border: 1px solid lightgray; border-radius: 9px; padding-top:15px;">
@@ -388,6 +390,10 @@
               <input id="billing-zipcode" />
               <br />
               <br />
+              <h5 style="font-weight: bold;">Payment Information</h5>
+                 <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+                 <br>
+                 <br>
               <button
                 *ngIf="currentUser !== null"
                 class="bookings-button"

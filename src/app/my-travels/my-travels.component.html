@@ -3,7 +3,10 @@
   <option value="flights">Flights</option>
   <option value="hotels">Hotels</option>
 </select>
+<br />
+<br />
 <div *ngIf="showHotels" class="container">
+  <h4>Here are your booked hotels</h4>
   <div *ngFor="let hotel of hotels; let i = index">
     <div class="row" id="hotel-row">
       <div class="col-4" style="padding: 0;">
@@ -45,6 +48,7 @@
   </div>
 </div>
 <div *ngIf="showFlights" class="container">
+  <h4>Here are your booked flights</h4>
   <div *ngFor="let flight of flights; let i = index" class="flights-container">
     <div class="row" style="margin-top: 15px; padding-left: 20px;">
       <div class="col-4">

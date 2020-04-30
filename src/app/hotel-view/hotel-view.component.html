@@ -1,29 +1,30 @@
 <h4 style="margin-left: 3.7em;">{{ hotelName }}</h4>
-<div class="row" style="width: 80%; height: 330px; margin-left: 5.5em;">
+<div class="row" style="width: 85%; height: 350px; margin-left: 5em;">
   <div class="col-8" style="padding: 0">
     <img [src]="image" alt="Hotel image" class="hotel-image" />
   </div>
   <div class="col-4" style="padding-top: 15px;">
     <span style="color: #505c66; font-size: 15px;">{{ ratings }}</span>
-    <span style="margin-left: 3em; font-size: 14px; color: blue;"
+    <span style="margin-left: 4.5em; font-size: 14px; color: blue;"
       >{{ reviews }} reviews</span
     >
     <mat-divider style="margin-top: 15px; margin-bottom: 15px;"></mat-divider>
     <span>Amenities</span>
     <br />
     <span class="fa fa-wifi" style="padding-right: 5px; color: #505c66;"></span>
-    <span style="padding-right: 4em; color: #505c66;">Free WiFi</span>
+    <span style="padding-right: 4.5em; color: #505c66;">Free WiFi</span>
     <span class="fa fa-paw" style="padding-right: 5px; color: #505c66;"></span>
     <span style="padding: 0; color: #505c66;">Pet-Friendly</span>
     <span
       class="fa fa-check"
       style="padding-right: 5px; color: #505c66;"
     ></span>
-    <span style="padding-right: 2em; color: #505c66;">Housekeeping</span>
+    <span style="padding-right: 2.5em; color: #505c66;">Housekeeping</span>
     <span class="fa fa-cutlery" style="color: #505c66;"></span>
     <span style="padding: 0; color: #505c66;">Restaurant</span>
+    <br />
     <span class="fa fa-coffee" style="padding:0;color: #505c66;"></span>
-    <span style="padding-right: 3px; color: #505c66;">Breakfast Available</span>
+    <span style="padding-right: 9px; color: #505c66;">Breakfast Available</span>
     <span
       class="fa fa-glass"
       style="padding-right: 5px; color: #505c66;"
@@ -77,12 +78,12 @@
         <span class="room-details">Breakfast included</span>
       </div>
       <div class="col" id="thirdCol">
-        <h5 *ngIf="adultsCount < roomCapacity[i]" class="room-price">
+        <h5 *ngIf="adultsCount <= roomCapacity[i]" class="room-price">
           ${{ room?.price }} <br />
           <p class="room-details">per night</p>
         </h5>
         <button
-          *ngIf="adultsCount < roomCapacity[i]"
+          *ngIf="adultsCount <= roomCapacity[i]"
           class="reserve-button"
           (click)="reserveRoom(room?.name)"
         >

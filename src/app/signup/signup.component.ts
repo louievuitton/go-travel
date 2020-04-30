@@ -23,11 +23,13 @@ export class SignupComponent implements OnInit {
     ]),
     email: new FormControl('', [
       Validators.required,
-      FormValidator.cannotContainSpaces
+      FormValidator.cannotContainSpaces,
+      FormValidator.invalidEmail
     ]),
     password: new FormControl('', [
       Validators.required,
-      FormValidator.cannotContainSpaces
+      FormValidator.cannotContainSpaces,
+      FormValidator.invalidPassword
     ])
   });
 
@@ -56,10 +58,28 @@ export class SignupComponent implements OnInit {
             resources.get('lastname').value
         );
         localStorage.setItem('email', resources.get('email').value);
-        this.router.navigate(
-          [this.route.snapshot.queryParamMap.get('returnUrl') || '/'],
-          { queryParamsHandling: 'merge' }
-        );
+        if (this.route.snapshot.queryParamMap.get('returnUrl')) {
+          if (
+            this.route.snapshot.queryParamMap
+              .get('returnUrl')
+              .includes('flights')
+          ) {
+            this.router.navigate([
+              this.route.snapshot.queryParamMap.get('returnUrl')
+            ]);
+          } else if (
+            this.route.snapshot.queryParamMap.get('returnUrl').includes('hotel')
+          ) {
+            this.router.navigate(['/hotels']);
+          } else {
+            this.router.navigate(
+              [this.route.snapshot.queryParamMap.get('returnUrl') || '/'],
+              { queryParamsHandling: 'merge' }
+            );
+          }
+        } else {
+          this.router.navigate(['/']);
+        }
       });
     }
   }

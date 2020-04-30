@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseService } from '../services/firebase.service';
 import { AgmCoreModule } from '@agm/core';
@@ -8,7 +8,7 @@ import { AgmCoreModule } from '@agm/core';
   templateUrl: './hotel-view.component.html',
   styleUrls: ['./hotel-view.component.css']
 })
-export class HotelViewComponent implements OnInit {
+export class HotelViewComponent implements OnInit, OnDestroy {
   hotelName: string;
   rooms = [];
   hotelAddress: string;
@@ -21,6 +21,7 @@ export class HotelViewComponent implements OnInit {
   reviews: string;
   adultsCount: number;
   roomCapacity = [];
+  subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +33,7 @@ export class HotelViewComponent implements OnInit {
     this.params = this.route.snapshot.paramMap;
 
     this.adultsCount = +localStorage.getItem('adultsCount');
-    this.firebaseService
+    this.subscription = this.firebaseService
       .getResource('/hotels/' + this.params.get('city').toLowerCase())
       .subscribe(response => {
         for (let key in response as any) {
@@ -58,6 +59,10 @@ export class HotelViewComponent implements OnInit {
           }
         }
       });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   // reserve button is pressed

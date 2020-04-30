@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'navbar',
@@ -7,15 +7,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
-  ngOnInit(): void {
-    // this.clear();
-  }
+  ngOnInit(): void {}
 
   logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('email');
+  }
+
+  login() {
+    if (this.router.url.includes('flights')) {
+      this.router.navigate(['/login'], {
+        queryParams: { returnUrl: 'flights' }
+      });
+    } else if (this.router.url.includes('hotel')) {
+      this.router.navigate(['/login'], {
+        queryParams: { returnUrl: 'hotels' }
+      });
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  signup() {
+    if (this.router.url.includes('flights')) {
+      this.router.navigate(['/signup'], {
+        queryParams: { returnUrl: 'flights' }
+      });
+    } else if (this.router.url.includes('hotel')) {
+      this.router.navigate(['/signup'], {
+        queryParams: { returnUrl: 'hotels' }
+      });
+    } else {
+      this.router.navigate(['/signup']);
+    }
   }
 
   get currentUser() {

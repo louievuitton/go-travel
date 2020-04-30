@@ -50,10 +50,30 @@ export class LoginComponent implements OnInit {
               user['firstname'] + ' ' + user['lastname']
             );
             localStorage.setItem('email', user['email']);
-            this.router.navigate(
-              [this.route.snapshot.queryParamMap.get('returnUrl') || '/'],
-              { queryParamsHandling: 'merge' }
-            );
+            if (this.route.snapshot.queryParamMap.get('returnUrl')) {
+              if (
+                this.route.snapshot.queryParamMap
+                  .get('returnUrl')
+                  .includes('flights')
+              ) {
+                this.router.navigate([
+                  this.route.snapshot.queryParamMap.get('returnUrl')
+                ]);
+              } else if (
+                this.route.snapshot.queryParamMap
+                  .get('returnUrl')
+                  .includes('hotel')
+              ) {
+                this.router.navigate(['/hotels']);
+              } else {
+                this.router.navigate(
+                  [this.route.snapshot.queryParamMap.get('returnUrl') || '/'],
+                  { queryParamsHandling: 'merge' }
+                );
+              }
+            } else {
+              this.router.navigate(['/']);
+            }
           } else {
             this.invalidLogin = true;
           }
