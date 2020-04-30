@@ -1,14 +1,19 @@
+body, html {
+  height: 100%;
+}
+
 .container {
   width: 70%;
   margin-top: 70px;
-  margin-left: 30px;
-  padding: 20px;
-  background-color: rgba(14, 14, 14, 0.72);
+  margin-left: 120px;
+  padding: 60px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, rgba(242, 34, 50, 0.5), rgba(255, 187, 54, 0.6) 100%);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .checkbox {
-  color: white;
+  color: black;
   cursor: pointer;
 }
 
