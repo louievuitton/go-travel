@@ -450,9 +450,16 @@
             avg/night
           </div>
           <span
+          *ngIf="nights > 1"
             class="num-nights"
             style="font-weight: bold; font-size: 15px; color: #616161;"
             >{{ nights }} Nights</span
+          >
+          <span
+          *ngIf="nights === 1"
+            class="num-nights"
+            style="font-weight: bold; font-size: 15px; color: #616161;"
+            >{{ nights }} Night</span
           >
           <span class="roomPrice">${{ roomPrice }}</span>
           <mat-divider
