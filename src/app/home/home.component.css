@@ -1,14 +1,21 @@
-body, html {
+body,
+html {
   height: 100%;
 }
 
 .container {
   width: 70%;
   margin-top: 70px;
-  margin-left: 120px;
+  margin-left: 110px;
   padding: 60px;
   border-radius: 10px;
-  background: linear-gradient(45deg, rgba(242, 34, 50, 0.5), rgba(255, 187, 54, 0.6) 100%);
+  /* background: linear-gradient(45deg, rgba(242, 34, 50, 0.5), rgba(255, 187, 54, 0.6) 100%);
+   */
+  background: linear-gradient(
+    45deg,
+    rgba(34, 159, 242, 0.5),
+    rgba(54, 255, 54, 0.583) 100%
+  );
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -18,19 +25,19 @@ body, html {
 }
 
 .checkbox2 {
-  color: white;
+  color: black;
   cursor: pointer;
   margin-right: 15px;
 }
 
 .flight-spans {
-  color: white;
-  margin-right: 37%;
+  color: black;
+  margin-right: 39%;
 }
 
 .flights-from-input {
-  width: 46%;
-  margin-right: 15px;
+  width: 48%;
+  margin-right: 23px;
   border: 1px solid grey;
   border-radius: 5px;
   height: 35px;
@@ -38,7 +45,7 @@ body, html {
 }
 
 .flights-to-input {
-  width: 46%;
+  width: 48%;
   border: 1px solid grey;
   border-radius: 5px;
   height: 35px;
@@ -75,7 +82,7 @@ body, html {
 }
 
 .counts-label {
-  color: white;
+  color: black;
   font-size: 14px;
   padding-right: 19px;
 }
@@ -86,13 +93,13 @@ body, html {
 }
 
 #departing-span {
-  color: white;
-  margin-right: 17%;
+  color: black;
+  margin-right: 18%;
 }
 
 .check-in-label {
-  color: white;
-  margin-right: 18%;
+  color: black;
+  margin-right: 19%;
 }
 
 /* fa icons */
