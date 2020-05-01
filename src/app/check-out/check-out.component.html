@@ -1,29 +1,27 @@
 <div class="checkout">
   <h4>Secure booking - only takes a few minutes!</h4>
   <div *ngIf="params.get('city') === null" class="row" style="margin-top: 15px; margin-bottom: 15px; width: 95%;">
-    <div
-      class="col-8"
-      style="height: 100%; border: 1px solid lightgray; padding-top: 15px; background-color: white;"
-    >
+    <div class="col-8" style="height: 100%; padding-top: 15px; background-color: white;">
       <div *ngIf="currentUser === null" class="signin-container">
         <h5>Please sign in to continue</h5>
         <button class="signin-button" (click)="navigateToLogin()">
           Click here to sign in
         </button>
       </div>
+
       <mat-divider *ngIf="currentUser === null" class="divider"></mat-divider>
       <div
         *ngIf="params.get('city') !== null"
         class="row"
-        style="margin-top: 15px;"
-      >
+        style="margin-top: 15px;">
+
         <!-- include hotels checkout here -->
       </div>
+
       <div
         *ngIf="params.get('city') === null"
         class="row"
-        style="margin-top: 15px;"
-      >
+        style="margin-top: 15px;">
         <div class="col-4">
           <h5>{{ departingDate }}</h5>
           <h6 class="flightName">
@@ -33,8 +31,7 @@
           <button
             class="fa fa-angle-down"
             id="details-button"
-            (click)="toggleDepartingDetailsAndBaggage()"
-          >
+            (click)="toggleDepartingDetailsAndBaggage()">
             Show flight and baggage fee details
           </button>
         </div>
@@ -53,18 +50,15 @@
       <div
         *ngIf="showDepartingDetailsAndBaggage"
         class="row"
-        style="margin-top: 20px; margin-bottom: 20px;"
-      >
+        style="margin-top: 20px; margin-bottom: 20px;">
         <div class="col-4">
           <h5
             *ngFor="let time of departingTimes[0]"
-            style="padding-bottom: 50px"
-          >
+            style="padding-bottom: 50px">
             {{ time }}
           </h5>
           <p
-            style="font-size: 15px; text-align: right; padding-top: 6px; color: #616161;"
-          >
+            style="font-size: 15px; text-align: right; padding-top: 6px; color: #616161;">
             Estimated bag fees
           </p>
         </div>
@@ -103,8 +97,8 @@
       <div
         *ngIf="params.get('city') === null && returnTime !== null"
         class="row"
-        style="margin-top: 20px"
-      >
+        style="margin-top: 20px">
+
         <div class="col-4">
           <h5>{{ returningDate }}</h5>
           <h6 class="flightName">{{ returnFlightName }}</h6>
@@ -131,13 +125,11 @@
       <div
         *ngIf="showReturningDetailsAndBaggage"
         class="row"
-        style="padding-top: 20px; padding-bottom: 20px;"
-      >
+        style="padding-top: 20px; padding-bottom: 20px;">
         <div class="col-4">
           <h5
             *ngFor="let time of returningTimes[0]"
-            style="padding-bottom: 50px"
-          >
+            style="padding-bottom: 50px">
             {{ time }}
           </h5>
           <p
@@ -175,7 +167,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-4-sidebar">
       <!-- flights trip summary -->
       <div *ngIf="params.get('city') === null" class="trip-summary">
         <h4 style="font-weight: bold">Trip Summary</h4>
@@ -210,7 +202,7 @@
     </div>
   </div>
   <br />
-  <div class="row" style="width: 80%; height: 100%;">
+  <div class="row" style="width: 100%; height: 100%; margin-left:10em">
     <div class="col-8">
   <form *ngIf="params.get('city') === null && currentUser !== null" class="billing-information">
     <h5 style="font-weight: bold;">Billing Information</h5>
@@ -233,7 +225,7 @@
     <select>
         <option value="AL">AL</option>
         <option value="AK">AK</option>
-        <option value="AR">AR</option>	
+        <option value="AR">AR</option>
         <option value="AZ">AZ</option>
         <option value="CA">CA</option>
         <option value="CO">CO</option>
@@ -243,7 +235,7 @@
         <option value="FL">FL</option>
         <option value="GA">GA</option>
         <option value="HI">HI</option>
-        <option value="IA">IA</option>	
+        <option value="IA">IA</option>
         <option value="ID">ID</option>
         <option value="IL">IL</option>
         <option value="IN">IN</option>
@@ -255,14 +247,14 @@
         <option value="ME">ME</option>
         <option value="MI">MI</option>
         <option value="MN">MN</option>
-        <option value="MO">MO</option>	
+        <option value="MO">MO</option>
         <option value="MS">MS</option>
         <option value="MT">MT</option>
-        <option value="NC">NC</option>	
+        <option value="NC">NC</option>
         <option value="NE">NE</option>
         <option value="NH">NH</option>
         <option value="NJ">NJ</option>
-        <option value="NM">NM</option>			
+        <option value="NM">NM</option>
         <option value="NV">NV</option>
         <option value="NY">NY</option>
         <option value="ND">ND</option>
@@ -279,7 +271,7 @@
         <option value="VT">VT</option>
         <option value="VA">VA</option>
         <option value="WA">WA</option>
-        <option value="WI">WI</option>	
+        <option value="WI">WI</option>
         <option value="WV">WV</option>
         <option value="WY">WY</option>
       </select>
@@ -306,15 +298,15 @@
   <div class="col-4"></div>
   </div>
     <div *ngIf="params.get('city') !== null" class="row" style="width: 80%; height: 100%;">
-      <div class="col-8">
-          <div *ngIf="currentUser === null" class="signin-container" style="border: 1px solid lightgray; border-radius: 9px; padding-top:15px;">
+      <div class="col-8-left">
+          <div *ngIf="currentUser === null" class="signin-container" style="border-radius: 9px; padding-top:15px;">
               <h5>Please sign in to continue</h5>
               <button class="signin-button" (click)="navigateToLogin()">
                 Click here to sign in
               </button>
             </div>
           <form *ngIf="currentUser !== null" class="billing-information">
-              <h5 style="font-weight: bold;">Billing Information</h5>
+              <h5 style="font-weight:bold; color: #3498DB">Billing Information</h5>
               <span>First name</span>
               <span class="last-name-label">Last name</span>
               <br />
@@ -326,15 +318,14 @@
               <input id="billing-address" />
               <br />
               <span>City</span>
-              <br />
+              <span id="billing-state-label"> State</span>
+              <span id="billing-zip-label">Zip code</span>
+              <br/>
               <input id="billing-city" />
-              <br />
-              <span>State</span>
-              <br>
-              <select>
+              <select id="state-label">
                   <option value="AL">AL</option>
                   <option value="AK">AK</option>
-                  <option value="AR">AR</option>	
+                  <option value="AR">AR</option>
                   <option value="AZ">AZ</option>
                   <option value="CA">CA</option>
                   <option value="CO">CO</option>
@@ -344,7 +335,7 @@
                   <option value="FL">FL</option>
                   <option value="GA">GA</option>
                   <option value="HI">HI</option>
-                  <option value="IA">IA</option>	
+                  <option value="IA">IA</option>
                   <option value="ID">ID</option>
                   <option value="IL">IL</option>
                   <option value="IN">IN</option>
@@ -356,14 +347,14 @@
                   <option value="ME">ME</option>
                   <option value="MI">MI</option>
                   <option value="MN">MN</option>
-                  <option value="MO">MO</option>	
+                  <option value="MO">MO</option>
                   <option value="MS">MS</option>
                   <option value="MT">MT</option>
-                  <option value="NC">NC</option>	
+                  <option value="NC">NC</option>
                   <option value="NE">NE</option>
                   <option value="NH">NH</option>
                   <option value="NJ">NJ</option>
-                  <option value="NM">NM</option>			
+                  <option value="NM">NM</option>
                   <option value="NV">NV</option>
                   <option value="NY">NY</option>
                   <option value="ND">ND</option>
@@ -380,26 +371,21 @@
                   <option value="VT">VT</option>
                   <option value="VA">VA</option>
                   <option value="WA">WA</option>
-                  <option value="WI">WI</option>	
+                  <option value="WI">WI</option>
                   <option value="WV">WV</option>
                   <option value="WY">WY</option>
                 </select>
-              <br />
-              <span>Zip code</span>
-              <br />
               <input id="billing-zipcode" />
-              <br />
-              <br />
-              <h5 style="font-weight: bold;">Payment Information</h5>
+              <br/>
+              <br/>
+              <h5 style="font-weight:bold; color: #3498DB"> Payment Information</h5>
                  <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
-                 <br>
                  <br>
               <button
                 *ngIf="currentUser !== null"
                 class="bookings-button"
                 type="submit"
-                (click)="bookTrip()"
-              >
+                (click)="bookTrip()">
                 Complete Booking
               </button>
             </form>
@@ -408,10 +394,8 @@
         <!-- hotels trip summary -->
       <div *ngIf="params.get('city') !== null" class="trip-summary">
           <img [src]="hotelImage" alt="Hotel Image" class="hotelImage" />
-          <div class="hotelName">
-            {{ hotelName }}
-          </div>
           <br />
+          <span class="hotelName"> {{ hotelName }}</span>
           <br />
           <span class="hotelRatings">{{ hotelRatings }}</span>
           <span class="hotelReviews">({{ hotelReviews }} reviews)</span>

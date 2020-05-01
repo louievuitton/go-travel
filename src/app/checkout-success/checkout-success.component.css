@@ -1,18 +1,42 @@
 .container {
-  border: 1px solid gray;
-  width: 70%;
+  width: 60%;
   padding-top: 25px;
   padding-bottom: 25px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 
 #checkmark {
   color: green;
 }
 
+.texts{
+  margin: 20px;
+}
 .button {
-  width: 150px;
-  height: 50px;
-  border-radius: 9px;
-  background-color: #003e74;
-  color: white;
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ed3330;
+  padding: 20px;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  margin: 20px;
+  transition: all 0.4s ease 0s;
+}
+
+.back-button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #5DADE2;
+  padding: 20px;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  margin: 20px;
+  transition: all 0.4s ease 0s;
 }

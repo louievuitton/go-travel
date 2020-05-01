@@ -1,41 +1,38 @@
 <div *ngIf="params.get('confirmation') === 'flight'" class="container">
-  <h3>Flight confirmed <span class="fa fa-check" id="checkmark"></span></h3>
-  <br />
-  <br />
-  <h5>Hi {{ currentUser }},</h5>
-  <h5>
-    Your travel to
-    <span style="font-weight: bold;">{{ cityDestination }}</span> on
-    {{ departingDate }} is confirmed.
-  </h5>
-  <h5>
-    For more information, you can view your bookings under the 'My Travels'
-    page.
-  </h5>
-  <br />
-  <br />
-  <button routerLink="/my-travels" class="button">
-    View your bookings
-  </button>
-  <button routerLink="/" class="button">Back to home page</button>
+
+  <div class="texts">
+    <h3>Flight confirmed <span class="fa fa-check" id="checkmark"></span></h3>
+    <br>
+    <h5>Hi {{ currentUser }},</h5>
+    <h5>
+      Your travel to
+      <span style="font-weight: bold;">{{ cityDestination }}</span> on
+      {{ departingDate }} is confirmed.
+    </h5>
+    <h5>
+      For more information, you can view your bookings under the 'My Travels'
+      page.
+    </h5>
+  </div>
+  <button routerLink="/my-travels" class="button"> View your bookings </button>
+  <button routerLink="/" class="back-button"> Back to home page </button>
 </div>
+
 <div *ngIf="params.get('confirmation') === 'hotel'" class="container">
-  <h3>Hotel confirmed <span class="fa fa-check" id="checkmark"></span></h3>
-  <br />
-  <br />
-  <h5>Hi {{ currentUser }},</h5>
-  <h5>
-    Your stay at <span style="font-weight: bold;">{{ hotelName }}</span> on
-    {{ departingDate }} is confirmed.
-  </h5>
-  <h5>
-    For more information, you can view your bookings under the 'My Travels'
-    page.
-  </h5>
-  <br />
-  <br />
-  <button routerLink="/my-travels" class="button">
-    View your bookings
-  </button>
-  <button routerLink="/" class="button">Back to home page</button>
+
+  <div class="texts">
+    <h3>Hotel confirmed <span class="fa fa-check" id="checkmark"></span></h3>
+    <br>
+    <h5>Hi {{ currentUser }},</h5>
+    <h5>
+      Your stay at <span style="font-weight: bold;">{{ hotelName }}</span> on
+      {{ departingDate }} is confirmed.
+    </h5>
+    <h5>
+      For more information, you can view your bookings under the 'My Travels'
+      page.
+    </h5>
+  </div>
+  <button routerLink="/my-travels" class="button"> View your bookings </button>
+  <button routerLink="/" class="back-button"> Back to home page</button>
 </div>
