@@ -47,10 +47,7 @@
     <span style="margin-right:13%">Check-in</span>
     <span>Check-out</span>
     <br />
-    <div
-      class="row"
-      style="width: 78%; height: 10%; margin: 0; padding: 0; border: none;"
-    >
+    <div class="row1">
       <div class="col" style="padding: 0;">
         <mat-form-field class="date-picker">
           <mat-label>mm/dd/yyyy</mat-label>
@@ -167,8 +164,7 @@
     <div
       *ngFor="let hotel of hotels"
       class="row"
-      [routerLink]="['/hotel', hotel?.city, hotel?.name]"
-    >
+      [routerLink]="['/hotel', hotel?.city, hotel?.name]">
       <div class="col-4">
         <img
           src="{{ hotel?.images.image1 }}"
@@ -182,8 +178,6 @@
         </h5>
         <p class="hotel-city">{{ hotel?.city }}</p>
         <p class="hotel-shortDesc">{{ hotel?.shortDescription }}</p>
-        <br />
-        <br />
         <p class="hotel-ratings-reviews">
           {{ hotel?.ratings + " (" + hotel?.reviews + " reviews)" }}
         </p>

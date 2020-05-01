@@ -1,5 +1,5 @@
 .hotels-container {
-  background-color: #bfccd980;
+  background-color: #F0F3F4;
   position: absolute;
   left: 0;
   right: 0;
@@ -7,17 +7,16 @@
 }
 
 .searchbar{
-  width: 75%;
   margin-top: 50px;
-  margin-left: 120px;
-  padding: 60px;
+  width: 100%;
+  padding: 40px;
   border-radius: 10px;
   background: linear-gradient(45deg, rgba(242, 34, 50, 0.5), rgba(255, 187, 54, 0.6) 100%);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #container-div {
-  margin-left: 10em;
+  margin-left: 20em;
 }
 
 #span1 {
@@ -25,7 +24,7 @@
 }
 
 #search-input {
-  width: 78%;
+  width: 70%;
   border: 1px solid grey;
   border-radius: 5px;
   height: 40px;
@@ -33,10 +32,18 @@
 }
 
 .row {
-  width: 80%;
-  height: 192px;
-  border: 1px solid lightgray;
+  width: 70%;
+  height: 100%;
   margin-bottom: 15px;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.row1{
+  display: flex;
+  align-items: stretch;
+
 }
 .row :hover {
   cursor: pointer;
