@@ -32,9 +32,23 @@
   >
   <br />
   <input
+  *ngIf="inputFrom === ''"
     formControlName="flightFrom"
     class="form-control"
     id="flights-from"
+    (keyup.enter)="searchAirports(city, 'from')"
+    (blur)="inputBlur()"
+    #city
+    type="search"
+    placeholder="Flying from (enter city)"
+    (input)="filterItem(city.value, 'from')"
+  />
+  <input
+    *ngIf="inputFrom !== ''"
+    formControlName="flightFrom"
+    class="form-control"
+    id="flights-from"
+    [(ngModel)]="inputFrom"
     (keyup.enter)="searchAirports(city, 'from')"
     (blur)="inputBlur()"
     #city
@@ -53,9 +67,23 @@
       </div>
   </div>
   <input
+    *ngIf="inputTo === ''"
     formControlName="flightTo"
     class="form-control"
     id="flights-to"
+    (keyup.enter)="searchAirports(toCity, 'to')"
+    (blur)="inputBlur()"
+    #toCity
+    type="search"
+    placeholder="Flying to (enter city)"
+    (input)="filterItem(toCity.value, 'to')"
+  />
+  <input
+    *ngIf="inputTo !== ''"
+    formControlName="flightTo"
+    class="form-control"
+    id="flights-to"
+    [(ngModel)]="inputTo"
     (keyup.enter)="searchAirports(toCity, 'to')"
     (blur)="inputBlur()"
     #toCity
@@ -157,7 +185,7 @@
       </mat-form-field>
       <div *ngIf="invalidSearch">
       <div
-      *ngIf="form.get('returningDatePicker')?.invalid"
+      *ngIf="form.get('returningDatePicker')?.invalid && roundtripCheckbox.checked"
       class="alert alert-danger" id="error" style="margin-top:0;"
     >
       <div *ngIf="form.get('returningDatePicker')?.errors.required">
@@ -206,7 +234,7 @@
   </form>
 </div>
 <div *ngIf="noTripsAvailable" class="flights-container">
-  <div class="row" style="margin-left: 10em; margin-top: 30px;">
+  <div class="row" style="margin-left: 15em; margin-top: 30px;">
       <div class="col">
           <h5 style="color: red;">We couldn't find any flights from {{flyFrom}} to {{flyTo}} on {{departingDate}}</h5>
           <span style="font-size: 17px; font-weight: bold;">Here are some tips to find flights:</span>
@@ -222,7 +250,7 @@
     class="flights-container"
   >
     <br />
-    <div style="margin-left: 10em">
+    <div style="margin-left: 15em">
       <h4 style="margin-bottom: 10px">
         Select your departure to {{ departingCity }}
         <p style="display: inline; font-size:17px">{{ departingDate }}</p>
@@ -231,7 +259,7 @@
         *ngFor="let flight of departingFlights; let i = index"
         class="flights"
       >
-        <div class="row">
+        <div class="row" style="background-color: white;">
           <div class="col" style="padding-right: 0; padding-left: 7px;">
             <h5 style="font-weight: bold; font-size: 19px;">{{ flight?.time }}</h5>
             <h6>{{ flight?.name }}</h6>
@@ -340,7 +368,7 @@
   </div>
   <div *ngIf="showReturningFlights" class="flights-container">
     <br />
-    <div style="margin-left: 10em">
+    <div style="margin-left: 15em">
       <div class="row" style="background-color: #EDF7FF">
         <div class="col" style="padding-right: 0; padding-left: 7px;">
           <p style="font-size:15px; font-weight: bold;">
@@ -383,7 +411,7 @@
         <p></p>
       </h4>
       <div *ngFor="let flight of returningFlights; let i = index">
-        <div *ngIf="flight[classType]" class="row">
+        <div *ngIf="flight[classType]" class="row" style="background-color: white;">
           <div class="col" style="padding-right: 0; padding-left: 7px;">
             <h5 style="font-weight: bold; font-size: 19px;">{{ flight?.time }}</h5>
             <h6>{{ flight?.name }}</h6>

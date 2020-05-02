@@ -59,6 +59,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   adultsCount: number;
   childrensCount: number;
   mouseovr: boolean = false;
+  inputFrom: string;
+  inputTo: string;
   // need to show on return flights
   departureDur: string;
   departureTime: string;
@@ -91,6 +93,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.inputFrom = "";
+    this.inputTo = "";
     this.flightFromInput = new FormControl('', [Validators.required]);
     this.flightToInput = new FormControl('', [Validators.required]);
     this.form = new FormGroup({
@@ -276,11 +280,13 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
 
   setAirlines(airport) {
     if (this.firstInput === 'from') {
+      this.inputFrom = airport;
       localStorage.setItem('flyFrom', airport);
       this.airportsDropdown = false;
       this.dropdownVisible = false;
       this.mouseovr = false;
     } else if (this.firstInput === 'to') {
+      this.inputTo = airport;
       localStorage.setItem('flyTo', airport);
       this.airportsDropdown = false;
       this.dropdownVisible = false;

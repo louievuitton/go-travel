@@ -4,6 +4,10 @@
 
 .checkout {
   padding-bottom: 30px;
+}
+
+#hotels-checkout {
+  padding-bottom: 30px;
   margin-left: 10em;
 }
 
@@ -14,7 +18,7 @@
 }
 
 .signin-button {
-  background-color: #58D68D;
+  background-color: #58d68d;
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
@@ -104,7 +108,7 @@
 }
 
 .bookings-button {
-  background-color: #58D68D;
+  background-color: #58d68d;
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
@@ -127,7 +131,7 @@
 }
 
 .hotelName {
-  color: #EC7063 !important;
+  color: #ec7063 !important;
   background: #ffffff;
   padding: 20px;
   border-radius: 6px;
@@ -176,14 +180,13 @@
   margin-left: 143px;
 }
 
-.col-4-sidebar{
+.col-4-sidebar {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 15px;
-
 }
-.col-8-left{
+.col-8-left {
   height: 100%;
   background-color: white;
   border-radius: 10px;
@@ -192,81 +195,81 @@
 }
 #billing-first-name {
   font-weight: bold;
-   width: 200px;
-   margin: 0 10px 10px ;
-   height: 35px;
-   padding: 6px 15px;
-   border-radius: 5px;
-   outline: none;
-   border: none;
-   background: #F6F7F9;
-   color: #748194;
-   font-size: 14px;
+  width: 200px;
+  margin: 0 10px 10px;
+  height: 35px;
+  padding: 6px 15px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background: #f6f7f9;
+  color: #748194;
+  font-size: 14px;
 }
 
 #billing-last-name {
   font-weight: bold;
-   width: 200px;
-   margin: 0 10px 10px ;
-   height: 35px;
-   padding: 6px 15px;
-   border-radius: 5px;
-   outline: none;
-   border: none;
-   background: #F6F7F9;
-   color: #748194;
-   font-size: 14px;
+  width: 200px;
+  margin: 0 10px 10px;
+  height: 35px;
+  padding: 6px 15px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background: #f6f7f9;
+  color: #748194;
+  font-size: 14px;
 }
 
 #billing-address {
   font-weight: bold;
-   width: 400px;
-   margin: 0 10px 10px ;
-   height: 35px;
-   padding: 6px 15px;
-   border-radius: 5px;
-   outline: none;
-   border: none;
-   background: #F6F7F9;
-   color: #748194;
-   font-size: 14px;
+  width: 400px;
+  margin: 0 10px 10px;
+  height: 35px;
+  padding: 6px 15px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background: #f6f7f9;
+  color: #748194;
+  font-size: 14px;
 }
 
 #billing-city {
   font-weight: bold;
-   width: 150px;
-   margin: 0 10px 10px ;
-   height: 35px;
-   padding: 6px 15px;
-   border-radius: 5px;
-   outline: none;
-   background: #F6F7F9;
-   color: #748194;
-   border: none;
-   font-size: 14px;
+  width: 150px;
+  margin: 0 10px 10px;
+  height: 35px;
+  padding: 6px 15px;
+  border-radius: 5px;
+  outline: none;
+  background: #f6f7f9;
+  color: #748194;
+  border: none;
+  font-size: 14px;
 }
 
 #billing-zipcode {
   font-weight: bold;
-   width: 150px;
-   margin: 0 10px 10px ;
-   height: 35px;
-   padding: 6px 15px;
-   border-radius: 5px;
-   outline: none;
-   border: none;
-   background: #F6F7F9;
-   color: #748194;
-   font-size: 14px;
+  width: 150px;
+  margin: 0 10px 10px;
+  height: 35px;
+  padding: 6px 15px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background: #f6f7f9;
+  color: #748194;
+  font-size: 14px;
 }
-#state-label{
+#state-label {
   margin-left: 20px;
 }
 
-#billing-state-label{
+#billing-state-label {
   margin-left: 150px;
 }
 
-#billing-zip-label{
+#billing-zip-label {
   margin-left: 90px;
 }

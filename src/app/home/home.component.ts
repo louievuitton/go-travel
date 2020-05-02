@@ -37,6 +37,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   toFlightsDropdownVisible: boolean = false;
   temp = [];
   invalidSearch: boolean = false;
+  // for input values
+  hotelDest: string;
+  inputFlyFrom: string;
+  inputFlyTo: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,6 +82,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.clear();
+
+    this.hotelDestination = '';
+    this.flyingFrom = '';
+    this.flyingTo = '';
+    this.hotelDest = '';
+    this.inputFlyFrom = '';
+    this.inputFlyTo = '';
 
     this.firebaseService.getAll('hotels').subscribe(res => {
       for (let key in res as any) {
@@ -260,13 +271,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   // when list item is clicked
   itemClicked(type, value) {
     if (type === 'hotel') {
+      this.hotelDest = value;
       this.hotelDestination = value;
       this.citiesDropdownVisible = false;
     } else if (type === 'flyFrom') {
+      this.inputFlyFrom = value;
       this.flyingFrom = value;
       this.fromFlightsDropdownVisible = false;
       this.flyingFromDropdownVisible = false;
     } else if (type === 'flyTo') {
+      this.inputFlyTo = value;
       this.flyingTo = value;
       this.toFlightsDropdownVisible = false;
       this.flyingToDropdownVisible = false;
@@ -276,47 +290,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   // navigate to page with information passed
   passContent() {
     if (this.isChecked) {
-      if (this.hotelDestination === '' || this.fromDate == null || this.toDate == null){
+      if (
+        this.hotelDestination === '' ||
+        this.fromDate == null ||
+        this.toDate == null
+      ) {
         this.invalidSearch = true;
-      }
-      else {
+      } else {
         this.invalidSearch = false;
         localStorage.setItem('hotelDestination', this.hotelDestination);
-      localStorage.setItem(
-        'dateFrom',
-        this.fromDate.getMonth() +
-          1 +
-          '/' +
-          this.fromDate.getDate() +
-          '/' +
-          this.fromDate.getFullYear()
-      );
-      localStorage.setItem(
-        'dateTo',
-        this.toDate.getMonth() +
-          1 +
-          '/' +
-          this.toDate.getDate() +
-          '/' +
-          this.toDate.getFullYear()
-      );
-      if (localStorage.getItem('adultsCount') === null) {
-        localStorage.setItem('adultsCount', '1');
-      }
-      if (localStorage.getItem('childrensCount') === null) {
-        localStorage.setItem('childrensCount', '0');
-      }
-      this.router.navigate(['/hotels']);
-      }
-    } else {
-      if (this.flightType) {
-        if (this.flyingFrom === '' || this.flyingTo === '' || this.fromDate == null || this.toDate == null) {
-          this.invalidSearch = true;
-        }
-        else {
-          this.invalidSearch = false;
-          localStorage.setItem('flyFrom', this.flyingFrom);
-        localStorage.setItem('flyTo', this.flyingTo);
         localStorage.setItem(
           'dateFrom',
           this.fromDate.getMonth() +
@@ -341,36 +323,78 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (localStorage.getItem('childrensCount') === null) {
           localStorage.setItem('childrensCount', '0');
         }
-        localStorage.setItem('flightType', 'roundtrip');
-        localStorage.setItem('classType', this.classType);
-        this.router.navigate(['/flights']);
-        }
-      } else {
-        if (this.flyingFrom === '' || this.flyingTo === '' || this.fromDate == null) {
+        this.router.navigate(['/hotels']);
+      }
+    } else {
+      if (this.flightType) {
+        if (
+          this.flyingFrom === '' ||
+          this.flyingTo === '' ||
+          this.fromDate == null ||
+          this.toDate == null
+        ) {
           this.invalidSearch = true;
-        }
-        else {
+        } else {
           this.invalidSearch = false;
           localStorage.setItem('flyFrom', this.flyingFrom);
-        localStorage.setItem('flyTo', this.flyingTo);
-        localStorage.setItem(
-          'dateFrom',
-          this.fromDate.getMonth() +
-            1 +
-            '/' +
-            this.fromDate.getDate() +
-            '/' +
-            this.fromDate.getFullYear()
-        );
-        if (localStorage.getItem('adultsCount') === null) {
-          localStorage.setItem('adultsCount', '1');
+          localStorage.setItem('flyTo', this.flyingTo);
+          localStorage.setItem(
+            'dateFrom',
+            this.fromDate.getMonth() +
+              1 +
+              '/' +
+              this.fromDate.getDate() +
+              '/' +
+              this.fromDate.getFullYear()
+          );
+          localStorage.setItem(
+            'dateTo',
+            this.toDate.getMonth() +
+              1 +
+              '/' +
+              this.toDate.getDate() +
+              '/' +
+              this.toDate.getFullYear()
+          );
+          if (localStorage.getItem('adultsCount') === null) {
+            localStorage.setItem('adultsCount', '1');
+          }
+          if (localStorage.getItem('childrensCount') === null) {
+            localStorage.setItem('childrensCount', '0');
+          }
+          localStorage.setItem('flightType', 'roundtrip');
+          localStorage.setItem('classType', this.classType);
+          this.router.navigate(['/flights']);
         }
-        if (localStorage.getItem('childrensCount') === null) {
-          localStorage.setItem('childrensCount', '0');
-        }
-        localStorage.setItem('flightType', 'oneway');
-        localStorage.setItem('classType', this.classType);
-        this.router.navigate(['/flights']);
+      } else {
+        if (
+          this.flyingFrom === '' ||
+          this.flyingTo === '' ||
+          this.fromDate == null
+        ) {
+          this.invalidSearch = true;
+        } else {
+          this.invalidSearch = false;
+          localStorage.setItem('flyFrom', this.flyingFrom);
+          localStorage.setItem('flyTo', this.flyingTo);
+          localStorage.setItem(
+            'dateFrom',
+            this.fromDate.getMonth() +
+              1 +
+              '/' +
+              this.fromDate.getDate() +
+              '/' +
+              this.fromDate.getFullYear()
+          );
+          if (localStorage.getItem('adultsCount') === null) {
+            localStorage.setItem('adultsCount', '1');
+          }
+          if (localStorage.getItem('childrensCount') === null) {
+            localStorage.setItem('childrensCount', '0');
+          }
+          localStorage.setItem('flightType', 'oneway');
+          localStorage.setItem('classType', this.classType);
+          this.router.navigate(['/flights']);
         }
       }
     }

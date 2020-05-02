@@ -25,6 +25,7 @@
     <span style="color: black;">Going to</span>
     <br />
     <input
+      *ngIf="hotelDest === ''"
       class="form-control"
       style="width: 100%;
                 border: 1px solid grey;
@@ -33,6 +34,22 @@
                 cursor: pointer"
       placeholder="City destination"
       type="search"
+      #hotelDestination
+      (blur)="inputBlur()"
+      (keyup.enter)="inputEntered('hotel', hotelDestination)"
+      (input)="filterItem(hotelDestination.value, 'hotel')"
+    />
+    <input
+      *ngIf="hotelDest !== ''"
+      class="form-control"
+      style="width: 100%;
+                border: 1px solid grey;
+                border-radius: 5px;
+                height: 35px;
+                cursor: pointer"
+      placeholder="City destination"
+      type="search"
+      [(ngModel)]="hotelDest"
       #hotelDestination
       (blur)="inputBlur()"
       (keyup.enter)="inputEntered('hotel', hotelDestination)"
@@ -167,9 +184,21 @@
     <span class="flight-spans">Flying from</span>
     <span style="color: black;">Flying to</span> <br />
     <input
+      *ngIf="inputFlyFrom === ''"
       class="flights-from-input"
       placeholder="City Departure"
       type="search"
+      #flyingFrom
+      (keyup.enter)="inputEntered('flyFrom', flyingFrom)"
+      (blur)="inputBlur()"
+      (input)="filterItem(flyingFrom.value, 'flyFrom')"
+    />
+    <input
+      *ngIf="inputFlyFrom !== ''"
+      class="flights-from-input"
+      placeholder="City Departure"
+      type="search"
+      [(ngModel)]="inputFlyFrom"
       #flyingFrom
       (keyup.enter)="inputEntered('flyFrom', flyingFrom)"
       (blur)="inputBlur()"
@@ -206,9 +235,21 @@
       </li>
     </ul>
     <input
+      *ngIf="inputFlyTo === ''"
       class="flights-to-input"
       placeholder="City Destination"
       type="search"
+      #flyingTo
+      (keyup.enter)="inputEntered('flyTo', flyingTo)"
+      (blur)="inputBlur()"
+      (input)="filterItem(flyingTo.value, 'flyTo')"
+    />
+    <input
+      *ngIf="inputFlyTo !== ''"
+      class="flights-to-input"
+      placeholder="City Destination"
+      type="search"
+      [(ngModel)]="inputFlyTo"
       #flyingTo
       (keyup.enter)="inputEntered('flyTo', flyingTo)"
       (blur)="inputBlur()"

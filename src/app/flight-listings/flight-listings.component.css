@@ -5,13 +5,17 @@
   right: 0;
   height: 100%;
 }
-.box-cover{
+.box-cover {
   width: 100%;
-  margin-top: 70px;
-  margin-left: 50px;
+  margin-top: 10px;
+  margin-left: 10px;
   padding: 60px;
   border-radius: 10px;
-  background: linear-gradient(45deg, rgba(242, 34, 50, 0.5), rgba(255, 187, 54, 0.6) 100%);
+  background: linear-gradient(
+    45deg,
+    rgba(242, 34, 50, 0.5),
+    rgba(255, 187, 54, 0.6) 100%
+  );
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .checkbox {
@@ -32,7 +36,7 @@
 }
 
 .row {
-  width: 60%;
+  width: 65%;
   height: auto;
   max-height: 700px;
   border: 1px solid lightgray;
@@ -44,6 +48,7 @@
 #details-row {
   margin-top: -17px;
   border-top: 1px solid white;
+  background-color: white;
 }
 
 #flights-from {
@@ -117,14 +122,14 @@
 
 .counts-label {
   font-size: 14px;
-  padding-right: 15px;
+  padding-right: 5px;
 }
 
 .search-button {
   width: 100%;
   height: 50px;
   border-radius: 9px;
-  margin-left: 15px;
+  margin: 0;
   background-color: #003e74;
   color: white;
   cursor: pointer;
@@ -139,6 +144,9 @@
   color: blue;
   font-size: 15px;
   border: none;
+  margin: 0;
+  padding: 0;
+  background-color: white;
 }
 
 .select-button {

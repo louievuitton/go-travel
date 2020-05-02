@@ -27,6 +27,7 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
   mouseovr: boolean = false;
   subscription;
   invalidSearch: boolean = false;
+  hotelDest: string;
 
   form: FormGroup;
 
@@ -48,6 +49,7 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.hotelDest = '';
     this.form = new FormGroup({
       destination: new FormControl('', [Validators.required]),
       checkinDatePicker: new FormControl('', [Validators.required]),
@@ -133,6 +135,7 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
 
   // when list item is clicked
   itemClicked(value) {
+    this.hotelDest = value;
     localStorage.setItem('hotelDestination', value);
     this.citiesDropdownVisible = false;
   }
