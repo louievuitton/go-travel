@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -17,18 +18,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { AgmCoreModule } from '@agm/core';
-import { HttpClientModule } from '@angular/common/http';
 import { NgxStripeModule } from 'ngx-stripe';
-import {
-  NoopAnimationsModule,
-  BrowserAnimationsModule
-} from '@angular/platform-browser/animations';
-import {
-  IgxButtonModule,
-  IgxIconModule,
-  IgxCardModule,
-  IgxRippleModule
-} from 'igniteui-angular';
+import { NoopAnimationsModule, BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { IgxButtonModule, IgxIconModule, IgxCardModule, IgxRippleModule} from 'igniteui-angular';
+
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
@@ -50,6 +45,10 @@ import { HotelViewComponent } from './hotel-view/hotel-view.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AnalyticsComponent } from './analytics/analytics.component';
 
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +66,15 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     AnalyticsComponent
   ],
   imports: [
+
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+
     BrowserModule,
     MatCheckboxModule,
     BrowserAnimationsModule,

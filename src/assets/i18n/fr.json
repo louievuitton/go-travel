@@ -1,0 +1,32 @@
+{
+  "HOME": {
+    "SELECT": "Changer la langue",
+    "NO_ACCOUNT": "Vous n'avez pas de compte? Inscrivez-vous ici",
+    "SIGNIN": "Connectez-vous à votre compte",
+    "LOGIN": "S'identifier",
+    "INVALID": "E-mail ou mot de passe entré non valide",
+    "ALREADY_ACC" : "Vous avez déjà un compte? Se connecter ici",
+
+    "SIGNUP": "Créez un compte",
+    "SIGNUP_ACCOUNT": "Créez un compte",
+    "SIGNUP_ERROR":"Veuillez remplir tous les champs pour vous inscrire",
+
+    "EMAIL": "Email",
+    "EMAIL_ERROR1":"L'e-mail ne doit contenir aucun espace",
+    "EMAIL_ERROR2": "S'il vous plaît, mettez une adresse email valide",
+    "EMAIL_ERROR3": "Un e-mail est requis",
+
+    "PASSWORD": "mot de passe",
+    "PASSWORD_ERROR1": "Le mot de passe ne doit contenir aucun espace",
+    "PASSWORD_ERROR2": "Un mot de passe est requis",
+    "PASSWORD_ERROR3": "Les mots de passe ne peuvent contenir aucun caractère spécial",
+
+    "FIRST_NAME":"Prénom",
+    "FIRST_NAME_ERROR1": "Entrez votre prénom s'il vous plait",
+    "FIRST_NAME_ERROR2": "Le prénom ne peut contenir aucun espace",
+
+    "LAST_NAME": "Nom de famille",
+    "LAST_NAME_ERROR1": "Veuillez entrer votre nom de famille",
+    "LAST_NAME_ERROR2": "Le nom ne peut contenir aucun espace"
+  }
+}

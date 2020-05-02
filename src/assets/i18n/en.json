@@ -1,0 +1,32 @@
+{
+  "HOME": {
+    "SELECT": "Change language",
+    "NO_ACCOUNT": "Don't have an account? Sign up here",
+    "SIGNIN": "Sign in to your account",
+    "LOGIN": "Login",
+    "ALREADY_ACC" : "Already have an account? Sign in here",
+    "INVALID": "Invalid email or password entered",
+
+    "SIGNUP" : "Signup",
+    "SIGNUP_ACCOUNT": "Sign up for an account",
+    "SIGNUP_ERROR":"Please fill in all the fields to signup",
+
+    "EMAIL": "Email",
+    "EMAIL_ERROR1": "Email cannot contain any spaces",
+    "EMAIL_ERROR2": "Please enter a valid email",
+    "EMAIL_ERROR3": "An email is required",
+
+    "PASSWORD": "Password" ,
+    "PASSWORD_ERROR1": "Password cannot contain any spaces",
+    "PASSWORD_ERROR2": "A password is required",
+    "PASSWORD_ERROR3": "Passwords cannot contain any special characters",
+
+    "FIRST_NAME":"First Name",
+    "FIRST_NAME_ERROR1": "Please enter your first name",
+    "FIRST_NAME_ERROR2": "First name cannot contain any spaces",
+
+    "LAST_NAME": "Last Name",
+    "LAST_NAME_ERROR1": "Please enter your last name",
+    "LAST_NAME_ERROR2": "Last name cannot contain any spaces"
+  }
+}

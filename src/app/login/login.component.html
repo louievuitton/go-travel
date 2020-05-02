@@ -1,43 +1,40 @@
+
 <form [formGroup]="form" class="authentication-form">
-  <h2 class="authentication-form-heading">Sign in to your account</h2>
-  <div *ngIf="invalidLogin" class="alert alert-danger">
-    Invalid email or password entered.
+
+  <div>
+      <label>
+        {{ 'HOME.SELECT' | translate }}
+        <select #langSelect (change)="translate.use(langSelect.value)">
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{lang }}</option>
+        </select>
+      </label>
   </div>
+
+  <h2 class="authentication-form-heading">{{ 'HOME.SIGNIN' | translate }}</h2>
+
+  <div *ngIf="invalidLogin" class="alert alert-danger"> {{ 'HOME.INVALID' | translate }} </div>
+
   <div class="form-group">
-    <label for="email">Email</label>
-    <input
-      formControlName="email"
-      id="email"
-      type="text"
-      class="form-control"
-    />
+    <label for="email">{{ 'HOME.EMAIL' | translate }}</label>
+    <input formControlName="email" id="email" type="text" class="form-control"/>
     <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
-      <div *ngIf="email.errors.cannotContainSpaces">
-        Email cannot contain any spaces.
-      </div>
+      <div *ngIf="email.errors.cannotContainSpaces"> {{ 'HOME.EMAIL_ERROR1' | translate }} </div>
+      <div *ngIf="email.errors.invalidEmail"> {{ 'HOME.EMAIL_ERROR2' | translate }}</div>
+      <div *ngIf="email.errors.required">{{ 'HOME.EMAIL_ERROR3' | translate }} </div>
     </div>
   </div>
+
   <div class="form-group">
-    <label for="password">Password</label>
-    <input
-      formControlName="password"
-      id="password"
-      type="password"
-      class="form-control"
-    />
-    <div
-      *ngIf="password.touched && password.invalid"
-      class="alert alert-danger"
-    >
-      <div *ngIf="password.errors.cannotContainSpaces">
-        Password cannot contain any spaces.
-      </div>
+    <label for="password"> {{ 'HOME.PASSWORD' | translate }} </label>
+    <input formControlName="password" id="password" type="password" class="form-control"/>
+    <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+      <div *ngIf="password.errors.cannotContainSpaces"> {{ 'HOME.PASSWORD_ERROR1' | translate }}</div>
+      <div *ngIf="password.errors.required"> {{ 'HOME.PASSWORD_ERROR2' | translate }} </div>
+      <div *ngIf="password.errors.invalidPassword"> {{ 'HOME.PASSWORD_ERROR3' | translate }} </div>
     </div>
   </div>
-  <button class="btn btn-primary" type="submit" (click)="signIn(form)">
-    Login
-  </button>
-  <button class="navigate-signup-button" (click)="navigate2Signup()">
-    Don't have an account? Sign up here
-  </button>
+
+  <button class="btn btn-primary" type="submit" (click)="signIn(form)"> {{ 'HOME.LOGIN' | translate }} </button>
+  <button class="navigate-signup-button" (click)="navigate2Signup()"> {{ 'HOME.NO_ACCOUNT' | translate }} </button>
+
 </form>

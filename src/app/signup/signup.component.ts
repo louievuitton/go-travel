@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormValidator } from '../validators/form.validators';
 import { FirebaseService } from '../services/firebase.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'signup',
@@ -36,8 +37,14 @@ export class SignupComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private firebaseService: FirebaseService
-  ) {}
+    private firebaseService: FirebaseService,
+    public translate: TranslateService) {
+      translate.addLangs(['en', 'fr', 'hi']);
+      translate.setDefaultLang('en');
+
+      const browserLang = translate.getBrowserLang();
+      translate.use(browserLang.match(/en|fr|hi/) ? browserLang : 'en');
+  }
 
   ngOnInit(): void {}
 
