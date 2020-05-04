@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #003e74;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,121,119,1) 55%);
 }
 
 .dropdown-toggle {
@@ -14,6 +14,7 @@
 .nav-link:hover {
   background-color: #0a5392;
   color: white;
+  border-radius: 5px;
 }
 
 .navbar-nav {
