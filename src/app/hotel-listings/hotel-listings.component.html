@@ -1,10 +1,17 @@
 <div class="searchbar">
-  <h4>Hotel stays, dream getaways</h4>
-  <span id="span1">Find the perfect place to stay for your next trip</span>
+  <label>
+    {{ 'HOME.SELECT' | translate }}
+    <select #langSelect (change)="translate.use(langSelect.value)">
+      <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{lang }}</option>
+    </select>
+  </label>
+  <br>
+  <h4>{{ 'LANDING.HOTEL_TAG' | translate }}</h4>
+  <span id="span1">{{ 'LANDING.HOTEL_SUBTAG' | translate }}</span>
   <br />
   <br />
   <div>
-    <span>Going to</span>
+    <span>{{ 'LANDING.GOING_TO' | translate }}</span>
     <br />
     <form [formGroup]="form">
       <input
@@ -39,7 +46,7 @@
           style="width: 78%;"
         >
           <div *ngIf="form.get('destination')?.errors.required">
-            Please specify where you wish to travel.
+            {{ 'LANDING.ERROR2' | translate }}
           </div>
         </div>
       </div>
@@ -58,8 +65,8 @@
         </li>
       </ul>
       <br />
-      <span id="check-in-span">Check-in</span>
-      <span>Check-out</span>
+      <span id="check-in-span">{{ 'LANDING.CHECK_IN' | translate }}</span>
+      <span>{{ 'LANDING.CHECK_OUT' | translate }}</span>
       <br />
       <div class="row1">
         <div class="col" style="padding: 0;">
@@ -89,7 +96,7 @@
               id="error"
             >
               <div *ngIf="form.get('checkinDatePicker')?.errors.required">
-                Please specify check-in date.
+                {{ 'LANDING.ERROR1' | translate }}
               </div>
             </div>
           </div>
@@ -121,14 +128,14 @@
               id="error"
             >
               <div *ngIf="form.get('checkoutDatePicker')?.errors.required">
-                Please specify check-out date.
+                {{ 'LANDING.ERROR1' | translate }}
               </div>
             </div>
           </div>
         </div>
         <div class="col" style="padding-right: 0">
-          <span class="counts-label" for="adultsCount">Adults(18+)</span>
-          <span class="counts-label" for="childrensCount">Children(0-17)</span>
+          <span class="counts-label" for="adultsCount">{{ 'LANDING.AUDULTS' | translate }}</span>
+          <span class="counts-label" for="childrensCount">{{ 'LANDING.CHILDREN' | translate }}</span>
           <br />
           <select
             id="personCount"
@@ -161,7 +168,7 @@
             (click)="searchClicked()"
             type="submit"
           >
-            Search
+            {{ 'LANDING.SEARCH' | translate }}
           </button>
         </div>
       </div>
@@ -173,7 +180,7 @@
   <br />
   <div id="container-div">
     <h4 id="hotels-container-heading">
-      Showing hotels from {{ cityDestination }}
+      {{ 'LANDING.SHOWING' | translate }} {{ cityDestination }}
     </h4>
     <div
       *ngFor="let hotel of hotels"

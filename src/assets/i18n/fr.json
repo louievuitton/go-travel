@@ -4,6 +4,8 @@
     "NO_ACCOUNT": "Vous n'avez pas de compte? Inscrivez-vous ici",
     "SIGNIN": "Connectez-vous à votre compte",
     "LOGIN": "S'identifier",
+    "LOGOUT": "Se déconnecter",
+    "MY_TRAVEL": "Mes voyages",
     "INVALID": "E-mail ou mot de passe entré non valide",
     "ALREADY_ACC" : "Vous avez déjà un compte? Se connecter ici",
 
@@ -28,5 +30,28 @@
     "LAST_NAME": "Nom de famille",
     "LAST_NAME_ERROR1": "Veuillez entrer votre nom de famille",
     "LAST_NAME_ERROR2": "Le nom ne peut contenir aucun espace"
+  },
+  "LANDING":{
+    "HOTEL": "hôtels",
+    "FLIGHTS": "Vols",
+    "ERROR1": "Veuillez remplir tous les champs, y compris les dates de recherche",
+    "GOING_TO":"aller à",
+    "CHECK_IN": "Enregistrement",
+    "CHECK_OUT": "Check-out",
+    "AUDULTS":  "Audults",
+    "CHILDREN": "Les enfants",
+    "SEARCH": "Chercher",
+    "ROUNDTRIP": "Aller-retour",
+    "ONEWAY":"une manière",
+    "ECONOMY":"Économie",
+    "FIRST_CLASS":"Première classe",
+    "FLYING_FROM": "Voler de",
+    "FLYING_TO": "Volant vers",
+    "DEPARTING": "Au départ",
+    "RETURNING": "De retour",
+    "HOTEL_TAG": "Hotel stays, dream getaways",
+    "HOTEL_SUBTAG": "Trouvez l'endroit idéal pour votre prochain voyage",
+    "ERROR2": "Veuillez préciser où vous souhaitez voyager",
+    "SHOWING": "affichage des résultats pour"
   }
 }

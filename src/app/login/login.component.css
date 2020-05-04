@@ -5,9 +5,9 @@
 }
 
 .authentication-form{
-  width: 70%;
+  width: 50%;
   margin-top: 70px;
-  margin-left: 110px;
+  margin-left: 18em;
   padding: 60px;
   border-radius: 10px;
   background: linear-gradient( 45deg, rgba(34, 159, 242, 0.5), rgba(54, 255, 54, 0.583) 100%);

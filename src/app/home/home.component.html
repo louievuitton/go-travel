@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 
 <div class="container">
+  <label>
+    {{ 'HOME.SELECT' | translate }}
+    <select #langSelect (change)="translate.use(langSelect.value)">
+      <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{lang }}</option>
+    </select>
+  </label>
+  <br>
+  <br>
   <mat-checkbox
     #showHotelsInput
     [checked]="isChecked"
     (change)="checkBoxChanged()"
     class="checkbox"
-    >Hotels</mat-checkbox
+    >{{ 'LANDING.HOTEL' | translate }}</mat-checkbox
   >
   <span class="fa fa-hotel" id="hotel-icon"></span>
   <mat-checkbox
@@ -14,16 +22,16 @@
     [checked]="!isChecked"
     (change)="checkBoxChanged()"
     class="checkbox"
-    >Flights</mat-checkbox
+    >{{ 'LANDING.FLIGHTS' | translate }}</mat-checkbox
   >
   <span class="fa fa-plane" id="flight-icon"></span>
   <br />
   <div *ngIf="showHotelsInput.checked">
       <div *ngIf="invalidSearch" class="alert alert-danger">
-          Please fill in all the fields including dates to search.
+          {{ 'LANDING.ERROR1' | translate }}
       </div>
-    <span style="color: black;">Going to</span>
-    <br />
+    <span style="color: black;">{{ 'LANDING.GOING_TO' | translate }}</span>
+    <br/>
     <input
       *ngIf="hotelDest === ''"
       class="form-control"
@@ -70,8 +78,8 @@
       </li>
     </ul>
     <br />
-    <span class="check-in-label">Check-in</span>
-    <span style="color: black;">Check-out</span>
+    <span class="check-in-label">{{ 'LANDING.CHECK_IN' | translate }}</span>
+    <span style="color: black;">{{ 'LANDING.CHECK_OUT' | translate }}</span>
     <br />
     <div class="row">
       <div class="col">
@@ -113,8 +121,8 @@
         </mat-form-field>
       </div>
       <div class="col" id="counts-column">
-        <span class="counts-label" for="adultsCount">Adults</span>
-        <span class="counts-label" for="childrensCount">Children</span>
+        <span class="counts-label" for="adultsCount">{{ 'LANDING.AUDULTS' | translate }}</span>
+        <span class="counts-label" for="childrensCount">{{ 'LANDING.CHILDREN' | translate }}</span>
         <br />
         <select
           id="personCount"
@@ -142,7 +150,7 @@
       </div>
       <div class="col">
         <button class="search-button" (click)="passContent()">
-          Search
+          {{ 'LANDING.SEARCH' | translate }}
         </button>
       </div>
     </div>
@@ -153,14 +161,14 @@
       [checked]="flightType"
       (change)="typeOfFlightChanged()"
       class="checkbox2"
-      >Roundtrip</mat-checkbox
+      >{{ 'LANDING.ROUNDTRIP' | translate }}</mat-checkbox
     >
     <mat-checkbox
       #showFlightsInput
       [checked]="!flightType"
       (change)="typeOfFlightChanged()"
       class="checkbox"
-      >One way</mat-checkbox
+      >{{ 'LANDING.ONEWAY' | translate }}</mat-checkbox
     >
     <br />
     <mat-checkbox
@@ -168,21 +176,23 @@
       [checked]="classType === 'economy'"
       (change)="typeOfClassChanged()"
       class="checkbox2"
-      >Economy</mat-checkbox
+      >{{ 'LANDING.ECONOMY' | translate }}</mat-checkbox
     >
     <mat-checkbox
       #firstclass
       [checked]="classType === 'firstclass'"
       (change)="typeOfClassChanged()"
       class="checkbox"
-      >First Class</mat-checkbox
+      >{{ 'LANDING.FIRST_CLASS' | translate }}</mat-checkbox
     >
     <br />
     <div *ngIf="invalidSearch" class="alert alert-danger">
-        Please fill in all the fields including dates to search.
+        {{ 'LANDING.ERROR1' | translate }}
     </div>
-    <span class="flight-spans">Flying from</span>
-    <span style="color: black;">Flying to</span> <br />
+
+    <span class="flight-spans">{{ 'LANDING.FLYING_TO' | translate }}</span>
+    <span style="color: black;">{{ 'LANDING.FLYING_FROM' | translate }}</span> <br />
+
     <input
       *ngIf="inputFlyFrom === ''"
       class="flights-from-input"
@@ -193,6 +203,7 @@
       (blur)="inputBlur()"
       (input)="filterItem(flyingFrom.value, 'flyFrom')"
     />
+
     <input
       *ngIf="inputFlyFrom !== ''"
       class="flights-from-input"
@@ -287,8 +298,8 @@
     </ul>
     <br />
     <br />
-    <span id="departing-span">Departing</span>
-    <span *ngIf="flightType" style="color: black;">Returning</span>
+    <span id="departing-span">{{ 'LANDING.DEPARTING' | translate }}</span>
+    <span *ngIf="flightType" style="color: black;">{{ 'LANDING.RETURNING' | translate }}</span>
     <br />
     <div class="row">
       <div class="col">
@@ -331,8 +342,8 @@
         </mat-form-field>
       </div>
       <div class="col" id="counts-column">
-        <span class="counts-label" for="adultsCount">Adults</span>
-        <span class="counts-label" for="childrensCount">Children</span>
+        <span class="counts-label" for="adultsCount">{{ 'LANDING.AUDULTS' | translate }}</span>
+        <span class="counts-label" for="childrensCount">{{ 'LANDING.CHILDREN' | translate }}</span>
         <br />
         <select
           id="personCount"
@@ -360,7 +371,7 @@
       </div>
       <div class="col">
         <button class="search-button" (click)="passContent()">
-          Search
+          {{ 'LANDING.SEARCH' | translate }}
         </button>
       </div>
     </div>

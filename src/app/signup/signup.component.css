@@ -5,13 +5,11 @@
 }
 
 .authentication-form-signup{
-  width: 70%;
+  width: 50%;
   margin-top: 70px;
-  margin-left: 110px;
+  margin-left: 18em;
   padding: 60px;
   border-radius: 10px;
-  /* background: linear-gradient(45deg, rgba(242, 34, 50, 0.5), rgba(255, 187, 54, 0.6) 100%);
-   */
   background: linear-gradient(
     45deg,
     rgba(34, 159, 242, 0.5),

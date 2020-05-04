@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FirebaseService } from '../services/firebase.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'home',
@@ -45,39 +46,46 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private firebaseService: FirebaseService
-  ) {
-    // hotels checkbox initially checked
-    this.isChecked = true;
-    // roundtrip checkbox initially checked
-    this.flightType = true;
-    // economy initially checked
-    this.classType = 'economy';
+    public translate: TranslateService,
+    private firebaseService: FirebaseService) {
 
-    this.date = new Date();
-    this.minDate = new Date(
-      this.date.getFullYear(),
-      this.date.getMonth(),
-      this.date.getDate()
-    );
-    this.maxDate = new Date(this.date.getFullYear() + 1, 11, 31);
-    this.minDate1 = new Date(
-      this.date.getFullYear(),
-      this.date.getMonth(),
-      this.date.getDate()
-    );
-    this.maxDate1 = new Date(this.date.getFullYear() + 1, 11, 31);
+      translate.addLangs(['en', 'fr', 'hi']);
+      translate.setDefaultLang('en');
+      const browserLang = translate.getBrowserLang();
+      translate.use(browserLang.match(/en|fr|hi/) ? browserLang : 'en');
 
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
 
-    this.mySubscription = this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-      }
-    });
+      // hotels checkbox initially checked
+      this.isChecked = true;
+      // roundtrip checkbox initially checked
+      this.flightType = true;
+      // economy initially checked
+      this.classType = 'economy';
+
+      this.date = new Date();
+      this.minDate = new Date(
+        this.date.getFullYear(),
+        this.date.getMonth(),
+        this.date.getDate()
+      );
+      this.maxDate = new Date(this.date.getFullYear() + 1, 11, 31);
+      this.minDate1 = new Date(
+        this.date.getFullYear(),
+        this.date.getMonth(),
+        this.date.getDate()
+      );
+      this.maxDate1 = new Date(this.date.getFullYear() + 1, 11, 31);
+
+      this.router.routeReuseStrategy.shouldReuseRoute = function() {
+        return false;
+      };
+
+      this.mySubscription = this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          // Trick the Router into believing it's last link wasn't previously loaded
+          this.router.navigated = false;
+        }
+      });
   }
 
   ngOnInit(): void {

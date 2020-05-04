@@ -4,6 +4,8 @@
     "NO_ACCOUNT": "Don't have an account? Sign up here",
     "SIGNIN": "Sign in to your account",
     "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "MY_TRAVEL": "My Travels",
     "ALREADY_ACC" : "Already have an account? Sign in here",
     "INVALID": "Invalid email or password entered",
 
@@ -28,5 +30,28 @@
     "LAST_NAME": "Last Name",
     "LAST_NAME_ERROR1": "Please enter your last name",
     "LAST_NAME_ERROR2": "Last name cannot contain any spaces"
+  },
+  "LANDING":{
+    "HOTEL": "Hotel",
+    "FLIGHTS": "Flights",
+    "ERROR1": "Please fill in all the fields including dates to search.",
+    "GOING_TO":"Going to",
+    "CHECK_IN": "Check-in",
+    "CHECK_OUT": "Check-out",
+    "AUDULTS":  "Audults",
+    "CHILDREN": "Children",
+    "SEARCH": "Search",
+    "ROUNDTRIP": "Roundtrip",
+    "ONEWAY":"One way",
+    "ECONOMY":"Economy",
+    "FIRST_CLASS":"First class",
+    "FLYING_FROM": "Flying from",
+    "FLYING_TO": "Flying to",
+    "DEPARTING": "Departing",
+    "RETURNING": "Returning",
+    "HOTEL_TAG": "Hotel stays, dream getaways",
+    "HOTEL_SUBTAG": "Find the perfect place to stay for your next trip",
+    "ERROR2": "Please specify where you wish to travel",
+    "SHOWING": "Showing hotels from"
   }
 }

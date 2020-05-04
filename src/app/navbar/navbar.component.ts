@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'navbar',
@@ -7,7 +8,15 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor(private route: ActivatedRoute, public router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    public router: Router,
+    public translate: TranslateService) {
+    translate.addLangs(['en', 'fr', 'hi']);
+    translate.setDefaultLang('en');
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|fr|hi/) ? browserLang : 'en');
+  }
 
   ngOnInit(): void {}
 

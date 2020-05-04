@@ -11,6 +11,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { element } from 'protractor';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'flight-listings',
@@ -78,8 +79,14 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    public translate: TranslateService
   ) {
+    translate.addLangs(['en', 'fr', 'hi']);
+    translate.setDefaultLang('en');
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|fr|hi/) ? browserLang : 'en');
+    
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
