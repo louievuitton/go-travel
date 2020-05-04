@@ -7,14 +7,14 @@
     "LOGOUT": "Se déconnecter",
     "MY_TRAVEL": "Mes voyages",
     "INVALID": "E-mail ou mot de passe entré non valide",
-    "ALREADY_ACC" : "Vous avez déjà un compte? Se connecter ici",
+    "ALREADY_ACC": "Vous avez déjà un compte? Se connecter ici",
 
     "SIGNUP": "Créez un compte",
     "SIGNUP_ACCOUNT": "Créez un compte",
-    "SIGNUP_ERROR":"Veuillez remplir tous les champs pour vous inscrire",
+    "SIGNUP_ERROR": "Veuillez remplir tous les champs pour vous inscrire",
 
     "EMAIL": "Email",
-    "EMAIL_ERROR1":"L'e-mail ne doit contenir aucun espace",
+    "EMAIL_ERROR1": "L'e-mail ne doit contenir aucun espace",
     "EMAIL_ERROR2": "S'il vous plaît, mettez une adresse email valide",
     "EMAIL_ERROR3": "Un e-mail est requis",
 
@@ -23,7 +23,7 @@
     "PASSWORD_ERROR2": "Un mot de passe est requis",
     "PASSWORD_ERROR3": "Les mots de passe ne peuvent contenir aucun caractère spécial",
 
-    "FIRST_NAME":"Prénom",
+    "FIRST_NAME": "Prénom",
     "FIRST_NAME_ERROR1": "Entrez votre prénom s'il vous plait",
     "FIRST_NAME_ERROR2": "Le prénom ne peut contenir aucun espace",
 
@@ -31,20 +31,20 @@
     "LAST_NAME_ERROR1": "Veuillez entrer votre nom de famille",
     "LAST_NAME_ERROR2": "Le nom ne peut contenir aucun espace"
   },
-  "LANDING":{
+  "LANDING": {
     "HOTEL": "hôtels",
     "FLIGHTS": "Vols",
     "ERROR1": "Veuillez remplir tous les champs, y compris les dates de recherche",
-    "GOING_TO":"aller à",
+    "GOING_TO": "aller à",
     "CHECK_IN": "Enregistrement",
     "CHECK_OUT": "Check-out",
-    "AUDULTS":  "Audults",
+    "ADULTS": "Adults",
     "CHILDREN": "Les enfants",
     "SEARCH": "Chercher",
     "ROUNDTRIP": "Aller-retour",
-    "ONEWAY":"une manière",
-    "ECONOMY":"Économie",
-    "FIRST_CLASS":"Première classe",
+    "ONEWAY": "une manière",
+    "ECONOMY": "Économie",
+    "FIRST_CLASS": "Première classe",
     "FLYING_FROM": "Voler de",
     "FLYING_TO": "Volant vers",
     "DEPARTING": "Au départ",

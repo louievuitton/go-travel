@@ -29,6 +29,8 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
   subscription;
   invalidSearch: boolean = false;
   hotelDest: string;
+  totalRecords;
+  page: number = 1;
 
   form: FormGroup;
 
@@ -183,6 +185,7 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
           this.cityDestination = response[key]['city'];
         }
       });
+    this.totalRecords = this.hotels.length;
   }
 
   // user enters city destination

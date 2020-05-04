@@ -12,6 +12,7 @@ export class HotelViewComponent implements OnInit, OnDestroy {
   hotelName: string;
   rooms = [];
   hotelAddress: string;
+  hotelCity: string;
   params: any;
   lat: number;
   lng: number;
@@ -22,6 +23,8 @@ export class HotelViewComponent implements OnInit, OnDestroy {
   adultsCount: number;
   roomCapacity = [];
   subscription;
+  totalRecords;
+  page: number = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,10 +34,21 @@ export class HotelViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.params = this.route.snapshot.paramMap;
+    if (this.params.get('city').includes('(')) {
+      this.hotelCity = this.params
+        .get('city')
+        .substring(
+          this.params.get('city').indexOf('(') + 1,
+          this.params.get('city').indexOf(')')
+        );
+    }
+    else {
+      this.hotelCity = this.params.get('city');
+    }
 
     this.adultsCount = +localStorage.getItem('adultsCount');
     this.subscription = this.firebaseService
-      .getResource('/hotels/' + this.params.get('city').toLowerCase())
+      .getResource('/hotels/' + this.hotelCity.toLowerCase())
       .subscribe(response => {
         for (let key in response as any) {
           if (response[key]['name'] === this.params.get('name')) {
@@ -69,7 +83,7 @@ export class HotelViewComponent implements OnInit, OnDestroy {
   reserveRoom(room) {
     this.router.navigate(['/checkout'], {
       queryParams: {
-        city: this.params.get('city'),
+        city: this.hotelCity,
         hotelName: this.hotelName,
         roomName: room
       }
@@ -80,7 +94,7 @@ export class HotelViewComponent implements OnInit, OnDestroy {
   goToAttractions() {
     this.router.navigate(['/analytics'], {
       queryParams: {
-        location: this.params.get('city').toLowerCase()
+        location: this.hotelCity.toLowerCase()
       }
     });
   }

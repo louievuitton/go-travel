@@ -204,8 +204,8 @@
     </div>
     </div>
     <div class="col" style="padding-right: 0">
-      <span class="counts-label" for="adultsCount">{{ 'LANDING.AUDULTS' | translate }} (18+)</span>
-      <span class="counts-label" for="childrensCount">{{ 'LANDING.CHILDREN' | translate }} (0-18)</span>
+      <span class="counts-label" for="adultsCount">{{ 'LANDING.ADULTS' | translate }}(18+)</span>
+      <span class="counts-label" for="childrensCount">{{ 'LANDING.CHILDREN' | translate }}(0-17)</span>
       <br />
       <select
         id="personCount"
@@ -265,7 +265,13 @@
         <p style="display: inline; font-size:17px">{{ departingDate }}</p>
       </h4>
       <div
-        *ngFor="let flight of departingFlights; let i = index"
+        *ngFor="let flight of departingFlights | paginate
+        : {
+            id: 'departing_pagination',
+            itemsPerPage: 5,
+            currentPage: page,
+            totalItems: departureRecords
+          }; let i = index"
         class="flights"
       >
         <div class="row" style="background-color: white;">
@@ -373,6 +379,14 @@
           </div>
         </div>
       </div>
+      <div>
+        <pagination-controls
+          id="departing_pagination"
+          autoHide="true"
+          directionLinks="true"
+          (pageChange)="page = $event"
+        ></pagination-controls>
+      </div>
     </div>
   </div>
   <div *ngIf="showReturningFlights" class="flights-container">
@@ -383,7 +397,7 @@
           <p style="font-size:15px; font-weight: bold;">
             Your selected departure
           </p>
-          <h5 style="font-weight: bold;">{{ departureTime }}</h5>
+          <h5 style="font-weight: bold; font-size: 18px;">{{ departureTime }}</h5>
           <h6>{{ departureName }}</h6>
         </div>
         <div class="col-5" style="padding-left:20px">
@@ -419,7 +433,13 @@
         <p style="display: inline; font-size:17px">{{ returningDate }}</p>
         <p></p>
       </h4>
-      <div *ngFor="let flight of returningFlights; let i = index">
+      <div *ngFor="let flight of returningFlights | paginate
+      : {
+          id: 'returning_pagination',
+          itemsPerPage: 4,
+          currentPage: page,
+          totalItems: returnRecords
+        }; let i = index">
         <div *ngIf="flight[classType]" class="row" style="background-color: white;">
           <div class="col" style="padding-right: 0; padding-left: 7px;">
             <h5 style="font-weight: bold; font-size: 19px;">{{ flight?.time }}</h5>
@@ -510,6 +530,14 @@
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <pagination-controls
+          id="returning_pagination"
+          autoHide="true"
+          directionLinks="true"
+          (pageChange)="page = $event"
+        ></pagination-controls>
       </div>
     </div>
   </div>

@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -19,11 +19,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { AgmCoreModule } from '@agm/core';
 import { NgxStripeModule } from 'ngx-stripe';
-import { NoopAnimationsModule, BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { IgxButtonModule, IgxIconModule, IgxCardModule, IgxRippleModule} from 'igniteui-angular';
+import {
+  NoopAnimationsModule,
+  BrowserAnimationsModule
+} from '@angular/platform-browser/animations';
+import {
+  IgxButtonModule,
+  IgxIconModule,
+  IgxCardModule,
+  IgxRippleModule
+} from 'igniteui-angular';
 
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
@@ -66,7 +75,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AnalyticsComponent
   ],
   imports: [
-
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -89,6 +97,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MatNativeDateModule,
     NoopAnimationsModule,
     NgxStripeModule.forRoot('pk_test_sPQCS8uQpUU0wWkF9cYpnAr600PTw0bGGS'),
+    NgxPaginationModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB5shjix0YQ8dPB9lLwDI08joTJxPAj-H8'

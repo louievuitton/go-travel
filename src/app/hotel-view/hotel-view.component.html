@@ -55,7 +55,13 @@
     <h4 style="margin-bottom: 10px">
       Choose your room
     </h4>
-    <div *ngFor="let room of rooms; let i = index" class="row">
+    <div *ngFor="let room of rooms | paginate
+    : {
+        id: 'rooms_pagination',
+        itemsPerPage: 3,
+        currentPage: page,
+        totalItems: totalRecords
+      }; let i = index" class="row">
       <div class="col-4" style="padding-right: 15px; padding-left: 0;">
         <img
           src="{{room?.images.image1}}"
@@ -98,6 +104,14 @@
           Exceeds max adults
         </h6>
       </div>
+    </div>
+    <div>
+      <pagination-controls
+        id="rooms_pagination"
+        autoHide="true"
+        directionLinks="true"
+        (pageChange)="page = $event"
+      ></pagination-controls>
     </div>
   </div>
 </div>

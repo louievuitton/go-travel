@@ -1,17 +1,22 @@
 <div class="searchbar">
   <label>
-    {{ 'HOME.SELECT' | translate }}
+    {{ "HOME.SELECT" | translate }}
     <select #langSelect (change)="translate.use(langSelect.value)">
-      <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{lang }}</option>
+      <option
+        *ngFor="let lang of translate.getLangs()"
+        [value]="lang"
+        [selected]="lang === translate.currentLang"
+        >{{ lang }}</option
+      >
     </select>
   </label>
-  <br>
-  <h4>{{ 'LANDING.HOTEL_TAG' | translate }}</h4>
-  <span id="span1">{{ 'LANDING.HOTEL_SUBTAG' | translate }}</span>
+  <br />
+  <h4>{{ "LANDING.HOTEL_TAG" | translate }}</h4>
+  <span id="span1">{{ "LANDING.HOTEL_SUBTAG" | translate }}</span>
   <br />
   <br />
   <div>
-    <span>{{ 'LANDING.GOING_TO' | translate }}</span>
+    <span>{{ "LANDING.GOING_TO" | translate }}</span>
     <br />
     <form [formGroup]="form">
       <input
@@ -46,7 +51,7 @@
           style="width: 78%;"
         >
           <div *ngIf="form.get('destination')?.errors.required">
-            {{ 'LANDING.ERROR2' | translate }}
+            {{ "LANDING.ERROR2" | translate }}
           </div>
         </div>
       </div>
@@ -65,8 +70,8 @@
         </li>
       </ul>
       <br />
-      <span id="check-in-span">{{ 'LANDING.CHECK_IN' | translate }}</span>
-      <span>{{ 'LANDING.CHECK_OUT' | translate }}</span>
+      <span id="check-in-span">{{ "LANDING.CHECK_IN" | translate }}</span>
+      <span>{{ "LANDING.CHECK_OUT" | translate }}</span>
       <br />
       <div class="row1">
         <div class="col" style="padding: 0;">
@@ -96,7 +101,7 @@
               id="error"
             >
               <div *ngIf="form.get('checkinDatePicker')?.errors.required">
-                {{ 'LANDING.ERROR1' | translate }}
+                {{ "LANDING.ERROR1" | translate }}
               </div>
             </div>
           </div>
@@ -128,14 +133,18 @@
               id="error"
             >
               <div *ngIf="form.get('checkoutDatePicker')?.errors.required">
-                {{ 'LANDING.ERROR1' | translate }}
+                {{ "LANDING.ERROR1" | translate }}
               </div>
             </div>
           </div>
         </div>
         <div class="col" style="padding-right: 0">
-          <span class="counts-label" for="adultsCount">{{ 'LANDING.AUDULTS' | translate }}</span>
-          <span class="counts-label" for="childrensCount">{{ 'LANDING.CHILDREN' | translate }}</span>
+          <span class="counts-label" for="adultsCount"
+            >{{ "LANDING.ADULTS" | translate }} (18+)</span
+          >
+          <span class="counts-label" for="childrensCount"
+            >{{ "LANDING.CHILDREN" | translate }} (0-17)</span
+          >
           <br />
           <select
             id="personCount"
@@ -168,7 +177,7 @@
             (click)="searchClicked()"
             type="submit"
           >
-            {{ 'LANDING.SEARCH' | translate }}
+            {{ "LANDING.SEARCH" | translate }}
           </button>
         </div>
       </div>
@@ -180,10 +189,19 @@
   <br />
   <div id="container-div">
     <h4 id="hotels-container-heading">
-      {{ 'LANDING.SHOWING' | translate }} {{ cityDestination }}
+      {{ "LANDING.SHOWING" | translate }} {{ cityDestination }}
     </h4>
     <div
-      *ngFor="let hotel of hotels"
+      *ngFor="
+        let hotel of hotels
+          | paginate
+            : {
+                id: 'hotels_pagination',
+                itemsPerPage: 4,
+                currentPage: page,
+                totalItems: totalRecords
+              }
+      "
       class="row"
       [routerLink]="['/hotel', hotel?.city, hotel?.name]"
     >
@@ -210,6 +228,14 @@
           <p class="per-night">per night</p>
         </h5>
       </div>
+    </div>
+    <div>
+      <pagination-controls
+        id="hotels_pagination"
+        autoHide="true"
+        directionLinks="true"
+        (pageChange)="page = $event"
+      ></pagination-controls>
     </div>
   </div>
 </div>

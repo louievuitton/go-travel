@@ -35,6 +35,7 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   returningDate: string;
   dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat'];
   mySubscription: any;
+  subscription;
   minDate: Date;
   maxDate: Date;
   minDate1: Date;
@@ -75,6 +76,9 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   form: FormGroup;
   flightFromInput: FormControl;
   flightToInput: FormControl;
+  departureRecords;
+  returnRecords;
+  page: number = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -100,8 +104,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.inputFrom = "";
-    this.inputTo = "";
+    this.inputFrom = '';
+    this.inputTo = '';
     this.flightFromInput = new FormControl('', [Validators.required]);
     this.flightToInput = new FormControl('', [Validators.required]);
     this.form = new FormGroup({
@@ -171,6 +175,7 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
+    this.subscription.unsubscribe();
   }
 
   clear() {
@@ -212,7 +217,7 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
     this.airports1 = [];
     this.firstInput = whichInput;
 
-    this.firebaseService
+    this.subscription = this.firebaseService
       .getResource('airports/' + event.value.toLowerCase())
       .subscribe(response => {
         for (let key in response as any) {
@@ -224,13 +229,15 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   }
 
   fetchAirports() {
-    this.firebaseService.getAll('airports').subscribe(response => {
-      for (let key in response as any) {
-        for (let airport in response[key]) {
-          this.airports.push(response[key][airport]['name']);
+    this.subscription = this.firebaseService
+      .getAll('airports')
+      .subscribe(response => {
+        for (let key in response as any) {
+          for (let airport in response[key]) {
+            this.airports.push(response[key][airport]['name']);
+          }
         }
-      }
-    });
+      });
     this.airports.sort();
   }
 
@@ -321,6 +328,7 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
         localStorage.getItem('flyFrom') === null ||
         localStorage.getItem('flyTo') === null
       ) {
+        this.showDepartingFlights = false;
         this.invalidSearch = true;
       } else {
         this.invalidSearch = false;
@@ -427,7 +435,7 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
         this.adultsCount = +localStorage.getItem('adultsCount');
         this.childrensCount = +localStorage.getItem('childrensCount');
 
-        this.firebaseService
+        this.subscription = this.firebaseService
           .getResource('/flights/' + flightType)
           .subscribe(response => {
             for (let key in response as any) {
@@ -463,6 +471,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
                 this.stops.forEach((elem, index) => {
                   this.stops[index] = Object.values(elem);
                 });
+                this.page = 1;
+                this.departureRecords = this.departingFlights.length;
                 this.showDepartingFlights = true;
                 return;
               }
@@ -494,7 +504,7 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
         this.adultsCount = +localStorage.getItem('adultsCount');
         this.childrensCount = +localStorage.getItem('childrensCount');
 
-        this.firebaseService
+        this.subscription = this.firebaseService
           .getResource('/flights/' + flightType)
           .subscribe(response => {
             for (let key in response as any) {
@@ -530,6 +540,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
                 this.stops.forEach((elem, index) => {
                   this.stops[index] = Object.values(elem);
                 });
+                this.page = 1;
+                this.departureRecords = this.departingFlights.length;
                 this.showDepartingFlights = true;
                 return;
               }
@@ -597,6 +609,8 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
               this.showDetailsAndBaggage = false;
             }
           }
+          this.page = 1;
+          this.returnRecords = this.returningFlights.length;
           return;
         } else if (this.flightType === 'oneway') {
           this.router.navigate(['/checkout'], {

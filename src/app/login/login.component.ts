@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormValidator } from '../validators/form.validators';
 import { FirebaseService } from '../services/firebase.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'login',
@@ -28,14 +28,15 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private firebaseService: FirebaseService,
-    public translate: TranslateService) {
-      translate.addLangs(['en', 'fr', 'hi']);
-      translate.setDefaultLang('en');
+    public translate: TranslateService
+  ) {
+    translate.addLangs(['en', 'fr', 'hi']);
+    translate.setDefaultLang('en');
 
-      const browserLang = translate.getBrowserLang();
-      translate.use(browserLang.match(/en|fr|hi/) ? browserLang : 'en');
-    }
-  
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|fr|hi/) ? browserLang : 'en');
+  }
+
   ngOnInit(): void {}
 
   signIn(credentials) {
