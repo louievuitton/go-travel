@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormValidator } from '../validators/form.validators';
 import { FirebaseService } from '../services/firebase.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'signup',
@@ -12,6 +12,7 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class SignupComponent implements OnInit {
   invalidSignup: boolean;
+  alreadyRegistered: boolean;
 
   form = new FormGroup({
     firstname: new FormControl('', [
@@ -38,12 +39,13 @@ export class SignupComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private firebaseService: FirebaseService,
-    public translate: TranslateService) {
-      translate.addLangs(['en', 'fr', 'hi']);
-      translate.setDefaultLang('en');
+    public translate: TranslateService
+  ) {
+    translate.addLangs(['en', 'fr', 'hi']);
+    translate.setDefaultLang('en');
 
-      const browserLang = translate.getBrowserLang();
-      translate.use(browserLang.match(/en|fr|hi/) ? browserLang : 'en');
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|fr|hi/) ? browserLang : 'en');
   }
 
   ngOnInit(): void {}
@@ -53,40 +55,53 @@ export class SignupComponent implements OnInit {
       resources.get('firstname').value === '' ||
       resources.get('lastname').value === '' ||
       resources.get('email').value === '' ||
-      resources.get('password').value === ''
+      resources.get('password').value === '' ||
+      this.form.invalid
     ) {
+      this.alreadyRegistered = false;
       this.invalidSignup = true;
     } else {
-      this.firebaseService.signup(resources).then(response => {
-        localStorage.setItem(
-          'currentUser',
-          resources.get('firstname').value +
-            ' ' +
-            resources.get('lastname').value
-        );
-        localStorage.setItem('email', resources.get('email').value);
-        if (this.route.snapshot.queryParamMap.get('returnUrl')) {
-          if (
-            this.route.snapshot.queryParamMap
-              .get('returnUrl')
-              .includes('flights')
-          ) {
-            this.router.navigate([
-              this.route.snapshot.queryParamMap.get('returnUrl')
-            ]);
-          } else if (
-            this.route.snapshot.queryParamMap.get('returnUrl').includes('hotel')
-          ) {
-            this.router.navigate(['/hotels']);
-          } else {
-            this.router.navigate(
-              [this.route.snapshot.queryParamMap.get('returnUrl') || '/'],
-              { queryParamsHandling: 'merge' }
-            );
+      this.invalidSignup = false;
+      this.firebaseService.getAll('users').subscribe(res => {
+        for (let key in res as any) {
+          if (res[key]['email'] === resources.get('email').value) {
+            this.alreadyRegistered = true;
+            return;
           }
-        } else {
-          this.router.navigate(['/']);
         }
+        this.firebaseService.signup(resources).then(response => {
+          localStorage.setItem(
+            'currentUser',
+            resources.get('firstname').value +
+              ' ' +
+              resources.get('lastname').value
+          );
+          localStorage.setItem('email', resources.get('email').value);
+          if (this.route.snapshot.queryParamMap.get('returnUrl')) {
+            if (
+              this.route.snapshot.queryParamMap
+                .get('returnUrl')
+                .includes('flights')
+            ) {
+              this.router.navigate([
+                this.route.snapshot.queryParamMap.get('returnUrl')
+              ]);
+            } else if (
+              this.route.snapshot.queryParamMap
+                .get('returnUrl')
+                .includes('hotel')
+            ) {
+              this.router.navigate(['/hotels']);
+            } else {
+              this.router.navigate(
+                [this.route.snapshot.queryParamMap.get('returnUrl') || '/'],
+                { queryParamsHandling: 'merge' }
+              );
+            }
+          } else {
+            this.router.navigate(['/']);
+          }
+        });
       });
     }
   }

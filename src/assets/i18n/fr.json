@@ -12,6 +12,7 @@
     "SIGNUP": "Créez un compte",
     "SIGNUP_ACCOUNT": "Créez un compte",
     "SIGNUP_ERROR": "Veuillez remplir tous les champs pour vous inscrire",
+    "ALREADY_REGISTERED_ERROR": "Cet e-mail est déjà enregistré sur un compte. Veuillez essayer avec un autre e-mail ou connexion.",
 
     "EMAIL": "Email",
     "EMAIL_ERROR1": "L'e-mail ne doit contenir aucun espace",

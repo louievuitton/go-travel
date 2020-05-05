@@ -12,6 +12,7 @@
     "SIGNUP": "Signup",
     "SIGNUP_ACCOUNT": "Sign up for an account",
     "SIGNUP_ERROR": "Please fill in all the fields to signup",
+    "ALREADY_REGISTERED_ERROR": "This email is already registered to an account. Please try again with a different email or login.",
 
     "EMAIL": "Email",
     "EMAIL_ERROR1": "Email cannot contain any spaces",
