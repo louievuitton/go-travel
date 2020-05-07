@@ -1,6 +1,6 @@
 <div class="checkout">
   <h4 *ngIf="params.get('city') === null" >Secure booking - only takes a few minutes!</h4>
-  <div *ngIf="params.get('city') === null" class="row" style="margin-top: 15px; margin-bottom: 15px; width: 95%;">
+  <div *ngIf="params.get('city') === null" class="row" style="margin-top: 15px; margin-bottom: 15px;">
     <div class="col-8" style="height: 100%; padding-top: 15px; background-color: white;">
       <div *ngIf="currentUser === null" class="signin-container">
         <h5>Please sign in to continue</h5>
@@ -21,7 +21,8 @@
       <div
         *ngIf="params.get('city') === null"
         class="row"
-        style="margin-top: 15px;">
+        style="margin-top: 12px; padding: 10px; border-radius: 10px;background-color: #ffffff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);">
         <div class="col-4">
           <h5>{{ departingDate }}</h5>
           <h6 class="flightName">
@@ -90,14 +91,12 @@
           </div>
         </div>
       </div>
-      <mat-divider
-        *ngIf="showDepartingDetailsAndBaggage"
-        class="divider"
-      ></mat-divider>
+      <mat-divider *ngIf="showDepartingDetailsAndBaggage" class="divider"></mat-divider>
       <div
         *ngIf="params.get('city') === null && returnTime !== null"
         class="row"
-        style="margin-top: 20px">
+        style="margin-top: 20px; padding: 10px; border-radius: 10px;background-color: #ffffff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);">
 
         <div class="col-4">
           <h5>{{ returningDate }}</h5>

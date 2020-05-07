@@ -49,6 +49,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private firebaseService: FirebaseService
   ) {
+
+    const contactMethods = [
+    { 'en': "English" },
+    { 'fr': "French" },
+    { 'hi': "Hindi" }];
+
+
+
     translate.addLangs(['en', 'fr', 'hi']);
     translate.setDefaultLang('en');
     const browserLang = translate.getBrowserLang();

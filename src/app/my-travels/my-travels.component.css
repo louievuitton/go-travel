@@ -8,7 +8,10 @@
   border: 1px solid lightgray;
   margin-top: 25px;
   margin-bottom: 25px;
-  background-color: white;
+  
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #details-button {
@@ -88,7 +91,10 @@
   height: 180px;
   width: 70%;
   border: 1px solid lightgray;
-  border-radius: 0.17647059em;
+
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .hotelImage {
