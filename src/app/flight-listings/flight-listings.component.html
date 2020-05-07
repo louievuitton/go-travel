@@ -1,7 +1,7 @@
 <div style="margin-bottom: 2em" class="box-cover">
   <label>
     {{ 'HOME.SELECT' | translate }}
-    <select #langSelect (change)="translate.use(langSelect.value)">
+    <select id="lang" #langSelect (change)="translate.use(langSelect.value)">
       <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{lang }}</option>
     </select>
   </label>
@@ -121,12 +121,11 @@
       {{ airport }}
     </li>
   </ul>
-  <ul *ngIf="airportsDropdown" class="list-group" (mouseenter)="toggleMouseOver(true)"
+  <ul *ngIf="airportsDropdown" id="{{ firstInput }}" class="list-group" (mouseenter)="toggleMouseOver(true)"
   (mouseleave)="toggleMouseOver(false)">
     <li
       *ngFor="let airport of airports1"
       class="list-group-item"
-      id="{{ firstInput }}"
       (click)="setAirlines(airport)"
     >
       {{ airport }}
@@ -134,19 +133,21 @@
   </ul>
   <br />
   <br />
-  <span style="color: black; margin-right: 12%">{{ 'LANDING.DEPARTING' | translate }}</span>
-  <span *ngIf="roundtripCheckbox.checked" style="color: black">{{ 'LANDING.RETURNING' | translate }}</span>
+  <!-- <span style="color: black; margin-right: 12%">{{ 'LANDING.DEPARTING' | translate }}</span>
+  <span *ngIf="roundtripCheckbox.checked" style="color: black">{{ 'LANDING.RETURNING' | translate }}</span> -->
   <br />
   <div
     class="row"
-    style="width: 78%; height: 10%; margin: 0; padding: 0; border: none;"
+    style="width: 100%; height: 10%; margin: 0; padding: 0; border: none;"
   >
-    <div class="col" style="padding: 0">
+    <div class="col" id="col1">
+      <span style="color: black;">{{ 'LANDING.DEPARTING' | translate }}</span>
+      <br>
       <mat-form-field class="date-picker">
         <mat-label>mm/dd/yyyy</mat-label>
         <input
-        formControlName="departingDatePicker"
-    class="form-control"
+          formControlName="departingDatePicker"
+          class="form-control"
           matInput
           [matDatepicker]="datePicker"
           (focus)="datePicker.open()"
@@ -173,6 +174,8 @@
     </div>
     </div>
     <div class="col" style="padding: 0;">
+      <span *ngIf="roundtripCheckbox.checked" style="color: black">{{ 'LANDING.RETURNING' | translate }}</span>
+      <br>
       <mat-form-field *ngIf="roundtripCheckbox.checked" class="date-picker">
         <mat-label>mm/dd/yyyy</mat-label>
         <input
@@ -203,7 +206,7 @@
     </div>
     </div>
     </div>
-    <div class="col" style="padding-right: 0">
+    <div class="col" style="padding-top: 15px; padding-right: 0">
       <span class="counts-label" for="adultsCount">{{ 'LANDING.ADULTS' | translate }}(18+)</span>
       <span class="counts-label" for="childrensCount">{{ 'LANDING.CHILDREN' | translate }}(0-17)</span>
       <br />
@@ -231,7 +234,7 @@
         <option value="6">6</option>
       </select>
     </div>
-    <div class="col">
+    <div class="col" style="padding-top: 15px;">
       <button
         (click)="showDepartureFlights()"
         class="search-button"
@@ -259,7 +262,7 @@
     class="flights-container"
   >
     <br />
-    <div style="margin-left: 15em">
+    <div id="inner-container">
       <h4 style="margin-bottom: 10px">
         Select your departure to {{ departingCity }}
         <p style="display: inline; font-size:17px">{{ departingDate }}</p>
@@ -391,7 +394,7 @@
   </div>
   <div *ngIf="showReturningFlights" class="flights-container">
     <br />
-    <div style="margin-left: 15em">
+    <div id="inner-container">
       <div class="row" style="background-color: #EDF7FF">
         <div class="col" style="padding-right: 0; padding-left: 7px;">
           <p style="font-size:15px; font-weight: bold;">

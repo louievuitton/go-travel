@@ -1,7 +1,7 @@
 <div class="searchbar">
   <label>
     {{ "HOME.SELECT" | translate }}
-    <select #langSelect (change)="translate.use(langSelect.value)">
+    <select id="lang" #langSelect (change)="translate.use(langSelect.value)">
       <option
         *ngFor="let lang of translate.getLangs()"
         [value]="lang"
@@ -70,11 +70,13 @@
         </li>
       </ul>
       <br />
-      <span id="check-in-span">{{ "LANDING.CHECK_IN" | translate }}</span>
-      <span>{{ "LANDING.CHECK_OUT" | translate }}</span>
+      <!-- <span id="check-in-span">{{ "LANDING.CHECK_IN" | translate }}</span>
+      <span>{{ "LANDING.CHECK_OUT" | translate }}</span> -->
       <br />
       <div class="row1">
-        <div class="col" style="padding: 0;">
+        <div class="col" style="padding: 0; margin: 0;">
+          <span>{{ "LANDING.CHECK_IN" | translate }}</span>
+          <br />
           <mat-form-field class="date-picker">
             <mat-label>mm/dd/yyyy</mat-label>
             <input
@@ -107,6 +109,8 @@
           </div>
         </div>
         <div class="col" style="padding: 0">
+          <span>{{ "LANDING.CHECK_OUT" | translate }}</span>
+          <br />
           <mat-form-field class="date-picker">
             <mat-label>mm/dd/yyyy</mat-label>
             <input
@@ -138,7 +142,7 @@
             </div>
           </div>
         </div>
-        <div class="col" style="padding-right: 0">
+        <div class="col" style="padding: 0;">
           <span class="counts-label" for="adultsCount"
             >{{ "LANDING.ADULTS" | translate }} (18+)</span
           >
@@ -170,13 +174,8 @@
             <option value="6">6</option>
           </select>
         </div>
-        <div class="col">
-          <button
-            class="search-button"
-            style="width:100%"
-            (click)="searchClicked()"
-            type="submit"
-          >
+        <div class="col" style="padding: 0;">
+          <button class="search-button" (click)="searchClicked()" type="submit">
             {{ "LANDING.SEARCH" | translate }}
           </button>
         </div>

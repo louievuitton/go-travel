@@ -33,7 +33,7 @@
 }
 
 #search-input {
-  width: 98%;
+  width: 100%;
   border: 1px solid grey;
   border-radius: 5px;
   height: 40px;
@@ -119,11 +119,12 @@
 }
 
 .search-button {
-  width: 25%;
+  width: 100%;
   height: 50px;
   border-radius: 9px;
   background-color: #003e74;
   color: white;
+  margin-left: 0;
 }
 
 #personCount {
@@ -147,6 +148,12 @@
     font-size: 15px;
   }
 
+  .searchbar {
+    padding: 15px;
+    margin: 0px;
+    margin-right: 5px;
+  }
+
   #search-input {
     width: 100%;
   }
@@ -164,11 +171,43 @@
   }
 
   .search-button {
-    width: 100%;
-    margin-left: 25px;
+    width: 70%;
+    margin-left: 0;
+    margin-right: 5px;
+    margin-top: 10px;
   }
 
   #container-div {
     margin-left: 0;
+  }
+
+  .row1 {
+    display: block;
+  }
+
+  .row {
+    width: 100%;
+  }
+
+  .date-picker {
+    width: 100%;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+
+  #personCount {
+    background-color: white;
+  }
+
+  #lang {
+    background-color: white;
+  }
+
+  .hotel-name {
+    font-weight: bold;
+    padding-top: 10px;
+    font-size: 18px;
   }
 }

@@ -2,7 +2,7 @@
   <div>
     <label>
       {{ "HOME.SELECT" | translate }}
-      <select #langSelect (change)="translate.use(langSelect.value)">
+      <select id="lang" #langSelect (change)="translate.use(langSelect.value)">
         <option
           *ngFor="let lang of translate.getLangs()"
           [value]="lang"
@@ -112,6 +112,6 @@
     {{ "HOME.SIGNUP" | translate }}
   </button>
   <button class="navigate-login-button" (click)="navigate2Login()">
-    {{ "HOME.SIGNUP_ACCOUNT" | translate }}
+    {{ "HOME.SIGNIN_ACCOUNT" | translate }}
   </button>
 </form>

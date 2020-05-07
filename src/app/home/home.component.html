@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-
 <div class="container">
   <label>
     {{ 'HOME.SELECT' | translate }}
-    <select #langSelect (change)="translate.use(langSelect.value)">
+    <select id="lang" #langSelect (change)="translate.use(langSelect.value)">
       <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{lang }}</option>
     </select>
   </label>
@@ -269,7 +267,7 @@
     <ul
       *ngIf="flyingToDropdownVisible"
       class="list-group"
-      style="margin-left: 22em"
+      id="flyTo"
       (mouseenter)="toggleMouseOver(true)"
       (mouseleave)="toggleMouseOver(false)"
     >
@@ -284,7 +282,7 @@
     <ul
       *ngIf="toFlightsDropdownVisible"
       class="list-group"
-      style="margin-left: 22em"
+      id="flyTo"
       (mouseenter)="toggleMouseOver(true)"
       (mouseleave)="toggleMouseOver(false)"
     >

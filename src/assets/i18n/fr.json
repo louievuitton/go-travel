@@ -10,7 +10,7 @@
     "ALREADY_ACC": "Vous avez déjà un compte? Se connecter ici",
 
     "SIGNUP": "Créez un compte",
-    "SIGNUP_ACCOUNT": "Créez un compte",
+    "SIGNIN_ACCOUNT": "Vous avez déjà un compte? Se connecter ici.",
     "SIGNUP_ERROR": "Veuillez remplir tous les champs pour vous inscrire",
     "ALREADY_REGISTERED_ERROR": "Cet e-mail est déjà enregistré sur un compte. Veuillez essayer avec un autre e-mail ou connexion.",
 

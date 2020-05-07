@@ -10,7 +10,7 @@
     "INVALID": "Invalid email or password entered",
 
     "SIGNUP": "Signup",
-    "SIGNUP_ACCOUNT": "Sign up for an account",
+    "SIGNIN_ACCOUNT": "Already have an account? Sign in here.",
     "SIGNUP_ERROR": "Please fill in all the fields to signup",
     "ALREADY_REGISTERED_ERROR": "This email is already registered to an account. Please try again with a different email or login.",
 

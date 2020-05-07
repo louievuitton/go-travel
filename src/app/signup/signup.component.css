@@ -4,7 +4,7 @@
   border: none;
 }
 
-.authentication-form-signup{
+.authentication-form-signup {
   width: 50%;
   margin-top: 70px;
   margin-left: 18em;
@@ -16,4 +16,20 @@
     rgba(54, 255, 54, 0.583) 100%
   );
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+@media screen and (max-width: 420px) {
+  .authentication-form-signup {
+    margin: 40px 5px 40px 0px;
+    width: 100%;
+    padding: 30px 10px 30px 10px;
+  }
+
+  #lang {
+    background-color: white;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
 }

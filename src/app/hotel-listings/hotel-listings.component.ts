@@ -3,7 +3,7 @@ import { FirebaseService } from '../services/firebase.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'hotel-listings',
@@ -38,11 +38,12 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private firebaseService: FirebaseService,
-    public translate: TranslateService) {
-      translate.addLangs(['en', 'fr', 'hi']);
-      translate.setDefaultLang('en');
-      const browserLang = translate.getBrowserLang();
-      translate.use(browserLang.match(/en|fr|hi/) ? browserLang : 'en');
+    public translate: TranslateService
+  ) {
+    translate.addLangs(['en', 'fr', 'hi']);
+    translate.setDefaultLang('en');
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|fr|hi/) ? browserLang : 'en');
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
@@ -182,9 +183,9 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         for (let key in response as any) {
           this.hotels.push(response[key]);
-          this.cityDestination = response[key]['city'];
         }
       });
+    this.cityDestination = localStorage.getItem('hotelDestination');
     this.totalRecords = this.hotels.length;
   }
 

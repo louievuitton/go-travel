@@ -30,7 +30,7 @@ html {
 
 .flight-spans {
   color: black;
-  margin-right: 39%;
+  margin-right: 42%;
 }
 
 .flights-from-input {
@@ -50,6 +50,9 @@ html {
   cursor: pointer;
 }
 
+#flyTo {
+  margin-left: 21em;
+}
 .list-group {
   position: absolute;
   z-index: 1;
@@ -116,9 +119,10 @@ html {
 /* for mobile phones */
 @media screen and (max-width: 420px) {
   .container {
-    margin-left: 2px;
-    margin-right: 2px;
+    margin-left: 0px;
+    margin-right: 5px;
     margin-top: 45px;
+    padding: 5px;
     width: 100%;
   }
 
@@ -140,10 +144,30 @@ html {
   }
 
   .flight-spans {
-    margin-right: 27%;
+    margin-right: 31%;
   }
 
   #departing-span {
     margin-right: 32%;
+  }
+
+  .flights-from-input {
+    width: 43%;
+  }
+
+  .flights-to-input {
+    width: 43%;
+  }
+
+  #flyTo {
+    margin: 0;
+  }
+
+  #personCount {
+    background-color: white;
+  }
+
+  #lang {
+    background-color: white;
   }
 }
