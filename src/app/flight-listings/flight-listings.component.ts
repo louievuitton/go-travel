@@ -79,6 +79,7 @@ export class FlightListingsComponent implements OnInit, OnDestroy {
   departureRecords;
   returnRecords;
   page: number = 1;
+  contactMethods = [{ en: 'English' }, { fr: 'French' }, { hi: 'Hindi' }];
 
   constructor(
     private route: ActivatedRoute,

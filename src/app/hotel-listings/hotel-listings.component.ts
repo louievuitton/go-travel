@@ -34,6 +34,8 @@ export class HotelListingsComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
+  contactMethods = [{ en: 'English' }, { fr: 'French' }, { hi: 'Hindi' }];
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,

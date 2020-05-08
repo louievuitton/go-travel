@@ -43,20 +43,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   inputFlyFrom: string;
   inputFlyTo: string;
 
+  contactMethods = [{ en: 'English' }, { fr: 'French' }, { hi: 'Hindi' }];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public translate: TranslateService,
     private firebaseService: FirebaseService
   ) {
-
-    const contactMethods = [
-    { 'en': "English" },
-    { 'fr': "French" },
-    { 'hi': "Hindi" }];
-
-
-
     translate.addLangs(['en', 'fr', 'hi']);
     translate.setDefaultLang('en');
     const browserLang = translate.getBrowserLang();

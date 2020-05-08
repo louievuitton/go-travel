@@ -32,6 +32,15 @@ export class FirebaseService {
     return this.http.get(url);
   }
 
+  create(resources): Observable<any> {
+    return this.http.post(environment.firebase.databaseURL + '/users', {
+      email: resources.get('email').value,
+      password: resources.get('password').value,
+      firstname: resources.get('firstname').value,
+      lastname: resources.get('lastname').value
+    });
+  }
+
   completeBooking(
     type,
     hotelCity,

@@ -273,3 +273,6 @@
 #billing-zip-label {
   margin-left: 90px;
 }
+
+@media screen and (max-width: 420px) {
+}

@@ -35,6 +35,8 @@ export class SignupComponent implements OnInit {
     ])
   });
 
+  contactMethods = [{ en: 'English' }, { fr: 'French' }, { hi: 'Hindi' }];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

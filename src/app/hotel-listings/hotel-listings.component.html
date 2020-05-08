@@ -3,10 +3,10 @@
     {{ "HOME.SELECT" | translate }}
     <select id="lang" #langSelect (change)="translate.use(langSelect.value)">
       <option
-        *ngFor="let lang of translate.getLangs()"
+        *ngFor="let lang of translate.getLangs(); let i = index"
         [value]="lang"
         [selected]="lang === translate.currentLang"
-        >{{ lang }}</option
+        >{{ contactMethods[i][lang] }}</option
       >
     </select>
   </label>
